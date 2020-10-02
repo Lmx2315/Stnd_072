@@ -1,0 +1,58 @@
+﻿<Window x:Class="Stnd_072.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Stnd_072"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="420">
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="_File">
+                <MenuItem Header="_Exit" />
+            </MenuItem>
+
+            <MenuItem Header="_Tools">
+                <MenuItem Header="_Загрузка прошивки микроконтроллера" Click="mnuNew_Click">
+                </MenuItem>
+                <MenuItem Header="_Загрузка кода в SDRAM" Click="mnuNew_Click">
+                </MenuItem>
+                <MenuItem Header="_Загрузка прошивки ПЛИС" Click="mnuNew_Click" IsCheckable="True" IsChecked="True" />
+            </MenuItem>
+
+            <MenuItem Header="_Панели управления">
+                <MenuItem Header="_Панель Инициализации" Click="mnuInit_Click" IsCheckable="True" IsChecked="false"></MenuItem>
+                <MenuItem Header="_Панель Синтезатора"   Click="mnuSint_Click" IsCheckable="True" IsChecked="false"></MenuItem>
+                <MenuItem Header="_Панель Приёмника"     Click="mnuRecv_Click" IsCheckable="True" IsChecked="false"></MenuItem>
+                <MenuItem Header="_Панель Калибровки"    Click="mnuCal_Click"  IsCheckable="True" IsChecked="false"></MenuItem>
+                <MenuItem Header="_Панель Консоли"       Click="mnuCons_Click" IsCheckable="True" IsChecked="false"></MenuItem>
+            </MenuItem>
+
+        </Menu>
+
+        <Grid>
+            <TextBox x:Name="textBox_IP_072"   HorizontalContentAlignment="Right"  HorizontalAlignment="Left" Height="23" Margin="298,36,0,0" TextWrapping="Wrap" Text="127.0.0.1" VerticalAlignment="Top" Width="96" AcceptsTab="True"/>
+            <TextBox x:Name="textBox_Port_072" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="298,71,0,0" TextWrapping="Wrap" Text="703" VerticalAlignment="Top" Width="96"/>
+            <TextBox x:Name="textBox_SYSTIME"   HorizontalContentAlignment="Right"  HorizontalAlignment="Left" Height="23" Margin="36,30,0,0" TextWrapping="Wrap" Text="12:00:00:000:000" VerticalAlignment="Top" Width="120" AcceptsTab="True"/>
+            <Label x:Name="label" Content="Системное время" HorizontalAlignment="Left" Margin="36,4,0,0" VerticalAlignment="Top" Width="120"/>
+            <Button x:Name="button_SYSTIME_SETUP" Content="SYNC" HorizontalAlignment="Left" Margin="169,30,0,0" VerticalAlignment="Top" Width="44"/>
+            <Button x:Name="button_SYS_START" Content="START" HorizontalAlignment="Left" Margin="314,189,0,0" VerticalAlignment="Top" Width="73" ToolTip="Команда общей инициализации" Click="button_SYS_START_Click" />
+
+            <CheckBox x:Name="checkBox_ch1" Content="К1" HorizontalAlignment="Left" Margin="39,162,0,0" VerticalAlignment="Top"/>
+            <CheckBox x:Name="checkBox_ch2" Content="К2" HorizontalAlignment="Left" Margin="82,162,0,0" VerticalAlignment="Top"/>
+            <CheckBox x:Name="checkBox_ch3" Content="К3" HorizontalAlignment="Left" Margin="125,162,0,0" VerticalAlignment="Top"/>
+            <CheckBox x:Name="checkBox_ch4" Content="К4" HorizontalAlignment="Left" Margin="168,162,0,0" VerticalAlignment="Top"/>
+            <Label    x:Name="label_ch"     Content="Работа/калибровка" HorizontalAlignment="Left" Margin="54,133,0,0" VerticalAlignment="Top" Height="24"/>
+            <Button x:Name="button" Content="STATUS" HorizontalAlignment="Left" Margin="39,89,0,0" VerticalAlignment="Top" Width="75" ToolTip="Команда запроса статуса" Click="button_Click" />
+            <Label x:Name="label1" Content="ОК" HorizontalAlignment="Left" Margin="129,87,0,0" VerticalAlignment="Top"/>
+            <Label x:Name="label_Copy" Content="адрес сетевой карты" HorizontalAlignment="Left" Margin="284,5,0,0" VerticalAlignment="Top" Width="128"/>
+            <TextBox x:Name="textBox_IP_dest"   HorizontalContentAlignment="Right"  HorizontalAlignment="Left" Height="23" Margin="298,120,0,0" TextWrapping="Wrap" Text="127.0.0.1" VerticalAlignment="Top" Width="96" AcceptsTab="True"/>
+            <TextBox x:Name="textBox_Port_dest" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="298,155,0,0" TextWrapping="Wrap" Text="77" VerticalAlignment="Top" Width="96"/>
+            <Label x:Name="label_Copy1" Content="адрес 072" HorizontalAlignment="Left" Margin="314,95,0,0" VerticalAlignment="Top" Width="65"/>
+
+        </Grid>
+
+
+    </DockPanel>
+
+</Window>
