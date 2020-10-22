@@ -29,9 +29,19 @@ namespace Stnd_072
         UDP_server udp0        = null;
         UDP_sender udp0_sender = null;
 
+        System.Windows.Threading.DispatcherTimer Timer1 = new System.Windows.Threading.DispatcherTimer();
+        private void Timer1_Tick(object sender, EventArgs e)
+        {
+            //Console.WriteLine("Инициализация.init:"+Инициализация.init);
+            if (Инициализация.init == false) Панель_инициализации.IsChecked = false;
+            if (Синтезатор.init == false) Панель_синтезатора.IsChecked = false;
+        }
         public MainWindow()
         {
             InitializeComponent();
+            Timer1.Tick += new EventHandler(Timer1_Tick);
+            Timer1.Interval = new TimeSpan(0, 0, 0, 0, 250);
+            Timer1.Start();//запускаю таймер 
         }
 
         private void button_SYS_START_Click(object sender, RoutedEventArgs e)

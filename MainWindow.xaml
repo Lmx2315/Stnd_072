@@ -20,12 +20,12 @@
                 <MenuItem Header="_Загрузка прошивки ПЛИС" Click="mnuNew_Click" IsCheckable="True" IsChecked="True" />
             </MenuItem>
 
-            <MenuItem Header="_Панели управления">
-                <MenuItem Header="_Панель Инициализации" Click="mnuInit_Click" IsCheckable="True" IsChecked="false"></MenuItem>
-                <MenuItem Header="_Панель Синтезатора"   Click="mnuSint_Click" IsCheckable="True" IsChecked="false"></MenuItem>
-                <MenuItem Header="_Панель Приёмника"     Click="mnuRecv_Click" IsCheckable="True" IsChecked="false"></MenuItem>
-                <MenuItem Header="_Панель Калибровки"    Click="mnuCal_Click"  IsCheckable="True" IsChecked="false"></MenuItem>
-                <MenuItem Header="_Панель Консоли"       Click="mnuCons_Click" IsCheckable="True" IsChecked="false"></MenuItem>
+            <MenuItem x:Name="Панель_управления" Header="_Панели управления">
+                <MenuItem x:Name="Панель_инициализации" Header="_Панель Инициализации" Click="mnuInit_Click" IsCheckable="True" IsChecked="false"></MenuItem>
+                <MenuItem x:Name="Панель_синтезатора" Header="_Панель Синтезатора"   Click="mnuSint_Click" IsCheckable="True" IsChecked="false"></MenuItem>
+                <MenuItem x:Name="Панель_приёмника" Header="_Панель Приёмника"     Click="mnuRecv_Click" IsCheckable="True" IsChecked="false"></MenuItem>
+                <MenuItem x:Name="Панель_калибровки" Header="_Панель Калибровки"    Click="mnuCal_Click"  IsCheckable="True" IsChecked="false"></MenuItem>
+                <MenuItem x:Name="Панель_консоли" Header="_Панель Консоли"       Click="mnuCons_Click" IsCheckable="True" IsChecked="false"></MenuItem>
             </MenuItem>
 
         </Menu>

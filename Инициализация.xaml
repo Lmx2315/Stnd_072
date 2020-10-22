@@ -4,19 +4,21 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Stnd_072"
-        mc:Ignorable="d"
-        Title="Инициализация" Height="250" Width="150">
-    <Grid>
-        <Button x:Name="button_DAC0_init" Content="ЦАП0 иниц." HorizontalAlignment="Left" Margin="25,25,0,0" VerticalAlignment="Top" Width="73" ToolTip="Команда общей инициализации" Click="button_DAC0_init_Click" />
-        <Button x:Name="button_DAC1_init" Content="ЦАП1 иниц." HorizontalAlignment="Left" Margin="25,60,0,0" VerticalAlignment="Top" Width="73" ToolTip="Команда общей инициализации" />
-        <Button x:Name="button_ADC0_init" Content="АЦП0 иниц." HorizontalAlignment="Left" Margin="25,95,0,0" VerticalAlignment="Top" Width="73" ToolTip="Команда общей инициализации" />
-        <Button x:Name="button_ADC1_init" Content="АЦП1 иниц." HorizontalAlignment="Left" Margin="25,130,0,0" VerticalAlignment="Top" Width="73" ToolTip="Команда общей инициализации" />
-        <Button x:Name="button_PLL_init" Content="PLL иниц." HorizontalAlignment="Left" Margin="25,165,0,0" VerticalAlignment="Top" Width="73" ToolTip="Команда общей инициализации" />
+        Closing="DataWindow_Closing"
+        mc:Ignorable="d"        
+        Title="Инициализация" Height="300" Width="150" MinWidth="150" MinHeight="300" MaxWidth="150" MaxHeight="250">
 
-        <Label x:Name="label_ADC1_init" Content="OK" HorizontalAlignment="Left" Margin="103,128,0,0" VerticalAlignment="Top" Height="22" FontSize="10"/>
-        <Label x:Name="label_ADC0_init" Content="OK" HorizontalAlignment="Left" Margin="103,94,0,0" VerticalAlignment="Top" Height="22" FontSize="10"/>
-        <Label x:Name="label__PLL_init" Content="OK" HorizontalAlignment="Left" Margin="103,165,0,0" VerticalAlignment="Top" Height="22" FontSize="10"/>
-        <Label x:Name="label_DAC0_init" Content="OK" HorizontalAlignment="Left" Margin="103,25,0,0" VerticalAlignment="Top" Height="22" FontSize="10"/>
-        <Label x:Name="label_DAC1_init" Content="OK" HorizontalAlignment="Left" Margin="103,60,0,0" VerticalAlignment="Top" Height="22" FontSize="10"/>
+    <Grid Width="142" Margin="0,0,0,-4">
+        <Button x:Name="button_DAC0_init" Content="ЦАП0 иниц." HorizontalAlignment="Left" Margin="23,58,0,0" VerticalAlignment="Top" Width="73" ToolTip="Команда общей инициализации" Click="button_DAC0_init_Click" />
+        <Button x:Name="button_DAC1_init" Content="ЦАП1 иниц." HorizontalAlignment="Left" Margin="23,92,0,0" VerticalAlignment="Top" Width="73" ToolTip="Команда общей инициализации" />
+        <Button x:Name="button_ADC0_init" Content="АЦП0 иниц." HorizontalAlignment="Left" Margin="23,128,0,0" VerticalAlignment="Top" Width="73" ToolTip="Команда общей инициализации" />
+        <Button x:Name="button_ADC1_init" Content="АЦП1 иниц." HorizontalAlignment="Left" Margin="23,162,0,0" VerticalAlignment="Top" Width="73" ToolTip="Команда общей инициализации" />
+        <Button x:Name="button_PLL_init" Content="PLL иниц." HorizontalAlignment="Left" Margin="23,198,0,0" VerticalAlignment="Top" Width="73" ToolTip="Команда общей инициализации" />
+
+        <Label x:Name="label_ADC1_init" Content="OK" HorizontalAlignment="Left" Margin="101,160,0,0" VerticalAlignment="Top" Height="22" FontSize="10"/>
+        <Label x:Name="label_ADC0_init" Content="OK" HorizontalAlignment="Left" Margin="101,126,0,0" VerticalAlignment="Top" Height="22" FontSize="10"/>
+        <Label x:Name="label__PLL_init" Content="OK" HorizontalAlignment="Left" Margin="101,198,0,0" VerticalAlignment="Top" Height="22" FontSize="10"/>
+        <Label x:Name="label_DAC0_init" Content="OK" HorizontalAlignment="Left" Margin="101,58,0,0" VerticalAlignment="Top" Height="22" FontSize="10"/>
+        <Label x:Name="label_DAC1_init" Content="OK" HorizontalAlignment="Left" Margin="101,92,0,0" VerticalAlignment="Top" Height="22" FontSize="10"/>
     </Grid>
 </Window>
