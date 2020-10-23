@@ -21,7 +21,7 @@ namespace Stnd_072
     public partial class Инициализация : Window
     {
         public static bool init;
-        public Инициализация()
+        public Инициализация( MainWindow main)
         {
             InitializeComponent();
             init = true;
@@ -33,7 +33,7 @@ namespace Stnd_072
 
         private void button_DAC0_init_Click(object sender, RoutedEventArgs e)
         {
-
+            Log.Write("Инициализация ЦАП0!");
         }
 
         void DataWindow_Closing(object sender, CancelEventArgs e)

@@ -21,7 +21,7 @@ namespace Stnd_072
     public partial class Синтезатор : Window
     {
         public static bool init;
-        public Синтезатор()
+        public Синтезатор( MainWindow main)
         {
             InitializeComponent();
             init = true;

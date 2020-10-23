@@ -5,17 +5,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Stnd_072"
         mc:Ignorable="d"
+        Closing="DataWindow_Closing"
         Title="Приёмник" Height="350" Width="400">
     <Grid>
-        <TextBox x:Name="textBox" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="22,53,0,0" TextWrapping="Wrap" Text="31" VerticalAlignment="Top" Width="43"/>
+        <TextBox x:Name="textBox_Att0" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="22,53,0,0" TextWrapping="Wrap" Text="31" VerticalAlignment="Top" Width="43"/>
         <Label x:Name="label" Content="Атт0" HorizontalAlignment="Left" Margin="28,27,0,0" VerticalAlignment="Top" Width="43"/>
-        <TextBox x:Name="textBox_Copy" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="70,53,0,0" TextWrapping="Wrap" Text="31" VerticalAlignment="Top" Width="43"/>
+        <TextBox x:Name="textBox_Att1" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="70,53,0,0" TextWrapping="Wrap" Text="31" VerticalAlignment="Top" Width="43"/>
         <Label x:Name="label_Copy" Content="Атт1" HorizontalAlignment="Left" Margin="75,27,0,0" VerticalAlignment="Top" Width="43"/>
-        <TextBox x:Name="textBox_Copy1" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="118,53,0,0" TextWrapping="Wrap" Text="31" VerticalAlignment="Top" Width="43"/>
+        <TextBox x:Name="textBox_Att2" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="118,53,0,0" TextWrapping="Wrap" Text="31" VerticalAlignment="Top" Width="43"/>
         <Label x:Name="label_Copy1" Content="Атт2" HorizontalAlignment="Left" Margin="123,27,0,0" VerticalAlignment="Top" Width="43"/>
-        <TextBox x:Name="textBox_Copy2" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="166,53,0,0" TextWrapping="Wrap" Text="31" VerticalAlignment="Top" Width="43"/>
+        <TextBox x:Name="textBox_Att3" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="166,53,0,0" TextWrapping="Wrap" Text="31" VerticalAlignment="Top" Width="43"/>
         <Label x:Name="label_Copy2" Content="Атт3" HorizontalAlignment="Left" Margin="171,27,0,0" VerticalAlignment="Top" Width="43"/>
-        <Button x:Name="button" Content="отправить" HorizontalAlignment="Left" Margin="223,53,0,0" VerticalAlignment="Top" Width="64"/>
+        <Button x:Name="button" Content="отправить" HorizontalAlignment="Left" Margin="223,53,0,0" VerticalAlignment="Top" Width="64" Click="button_Click"/>
 
     </Grid>
 </Window>

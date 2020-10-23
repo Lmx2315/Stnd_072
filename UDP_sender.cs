@@ -9,8 +9,9 @@ using System.Diagnostics;
 
 namespace Stnd_072
 {
-    class UDP_sender
+   public class UDP_sender
     {
+       
         struct Command
         {
             public UInt32 Cmd_size;
@@ -40,6 +41,13 @@ namespace Stnd_072
             public Message MSG;
         }
 
+        public enum CMD:byte
+        {
+            CMD_TIME_SETUP = 1,
+            CMD_STATUS = 100,
+            CMD_ATT = 72
+        }
+
         Frame FRAME;
 
         static UInt32 CMD_ID;
@@ -53,11 +61,12 @@ namespace Stnd_072
            port_dest = Convert.ToInt32(port);
         }
 
-        public void UDP_SEND(uint CMD_type, byte[] CMD_data, uint CMD_size, ulong CMD_time)
+        public void UDP_SEND(CMD CMD, byte[] CMD_data, uint CMD_size, ulong CMD_time)
         {
             byte[] UDP_packet = new byte[1440];
             int DATA_lenght = 0;
             int i = 0;
+            byte CMD_type = Convert.ToByte(CMD);
 
             UInt64 sch_cmd = 0;
             try
@@ -178,7 +187,7 @@ namespace Stnd_072
             }
             catch
             {
-
+                Console.WriteLine("какой-то косяк в UDP!");
             }
         }
     }

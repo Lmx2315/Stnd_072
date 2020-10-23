@@ -21,7 +21,7 @@ namespace Stnd_072
     public partial class Consol : Window
     {
         public static bool init;
-        public Consol()
+        public Consol( MainWindow main)
         {
             InitializeComponent();
 

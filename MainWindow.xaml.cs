@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+
 namespace Stnd_072
 {
     /// <summary>
@@ -26,15 +27,18 @@ namespace Stnd_072
         Инициализация panel_Init = null;
         Consol        panel_Cons = null;
 
-        UDP_server udp0        = null;
-        UDP_sender udp0_sender = null;
+        public UDP_server udp0 ;
+        public UDP_sender udp0_sender ;
 
         System.Windows.Threading.DispatcherTimer Timer1 = new System.Windows.Threading.DispatcherTimer();
         private void Timer1_Tick(object sender, EventArgs e)
         {
             //Console.WriteLine("Инициализация.init:"+Инициализация.init);
             if (Инициализация.init == false) Панель_инициализации.IsChecked = false;
-            if (Синтезатор.init == false) Панель_синтезатора.IsChecked = false;
+            if (Синтезатор.init    == false) Панель_синтезатора.IsChecked   = false;
+            if (Приёмник.init      == false) Панель_приёмника.IsChecked     = false;
+            if (Калибровка.init    == false) Панель_калибровки.IsChecked    = false;
+            if (Consol.init        == false) Панель_консоли.IsChecked       = false;
         }
         public MainWindow()
         {
@@ -42,10 +46,16 @@ namespace Stnd_072
             Timer1.Tick += new EventHandler(Timer1_Tick);
             Timer1.Interval = new TimeSpan(0, 0, 0, 0, 250);
             Timer1.Start();//запускаю таймер 
+
+            UDP_server z = new UDP_server(textBox_IP_072.Text,textBox_Port_072.Text);
+            udp0 = z;
+            UDP_sender x = new UDP_sender(textBox_IP_dest.Text,textBox_Port_dest.Text);
+            udp0_sender=x;
         }
 
         private void button_SYS_START_Click(object sender, RoutedEventArgs e)
         {
+            Log.Write("Инициализируем сервер");
             UDP_server z = new UDP_server(textBox_IP_072.Text,textBox_Port_072.Text);
             udp0 = z;
             UDP_sender x = new UDP_sender(textBox_IP_dest.Text,textBox_Port_dest.Text);
@@ -61,9 +71,10 @@ namespace Stnd_072
                 if (Синтезатор.init == false)
                 {
                     Console.WriteLine("Создаём панель");
-                    Синтезатор z = new Синтезатор();
+                    Синтезатор z = new Синтезатор(this);
                     panel_Sint = z;
                     panel_Sint.Show();
+                    panel_Sint.Owner = this;
                 }
             } else
             {
@@ -86,9 +97,10 @@ namespace Stnd_072
                 if (Инициализация.init == false)
                 {
                     Console.WriteLine("Создаём панель");
-                    Инициализация z = new Инициализация();
+                    Инициализация z = new Инициализация(this);
                     panel_Init = z;
                     panel_Init.Show();
+                    panel_Init.Owner = this;
                 }
             }
             else
@@ -111,9 +123,10 @@ namespace Stnd_072
                 if (Приёмник.init == false)
                 {
                     Console.WriteLine("Создаём панель");
-                    Приёмник z = new Приёмник();
+                    Приёмник z = new Приёмник(this);
                     panel_Recv = z;
                     panel_Recv.Show();
+                    panel_Recv.Owner = this; //это надо чтобы модальное окно могло обращаться к методам родительсокго окна!!!
                 }
             }
             else
@@ -136,9 +149,10 @@ namespace Stnd_072
                 if (Калибровка.init == false)
                 {
                     Console.WriteLine("Создаём панель");
-                    Калибровка z = new Калибровка();
+                    Калибровка z = new Калибровка(this);
                     panel_Cal = z;
                     panel_Cal.Show();
+                    panel_Cal.Owner = this;
                 }
             }
             else
@@ -161,9 +175,10 @@ namespace Stnd_072
                 if (Consol.init == false)
                 {
                     Console.WriteLine("Создаём панель");
-                    Consol z = new Consol();
+                    Consol z = new Consol(this);
                     panel_Cons = z;
                     panel_Cons.Show();
+                    panel_Cons.Owner = this;
                 }
             }
             else
@@ -184,17 +199,31 @@ namespace Stnd_072
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
-            byte cmd = 203;
+            //команда запрос статуса
             byte[] a = new byte[4];
-
-            udp0_sender.UDP_SEND
+            Log.Write("Запрашиваем статус!");
+            try
+            {
+                udp0_sender.UDP_SEND
                        (
-                       cmd, //команда 
+                       UDP_sender.CMD.CMD_STATUS, //команда 
                        a,   //данные
                        4,   //число данных в байтах
                        0    //время исполнения , 0 - значит немедленно как сможешь.
-                       );
+                       );                
+            }
+            catch
+            {
+                Console.WriteLine("Проблема с UDP!");
+                        Log.Write("Проблема с UDP!");
+            }
+            
 
+        }
+
+        private void button_SYSTIME_SETUP_Click(object sender, RoutedEventArgs e)
+        {
+            Log.Write("Посылаем текущее время");
         }
     }
 }

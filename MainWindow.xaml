@@ -35,7 +35,7 @@
             <TextBox x:Name="textBox_Port_072" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="298,71,0,0" TextWrapping="Wrap" Text="703" VerticalAlignment="Top" Width="96"/>
             <TextBox x:Name="textBox_SYSTIME"   HorizontalContentAlignment="Right"  HorizontalAlignment="Left" Height="23" Margin="36,30,0,0" TextWrapping="Wrap" Text="12:00:00:000:000" VerticalAlignment="Top" Width="120" AcceptsTab="True"/>
             <Label x:Name="label" Content="Системное время" HorizontalAlignment="Left" Margin="36,4,0,0" VerticalAlignment="Top" Width="120"/>
-            <Button x:Name="button_SYSTIME_SETUP" Content="SYNC" HorizontalAlignment="Left" Margin="169,30,0,0" VerticalAlignment="Top" Width="44"/>
+            <Button x:Name="button_SYSTIME_SETUP" Content="SYNC" HorizontalAlignment="Left" Margin="169,30,0,0" VerticalAlignment="Top" Width="44" Click="button_SYSTIME_SETUP_Click"/>
             <Button x:Name="button_SYS_START" Content="START" HorizontalAlignment="Left" Margin="314,189,0,0" VerticalAlignment="Top" Width="73" ToolTip="Команда общей инициализации" Click="button_SYS_START_Click" />
 
             <CheckBox x:Name="checkBox_ch1" Content="К1" HorizontalAlignment="Left" Margin="39,162,0,0" VerticalAlignment="Top"/>

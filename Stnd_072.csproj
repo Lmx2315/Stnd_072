@@ -60,6 +60,7 @@
     <Compile Include="Consol.xaml.cs">
       <DependentUpon>Consol.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Loghelper.cs" />
     <Compile Include="UDP_sender.cs" />
     <Compile Include="UDP_server.cs" />
     <Compile Include="Инициализация.xaml.cs">

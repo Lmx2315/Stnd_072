@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Stnd_072"
         mc:Ignorable="d"
+        Closing="DataWindow_Closing"
         Title="Consol" Height="450" Width="400">
     <Grid>
         <RichTextBox x:Name="richTextBox" Margin="0,0,10,0">

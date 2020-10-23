@@ -21,7 +21,7 @@ namespace Stnd_072
     public partial class Калибровка : Window
     {
         public static bool init;
-        public Калибровка()
+        public Калибровка( MainWindow main)
         {
             InitializeComponent();
             init = true;

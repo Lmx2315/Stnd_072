@@ -11,7 +11,7 @@ using System.Windows;
 
 namespace Stnd_072
 {
-    class UDP_server
+   public class UDP_server
     {
         struct Command
         {
