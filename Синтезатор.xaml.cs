@@ -104,7 +104,7 @@ namespace Stnd_072
             c0.FREQ_STEP=Convert.ToInt64(textBox_FREQ_STEP.Text);
             c0.FREQ_RATE=Convert.ToInt32(textBox_FREQ_RATE.Text);
 
-            c0.N_cikl=Convert.ToInt16(textBox_N_intervals.Text);
+            c0.N_cikl=Convert.ToInt16(textBox_N_intervals.Text);//число интервалов в цикле
             c0.NUMBER_RECORD=Convert.ToInt32(textBox_Number_record.Text);
 
             c0.PHASE0=Convert.ToInt16(textBox_PHASE0.Text);
@@ -121,16 +121,35 @@ namespace Stnd_072
             c0.TIME_START=Convert.ToInt64(textBox_TIME_START.Text);
             c0.TYPE=0;
 
+            textBox_Dlitelnost_cikl.Text = (FUN_INTERVAL_CALC(c0)).ToString();//рассчитываем длительность текущего цикла
+            c0.NUMBER_RECORD = list.Count;
+
             list.Add(c0);
-            list.Add(c0);
-           
+            textBox_N_cikl.Text = (list.Count).ToString();                //считаем общее количество циклов
+            textBox_Number_record.Text = (c0.NUMBER_RECORD).ToString();  //номер текущего цикла
+
+        }
+
+        int FUN_INTERVAL_CALC (RABCIKL a)
+        {
+            int INTERVAL;
+            INTERVAL = (a.Tblank1 + a.Ti + a.Tblank2 + a.Tp) * a.N_cikl;//расчитали длительность цикла
+            return INTERVAL;
         }
 
         private void button1_Copy3_Click(object sender, RoutedEventArgs e)
         {
+            string path = System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase;
+            path = System.IO.Path.GetDirectoryName(path);
+            SaveFileDialog sf = new SaveFileDialog();
+            sf.Filter= "xml|*.xml|text|*.txt";
+            sf.Title= "Save an File";
+            sf.InitialDirectory = path;
+            sf.ShowDialog();
+            string filename = sf.FileName;
             XmlSerializer xmlSerialaizer = new XmlSerializer(typeof(List<RABCIKL>));
 
-            FileStream fw = new FileStream("output.xml", FileMode.Create);
+            FileStream fw = new FileStream(filename, FileMode.Create);
             xmlSerialaizer.Serialize(fw, list);
             fw.Close();
         }
@@ -162,6 +181,27 @@ namespace Stnd_072
                 }
             }
             
+        }
+
+        void FUN_CIKL_DISP (int a)
+        {
+
+        }
+
+        private void textBox_Number_record_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            int a = Convert.ToInt32(textBox_Number_record.Text);
+            try
+            {
+                if (a<=list.Count)
+                {
+                    FUN_CIKL_DISP(a);//обновляем экран по содержимому структуры
+                }
+            }
+            catch
+            {
+
+            }
         }
     }
 }
