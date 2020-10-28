@@ -7,61 +7,61 @@
         Closing="DataWindow_Closing"
         mc:Ignorable="d"
         Title="Синтезатор" Height="520" Width="760">
-    <Grid>
-        <TextBox x:Name="textBox_FREQ" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="30,110,0,0" TextWrapping="Wrap" Text="435000000" VerticalAlignment="Top" Width="83"/>
-        <Label x:Name="label_FREQ" Content="Гц" HorizontalAlignment="Left" Margin="118,108,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="label" Content="Частота" HorizontalAlignment="Left" Margin="44,84,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="textBox_dev_FREQ" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="30,164,0,0" TextWrapping="Wrap" Text="1000000" VerticalAlignment="Top" Width="83"/>
-        <Label x:Name="label_FREQ_Copy" Content="Гц" HorizontalAlignment="Left" Margin="118,164,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="label_Copy" Content="Девиация" HorizontalAlignment="Left" Margin="39,138,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="textBox_N_intervals" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="163,167,0,0" TextWrapping="Wrap" Text="256" VerticalAlignment="Top" Width="83"/>
-        <Label x:Name="label_FREQ_Copy1" Content="Ед." HorizontalAlignment="Left" Margin="251,165,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="label_Copy1" Content="Число интервалов" HorizontalAlignment="Left" Margin="147,141,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="textBox_Ti" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="161,217,0,0" TextWrapping="Wrap" Text="100" VerticalAlignment="Top" Width="83"/>
-        <Label x:Name="label_FREQ_Copy2" Content="мкс" HorizontalAlignment="Left" Margin="249,215,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="label_Copy2" Content="Длительность Tизл" HorizontalAlignment="Left" Margin="156,191,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="textBox_Tdop_iz" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="289,217,0,0" TextWrapping="Wrap" Text="100" VerticalAlignment="Top" Width="83"/>
-        <Label x:Name="label_FREQ_Copy3" Content="мкс" HorizontalAlignment="Left" Margin="377,215,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="label_Copy3" Content="Длительность Тпре__изл" HorizontalAlignment="Left" Margin="273,191,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="textBox_Tp" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="161,271,0,0" TextWrapping="Wrap" Text="100" VerticalAlignment="Top" Width="83"/>
-        <Label x:Name="label_FREQ_Copy4" Content="мкс" HorizontalAlignment="Left" Margin="249,269,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="label_Copy4" Content="Длительность Tпрм" HorizontalAlignment="Left" Margin="156,245,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="textBox_Tdop_pr" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="289,271,0,0" TextWrapping="Wrap" Text="100" VerticalAlignment="Top" Width="83"/>
-        <Label x:Name="label_FREQ_Copy5" Content="мкс" HorizontalAlignment="Left" Margin="377,269,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="label_Copy5" Content="Длительность Тпре__прм" HorizontalAlignment="Left" Margin="273,245,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="textBox_PHASE0" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="32,335,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="83" ToolTip="Определяет начальную фазу канала" />
-        <Label x:Name="label_FREQ_Copy6" Content="Град" HorizontalAlignment="Left" Margin="120,333,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="label_Copy6" Content="Фаза 0 канал" HorizontalAlignment="Left" Margin="34,309,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="textBox_DELAY0" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="32,390,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="83"/>
-        <Label x:Name="label_FREQ_Copy7" Content="нС" HorizontalAlignment="Left" Margin="120,388,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="label_Copy7" Content="Задержка 0 канал" HorizontalAlignment="Left" Margin="19,364,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="textBox_PHASE1" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="162,335,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="83" ToolTip="Определяет начальную фазу канала" />
-        <Label x:Name="label_FREQ_Copy8" Content="Град" HorizontalAlignment="Left" Margin="250,333,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="label_Copy8" Content="Фаза 1 канал" HorizontalAlignment="Left" Margin="164,309,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="textBox_DELAY1" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="162,390,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="83"/>
-        <Label x:Name="label_FREQ_Copy9" Content="нС" HorizontalAlignment="Left" Margin="250,388,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="label_Copy9" Content="Задержка 1 канал" HorizontalAlignment="Left" Margin="149,364,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="textBox_PHASE2" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="286,335,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="83" ToolTip="Определяет начальную фазу канала" />
-        <Label x:Name="label_FREQ_Copy10" Content="Град" HorizontalAlignment="Left" Margin="374,333,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="label_Copy10" Content="Фаза 2 канал" HorizontalAlignment="Left" Margin="288,309,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="textBox_DELAY2" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="286,390,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="83"/>
-        <Label x:Name="label_FREQ_Copy11" Content="нС" HorizontalAlignment="Left" Margin="374,388,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="label_Copy11" Content="Задержка 2 канал" HorizontalAlignment="Left" Margin="273,364,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="textBox_PHASE3" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="416,335,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="83" ToolTip="Определяет начальную фазу канала" />
-        <Label x:Name="label_FREQ_Copy12" Content="Град" HorizontalAlignment="Left" Margin="504,333,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="label_Copy12" Content="Фаза 3 канал" HorizontalAlignment="Left" Margin="418,309,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="textBox_DELAY3" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="416,390,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="83"/>
-        <Label x:Name="label_FREQ_Copy13" Content="нС" HorizontalAlignment="Left" Margin="504,388,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="label_Copy13" Content="Задержка 3 канал" HorizontalAlignment="Left" Margin="403,364,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="textBox_FREQ_STEP" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="31,217,0,0" TextWrapping="Wrap" Text="1000" VerticalAlignment="Top" Width="83"/>
-        <Label x:Name="label_FREQ_Copy14" Content="Гц" HorizontalAlignment="Left" Margin="119,215,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="label_Copy14" Content="FREQ STEP" HorizontalAlignment="Left" Margin="39,191,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="textBox_FREQ_RATE" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="31,271,0,0" TextWrapping="Wrap" Text="1000" VerticalAlignment="Top" Width="83"/>
-        <Label x:Name="label_FREQ_Copy15" Content="Ед" HorizontalAlignment="Left" Margin="119,269,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="label_Copy15" Content="FREQ RATE" HorizontalAlignment="Left" Margin="39,245,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="textBox_TIME_START" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="32,55,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="105"/>
-        <Label x:Name="label_FREQ_Copy16" Content="мкс" HorizontalAlignment="Left" Margin="149,53,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="label_Copy16" Content="Время начала выполнения цикла" HorizontalAlignment="Left" Margin="10,24,0,0" VerticalAlignment="Top"/>
+    <Grid Margin="0,0,0,-5" Height="495" VerticalAlignment="Top">
+        <TextBox x:Name="textBox_FREQ" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="22,127,0,0" TextWrapping="Wrap" Text="435000000" VerticalAlignment="Top" Width="83"/>
+        <Label x:Name="label_FREQ" Content="Гц" HorizontalAlignment="Left" Margin="110,125,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label" Content="Частота" HorizontalAlignment="Left" Margin="36,101,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="textBox_dev_FREQ" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="22,181,0,0" TextWrapping="Wrap" Text="1000000" VerticalAlignment="Top" Width="83"/>
+        <Label x:Name="label_FREQ_Copy" Content="Гц" HorizontalAlignment="Left" Margin="110,181,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label_Copy" Content="Девиация" HorizontalAlignment="Left" Margin="31,155,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="textBox_N_intervals" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="155,184,0,0" TextWrapping="Wrap" Text="256" VerticalAlignment="Top" Width="83"/>
+        <Label x:Name="label_FREQ_Copy1" Content="Ед." HorizontalAlignment="Left" Margin="243,182,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label_Copy1" Content="Число интервалов" HorizontalAlignment="Left" Margin="139,158,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="textBox_Ti" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="153,234,0,0" TextWrapping="Wrap" Text="100" VerticalAlignment="Top" Width="83"/>
+        <Label x:Name="label_FREQ_Copy2" Content="мкс" HorizontalAlignment="Left" Margin="241,232,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label_Copy2" Content="Длительность Tизл" HorizontalAlignment="Left" Margin="148,208,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="textBox_Tdop_iz" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="289,234,0,0" TextWrapping="Wrap" Text="100" VerticalAlignment="Top" Width="83"/>
+        <Label x:Name="label_FREQ_Copy3" Content="мкс" HorizontalAlignment="Left" Margin="377,232,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label_Copy3" Content="Длительность Тпре__изл" HorizontalAlignment="Left" Margin="273,208,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="textBox_Tp" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="153,288,0,0" TextWrapping="Wrap" Text="100" VerticalAlignment="Top" Width="83"/>
+        <Label x:Name="label_FREQ_Copy4" Content="мкс" HorizontalAlignment="Left" Margin="241,286,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label_Copy4" Content="Длительность Tпрм" HorizontalAlignment="Left" Margin="148,262,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="textBox_Tdop_pr" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="289,288,0,0" TextWrapping="Wrap" Text="100" VerticalAlignment="Top" Width="83"/>
+        <Label x:Name="label_FREQ_Copy5" Content="мкс" HorizontalAlignment="Left" Margin="377,286,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label_Copy5" Content="Длительность Тпре__прм" HorizontalAlignment="Left" Margin="273,262,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="textBox_PHASE0" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="24,352,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="83" ToolTip="Определяет начальную фазу канала" />
+        <Label x:Name="label_FREQ_Copy6" Content="Град" HorizontalAlignment="Left" Margin="112,350,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label_Copy6" Content="Фаза 0 канал" HorizontalAlignment="Left" Margin="26,326,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="textBox_DELAY0" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="24,407,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="83"/>
+        <Label x:Name="label_FREQ_Copy7" Content="нС" HorizontalAlignment="Left" Margin="112,405,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label_Copy7" Content="Задержка 0 канал" HorizontalAlignment="Left" Margin="11,381,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="textBox_PHASE1" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="154,352,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="83" ToolTip="Определяет начальную фазу канала" />
+        <Label x:Name="label_FREQ_Copy8" Content="Град" HorizontalAlignment="Left" Margin="242,350,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label_Copy8" Content="Фаза 1 канал" HorizontalAlignment="Left" Margin="156,326,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="textBox_DELAY1" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="154,407,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="83"/>
+        <Label x:Name="label_FREQ_Copy9" Content="нС" HorizontalAlignment="Left" Margin="242,405,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label_Copy9" Content="Задержка 1 канал" HorizontalAlignment="Left" Margin="141,381,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="textBox_PHASE2" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="286,352,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="83" ToolTip="Определяет начальную фазу канала" />
+        <Label x:Name="label_FREQ_Copy10" Content="Град" HorizontalAlignment="Left" Margin="374,350,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label_Copy10" Content="Фаза 2 канал" HorizontalAlignment="Left" Margin="288,326,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="textBox_DELAY2" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="286,407,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="83"/>
+        <Label x:Name="label_FREQ_Copy11" Content="нС" HorizontalAlignment="Left" Margin="374,405,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label_Copy11" Content="Задержка 2 канал" HorizontalAlignment="Left" Margin="273,381,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="textBox_PHASE3" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="416,352,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="83" ToolTip="Определяет начальную фазу канала" />
+        <Label x:Name="label_FREQ_Copy12" Content="Град" HorizontalAlignment="Left" Margin="504,350,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label_Copy12" Content="Фаза 3 канал" HorizontalAlignment="Left" Margin="418,326,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="textBox_DELAY3" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="416,407,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="83"/>
+        <Label x:Name="label_FREQ_Copy13" Content="нС" HorizontalAlignment="Left" Margin="504,405,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label_Copy13" Content="Задержка 3 канал" HorizontalAlignment="Left" Margin="403,381,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="textBox_FREQ_STEP" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="23,234,0,0" TextWrapping="Wrap" Text="1000" VerticalAlignment="Top" Width="83"/>
+        <Label x:Name="label_FREQ_Copy14" Content="Гц" HorizontalAlignment="Left" Margin="111,232,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label_Copy14" Content="FREQ STEP" HorizontalAlignment="Left" Margin="31,208,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="textBox_FREQ_RATE" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="23,288,0,0" TextWrapping="Wrap" Text="1000" VerticalAlignment="Top" Width="83"/>
+        <Label x:Name="label_FREQ_Copy15" Content="Ед" HorizontalAlignment="Left" Margin="111,286,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label_Copy15" Content="FREQ RATE" HorizontalAlignment="Left" Margin="31,262,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="textBox_TIME_START" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="24,41,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="105"/>
+        <Label x:Name="label_FREQ_Copy16" Content="мкс" HorizontalAlignment="Left" Margin="141,39,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label_Copy16" Content="Время начала выполнения цикла" HorizontalAlignment="Left" Margin="2,10,0,0" VerticalAlignment="Top"/>
         <Button x:Name="button" Content="Отправить" HorizontalAlignment="Left" Margin="654,441,0,0" VerticalAlignment="Top" Width="75"/>
         <Button x:Name="button1" Content="Open File" HorizontalAlignment="Left" Margin="654,76,0,0" VerticalAlignment="Top" Width="75" Click="button1_Click"/>
         <TextBox x:Name="textBox_Number_record" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="443,97,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="83" TextChanged="textBox_Number_record_TextChanged"/>
@@ -70,37 +70,41 @@
         <Label x:Name="label_Copy18" Content="Количество циклов" HorizontalAlignment="Left" Margin="426,17,0,0" VerticalAlignment="Top"/>
         <Button x:Name="button1_Copy" Content="СБРОС!" HorizontalAlignment="Left" Margin="654,112,0,0" VerticalAlignment="Top" Width="75"/>
         <Button x:Name="button1_Copy1" Content="Добавить" HorizontalAlignment="Left" Margin="550,42,0,0" VerticalAlignment="Top" Width="75" Click="button1_Copy1_Click"/>
-        <Button x:Name="button1_Copy2" Content="Удалить" HorizontalAlignment="Left" Margin="550,76,0,0" VerticalAlignment="Top" Width="75"/>
-        <TextBox x:Name="textBox_ATT0" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="450,217,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="83"/>
-        <Label x:Name="label_FREQ_Copy17" Content="Дб" HorizontalAlignment="Left" Margin="538,215,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="label_Copy19" Content="Ослабление сигнала 0" HorizontalAlignment="Left" Margin="424,191,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="textBox_ATT2" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="594,217,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="83"/>
-        <Label x:Name="label_FREQ_Copy18" Content="Дб" HorizontalAlignment="Left" Margin="682,215,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="label_Copy20" Content="Ослабление сигнала 2" HorizontalAlignment="Left" Margin="568,191,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="textBox_AMP0" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="32,439,0,0" TextWrapping="Wrap" Text="100" VerticalAlignment="Top" Width="83"/>
-        <Label x:Name="label_FREQ_Copy19" Content="%" HorizontalAlignment="Left" Margin="120,437,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="label_Copy21" Content="Амплитуда 0 канал" HorizontalAlignment="Left" Margin="19,413,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="textBox_AMP1" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="162,439,0,0" TextWrapping="Wrap" Text="100" VerticalAlignment="Top" Width="83"/>
-        <Label x:Name="label_FREQ_Copy20" Content="%" HorizontalAlignment="Left" Margin="250,437,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="label_Copy22" Content="Амплитуда 1 канал" HorizontalAlignment="Left" Margin="149,413,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="textBox_AMP2" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="286,439,0,0" TextWrapping="Wrap" Text="100" VerticalAlignment="Top" Width="83"/>
-        <Label x:Name="label_FREQ_Copy21" Content="%" HorizontalAlignment="Left" Margin="374,437,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="label_Copy23" Content="Амплитуда 2 канал" HorizontalAlignment="Left" Margin="273,413,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="textBox_AMP3" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="416,439,0,0" TextWrapping="Wrap" Text="100" VerticalAlignment="Top" Width="83"/>
-        <Label x:Name="label_FREQ_Copy22" Content="%" HorizontalAlignment="Left" Margin="504,437,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="label_Copy24" Content="Амплитуда 3 канал" HorizontalAlignment="Left" Margin="403,413,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="button1_Copy2" Content="Удалить" HorizontalAlignment="Left" Margin="550,76,0,0" VerticalAlignment="Top" Width="75" Click="button1_Copy2_Click"/>
+        <TextBox x:Name="textBox_ATT0" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="450,234,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="83"/>
+        <Label x:Name="label_FREQ_Copy17" Content="Дб" HorizontalAlignment="Left" Margin="538,232,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label_Copy19" Content="Ослабление сигнала 0" HorizontalAlignment="Left" Margin="424,208,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="textBox_ATT2" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="616,232,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="83"/>
+        <Label x:Name="label_FREQ_Copy18" Content="Дб" HorizontalAlignment="Left" Margin="704,230,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label_Copy20" Content="Ослабление сигнала 2" HorizontalAlignment="Left" Margin="590,206,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="textBox_AMP0" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="24,456,0,0" TextWrapping="Wrap" Text="100" VerticalAlignment="Top" Width="83"/>
+        <Label x:Name="label_FREQ_Copy19" Content="%" HorizontalAlignment="Left" Margin="112,454,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label_Copy21" Content="Амплитуда 0 канал" HorizontalAlignment="Left" Margin="11,430,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="textBox_AMP1" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="154,456,0,0" TextWrapping="Wrap" Text="100" VerticalAlignment="Top" Width="83"/>
+        <Label x:Name="label_FREQ_Copy20" Content="%" HorizontalAlignment="Left" Margin="242,454,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label_Copy22" Content="Амплитуда 1 канал" HorizontalAlignment="Left" Margin="141,430,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="textBox_AMP2" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="286,456,0,0" TextWrapping="Wrap" Text="100" VerticalAlignment="Top" Width="83"/>
+        <Label x:Name="label_FREQ_Copy21" Content="%" HorizontalAlignment="Left" Margin="374,454,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label_Copy23" Content="Амплитуда 2 канал" HorizontalAlignment="Left" Margin="273,430,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="textBox_AMP3" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="416,456,0,0" TextWrapping="Wrap" Text="100" VerticalAlignment="Top" Width="83"/>
+        <Label x:Name="label_FREQ_Copy22" Content="%" HorizontalAlignment="Left" Margin="504,454,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label_Copy24" Content="Амплитуда 3 канал" HorizontalAlignment="Left" Margin="403,430,0,0" VerticalAlignment="Top"/>
         <Button x:Name="button1_Copy3" Content="Save File" HorizontalAlignment="Left" Margin="654,44,0,0" VerticalAlignment="Top" Width="75" Click="button1_Copy3_Click"/>
         <CheckBox x:Name="checkBox_Coherent" Content="Пачка когерентная" HorizontalAlignment="Left" Margin="561,338,0,0" VerticalAlignment="Top" ToolTip="Тип пачки излучения" />
         <CheckBox x:Name="checkBox_Calibrovka" Content="Калибровка" HorizontalAlignment="Left" Margin="561,369,0,0" VerticalAlignment="Top" ToolTip="Интервал работы АЦП : приём или излучение" />
-        <TextBox x:Name="textBox_Dlitelnost_cikl" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="248,53,0,0" TextWrapping="Wrap" Text="102400" VerticalAlignment="Top" Width="105"/>
-        <Label x:Name="label_FREQ_Copy23" Content="мкс" HorizontalAlignment="Left" Margin="364,53,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="label_Copy25" Content="Длительность выполнения цикла" HorizontalAlignment="Left" Margin="213,24,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="textBox_ATT1" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="452,271,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="83"/>
-        <Label x:Name="label_FREQ_Copy24" Content="Дб" HorizontalAlignment="Left" Margin="540,269,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="label_Copy26" Content="Ослабление сигнала 1" HorizontalAlignment="Left" Margin="426,245,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="textBox_ATT3" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="594,272,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="83"/>
-        <Label x:Name="label_FREQ_Copy25" Content="Дб" HorizontalAlignment="Left" Margin="682,265,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="label_Copy27" Content="Ослабление сигнала 3" HorizontalAlignment="Left" Margin="568,247,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="textBox_Dlitelnost_cikl" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="240,39,0,0" TextWrapping="Wrap" Text="102400" VerticalAlignment="Top" Width="105"/>
+        <Label x:Name="label_FREQ_Copy23" Content="мкс" HorizontalAlignment="Left" Margin="356,39,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label_Copy25" Content="Длительность выполнения цикла" HorizontalAlignment="Left" Margin="205,10,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="textBox_ATT1" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="452,288,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="83"/>
+        <Label x:Name="label_FREQ_Copy24" Content="Дб" HorizontalAlignment="Left" Margin="540,286,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label_Copy26" Content="Ослабление сигнала 1" HorizontalAlignment="Left" Margin="426,262,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="textBox_ATT3" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="616,287,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="83"/>
+        <Label x:Name="label_FREQ_Copy25" Content="Дб" HorizontalAlignment="Left" Margin="704,280,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label_Copy27" Content="Ослабление сигнала 3" HorizontalAlignment="Left" Margin="590,262,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="textBox_TIME_END" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="24,82,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="105"/>
+        <Label x:Name="label_FREQ_Copy26" Content="мкс" HorizontalAlignment="Left" Margin="141,80,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label_Copy28" Content="Время конца  цикла" HorizontalAlignment="Left" Margin="16,58,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="button_enter" Content="ENTER" HorizontalAlignment="Left" Margin="550,111,0,0" VerticalAlignment="Top" Width="75" Click="button_enter"/>
 
     </Grid>
 </Window>

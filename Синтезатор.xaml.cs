@@ -174,6 +174,9 @@ namespace Stnd_072
                     FileStream fr = new FileStream(filename, FileMode.Open);
                     list = (List<RABCIKL>)xmlSerialaizer.Deserialize(fr);
                     fr.Close();
+
+                    textBox_N_cikl.Text=(list.Count).ToString(); //считаем общее количество циклов
+                    FUN_CIKL_DISP(0);//обновляем экран по содержимому структуры
                 }
                 catch
                 {
@@ -183,9 +186,95 @@ namespace Stnd_072
             
         }
 
+        void FUN_LIST_UPDATE (int a)
+        {
+            /*
+            list[a].Amplitude0 = Convert.ToInt16(textBox_AMP0.Text);
+            list[a].Amplitude1 = Convert.ToInt16(textBox_AMP1.Text);
+            list[a].Amplitude2 = Convert.ToInt16(textBox_AMP2.Text);
+            list[a].Amplitude3 = Convert.ToInt16(textBox_AMP3.Text);
+
+            c0.Att0 = Convert.ToInt16(textBox_ATT0.Text);
+            c0.Att1 = Convert.ToInt16(textBox_ATT1.Text);
+            c0.Att2 = Convert.ToInt16(textBox_ATT2.Text);
+            c0.Att3 = Convert.ToInt16(textBox_ATT3.Text);
+
+            c0.Calibrovka = Convert.ToInt16(checkBox_Calibrovka.IsChecked);
+            c0.Coherent = Convert.ToInt16(checkBox_Coherent.IsChecked);
+
+            c0.DELAY0 = Convert.ToInt16(textBox_DELAY0.Text);
+            c0.DELAY1 = Convert.ToInt16(textBox_DELAY1.Text);
+            c0.DELAY2 = Convert.ToInt16(textBox_DELAY2.Text);
+            c0.DELAY3 = Convert.ToInt16(textBox_DELAY3.Text);
+
+            c0.deviation = Convert.ToInt64(textBox_dev_FREQ.Text);
+
+            c0.FREQ = Convert.ToInt64(textBox_FREQ.Text);
+            c0.FREQ_STEP = Convert.ToInt64(textBox_FREQ_STEP.Text);
+            c0.FREQ_RATE = Convert.ToInt32(textBox_FREQ_RATE.Text);
+
+            c0.N_cikl = Convert.ToInt16(textBox_N_intervals.Text);//число интервалов в цикле
+            c0.NUMBER_RECORD = Convert.ToInt32(textBox_Number_record.Text);
+
+            c0.PHASE0 = Convert.ToInt16(textBox_PHASE0.Text);
+            c0.PHASE1 = Convert.ToInt16(textBox_PHASE1.Text);
+            c0.PHASE2 = Convert.ToInt16(textBox_PHASE2.Text);
+            c0.PHASE3 = Convert.ToInt16(textBox_PHASE3.Text);
+
+            c0.Tblank1 = Convert.ToInt32(textBox_Tdop_iz.Text);
+            c0.Tblank2 = Convert.ToInt32(textBox_Tdop_pr.Text);
+
+            c0.Ti = Convert.ToInt32(textBox_Ti.Text);
+            c0.Tp = Convert.ToInt32(textBox_Tp.Text);
+
+            c0.TIME_START = Convert.ToInt64(textBox_TIME_START.Text);
+            c0.TYPE = 0;
+            c0.NUMBER_RECORD = list.Count;
+            */
+        }
+
         void FUN_CIKL_DISP (int a)
         {
+            textBox_AMP0.Text = list[a].Amplitude0.ToString();
+            textBox_AMP1.Text = list[a].Amplitude1.ToString();
+            textBox_AMP2.Text = list[a].Amplitude2.ToString();
+            textBox_AMP3.Text = list[a].Amplitude3.ToString();
 
+            textBox_ATT0.Text = list[a].Att0.ToString();
+            textBox_ATT1.Text = list[a].Att1.ToString();
+            textBox_ATT2.Text = list[a].Att2.ToString();
+            textBox_ATT3.Text = list[a].Att3.ToString();
+
+            checkBox_Calibrovka.IsChecked = Convert.ToBoolean(list[a].Calibrovka);
+            checkBox_Coherent.IsChecked   = Convert.ToBoolean(list[a].Coherent);
+
+            textBox_DELAY0.Text = list[a].DELAY0.ToString();
+            textBox_DELAY1.Text = list[a].DELAY1.ToString();
+            textBox_DELAY2.Text = list[a].DELAY2.ToString();
+            textBox_DELAY3.Text = list[a].DELAY3.ToString();
+
+            textBox_dev_FREQ.Text  = list[a].deviation.ToString();
+            textBox_FREQ.Text      = list[a].FREQ.ToString();
+            textBox_FREQ_STEP.Text = list[a].FREQ_STEP.ToString();
+            textBox_FREQ_RATE.Text = list[a].FREQ_RATE.ToString();
+
+            textBox_N_intervals.Text = list[a].N_cikl.ToString();
+  
+            textBox_PHASE0.Text = list[a].PHASE0.ToString();
+            textBox_PHASE1.Text = list[a].PHASE1.ToString();
+            textBox_PHASE2.Text = list[a].PHASE2.ToString();
+            textBox_PHASE3.Text = list[a].PHASE3.ToString();
+
+            textBox_Tdop_iz.Text = list[a].Tblank1.ToString();
+            textBox_Tdop_pr.Text = list[a].Tblank2.ToString();
+            textBox_Ti.Text = list[a].Ti.ToString();
+            textBox_Tp.Text = list[a].Tp.ToString();
+
+            textBox_TIME_START.Text = list[a].TIME_START.ToString();
+            textBox_Dlitelnost_cikl.Text = (FUN_INTERVAL_CALC(list[a])).ToString();//рассчитываем длительность текущего цикла
+            textBox_Number_record.Text = a.ToString();                              //номер текущего цикла
+            textBox_N_cikl.Text = (list.Count).ToString();
+            textBox_TIME_END.Text = (list[a].TIME_START + Convert.ToInt64(textBox_Dlitelnost_cikl.Text)).ToString();
         }
 
         private void textBox_Number_record_TextChanged(object sender, TextChangedEventArgs e)
@@ -193,15 +282,41 @@ namespace Stnd_072
             int a = Convert.ToInt32(textBox_Number_record.Text);
             try
             {
-                if (a<=list.Count)
+                if (a<list.Count)
                 {
                     FUN_CIKL_DISP(a);//обновляем экран по содержимому структуры
                 }
             }
             catch
             {
-
+                Console.WriteLine("чёто не то!");
             }
+        }
+
+        private void button1_Copy2_Click(object sender, RoutedEventArgs e)
+        {
+            int a = Convert.ToInt32(textBox_Number_record.Text);
+            try
+            {
+                if ((a < list.Count)&&(list.Count>0))
+                {
+                    list.RemoveAt(a);
+                    if (list.Count > 0) FUN_CIKL_DISP(0);//обновляем экран по содержимому структуры
+                    else if (list.Count==0)
+                    {
+                        textBox_N_cikl.Text = (list.Count).ToString();
+                    }
+                }
+            }
+            catch
+            {
+                Console.WriteLine("чёто не то!");
+            }
+        }
+
+        private void button_enter(object sender, RoutedEventArgs e)
+        {
+            FUN_LIST_UPDATE(0);
         }
     }
 }
