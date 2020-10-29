@@ -29,28 +29,29 @@ namespace Stnd_072
         {
             public Int32 NUMBER_RECORD;//номер цикла
             public Int64 TIME_START;   //стартовое время цикла
-            public Int64 FREQ;        //частота
-            public Int64 FREQ_STEP;   //Считается изходя из девиации частоты или наоборот
-            public Int32 FREQ_RATE;   //Считается изходя из девиации частоты или наоборот
-            public Int16 N_cikl;      //число интервалов
-            public Int64 deviation;   //девиация частоты
-            public Int16 TYPE;        //тип пачки
-            public Int32 Ti;          //интервал Излучения
-            public Int32 Tp;          //интервал Приёма
-            public Int32 Tblank1;     //интервал перед излучением
-            public Int32 Tblank2;     //интервал перед приёмом
-            public Int16 Att0;        //Аттенюатор в нулевом канале
-            public Int16 Att1;        //Аттенюатор в первом канале
-            public Int16 Att2;        //Аттенюатор в втором канале
-            public Int16 Att3;        //Аттенюатор в третьем канале
-            public Int16 PHASE0;      //Фаза 0 канал излучения
-            public Int16 PHASE1;      //Фаза 1 канали излучения
-            public Int16 PHASE2;      //Фаза 2 канали излучения
-            public Int16 PHASE3;      //Фаза 3 канали излучения
-            public Int16 DELAY0;      //Задержка в нС в 0 канале
-            public Int16 DELAY1;      //Задержка в нС в 1 канале
-            public Int16 DELAY2;      //Задержка в нС в 2 канале
-            public Int16 DELAY3;      //Задержка в нС в 3 канале
+            public Int64 TIME_END;     //финишное  время цикла
+            public Int64 FREQ;         //частота
+            public Int64 FREQ_STEP;    //Считается изходя из девиации частоты или наоборот
+            public Int32 FREQ_RATE;    //Считается изходя из девиации частоты или наоборот
+            public Int16 N_cikl;       //число интервалов
+            public Int64 deviation;    //девиация частоты
+            public Int16 TYPE;         //тип пачки
+            public Int32 Ti;           //интервал Излучения
+            public Int32 Tp;           //интервал Приёма
+            public Int32 Tblank1;      //интервал перед излучением
+            public Int32 Tblank2;      //интервал перед приёмом
+            public Int16 Att0;         //Аттенюатор в нулевом канале
+            public Int16 Att1;         //Аттенюатор в первом канале
+            public Int16 Att2;         //Аттенюатор в втором канале
+            public Int16 Att3;         //Аттенюатор в третьем канале
+            public Int16 PHASE0;       //Фаза 0 канал излучения
+            public Int16 PHASE1;       //Фаза 1 канали излучения
+            public Int16 PHASE2;       //Фаза 2 канали излучения
+            public Int16 PHASE3;       //Фаза 3 канали излучения
+            public Int16 DELAY0;       //Задержка в нС в 0 канале
+            public Int16 DELAY1;       //Задержка в нС в 1 канале
+            public Int16 DELAY2;       //Задержка в нС в 2 канале
+            public Int16 DELAY3;       //Задержка в нС в 3 канале
             public Int16 Amplitude0;      //Задержка в нС в 0 канале
             public Int16 Amplitude1;      //Задержка в нС в 1 канале
             public Int16 Amplitude2;      //Задержка в нС в 2 канале
@@ -118,10 +119,19 @@ namespace Stnd_072
             c0.Ti=Convert.ToInt32(textBox_Ti.Text);
             c0.Tp=Convert.ToInt32(textBox_Tp.Text);
 
-            c0.TIME_START=Convert.ToInt64(textBox_TIME_START.Text);
+     //     c0.TIME_START=Convert.ToInt64(textBox_TIME_START.Text);
+        if (list.Count>0)
+            {
+                if (c0.TIME_START< list[(list.Count - 1)].TIME_END)  c0.TIME_START = list[(list.Count-1)].TIME_END;
+            } else
+            {
+                c0.TIME_START = Convert.ToInt64(textBox_TIME_START.Text);
+            }
+            
             c0.TYPE=0;
 
             textBox_Dlitelnost_cikl.Text = (FUN_INTERVAL_CALC(c0)).ToString();//рассчитываем длительность текущего цикла
+            c0.TIME_END = Convert.ToInt64(textBox_Dlitelnost_cikl.Text)+ c0.TIME_START;
             c0.NUMBER_RECORD = list.Count;
 
             list.Add(c0);
@@ -188,11 +198,12 @@ namespace Stnd_072
 
         void FUN_LIST_UPDATE (int a)
         {
-            /*
-            list[a].Amplitude0 = Convert.ToInt16(textBox_AMP0.Text);
-            list[a].Amplitude1 = Convert.ToInt16(textBox_AMP1.Text);
-            list[a].Amplitude2 = Convert.ToInt16(textBox_AMP2.Text);
-            list[a].Amplitude3 = Convert.ToInt16(textBox_AMP3.Text);
+            RABCIKL c0 = new RABCIKL();
+
+            c0.Amplitude0 = Convert.ToInt16(textBox_AMP0.Text);
+            c0.Amplitude1 = Convert.ToInt16(textBox_AMP1.Text);
+            c0.Amplitude2 = Convert.ToInt16(textBox_AMP2.Text);
+            c0.Amplitude3 = Convert.ToInt16(textBox_AMP3.Text);
 
             c0.Att0 = Convert.ToInt16(textBox_ATT0.Text);
             c0.Att1 = Convert.ToInt16(textBox_ATT1.Text);
@@ -230,11 +241,30 @@ namespace Stnd_072
             c0.TIME_START = Convert.ToInt64(textBox_TIME_START.Text);
             c0.TYPE = 0;
             c0.NUMBER_RECORD = list.Count;
-            */
+
+            textBox_Dlitelnost_cikl.Text = FUN_INTERVAL_CALC(c0).ToString();//рассчитываем длительность текущего цикла
+            textBox_TIME_END.Text = (c0.TIME_START + Convert.ToInt64(textBox_Dlitelnost_cikl.Text)).ToString();
+
+            if (list.Count > 0)
+            {
+                if (c0.TIME_START < list[(a-1)].TIME_END) c0.TIME_START = list[(a-1)].TIME_END;
+            }
+            else
+            {
+                c0.TIME_START = Convert.ToInt64(textBox_TIME_START.Text);
+            }
+
+            if (list.Count != 0)//проверяем что в списке есть элементы
+            {
+                list.RemoveAt(a); 
+                list.Insert(a, c0);
+            }
+            
         }
 
         void FUN_CIKL_DISP (int a)
         {
+
             textBox_AMP0.Text = list[a].Amplitude0.ToString();
             textBox_AMP1.Text = list[a].Amplitude1.ToString();
             textBox_AMP2.Text = list[a].Amplitude2.ToString();
@@ -277,6 +307,58 @@ namespace Stnd_072
             textBox_TIME_END.Text = (list[a].TIME_START + Convert.ToInt64(textBox_Dlitelnost_cikl.Text)).ToString();
         }
 
+        void FUN_CLR_DISP()
+        {
+            textBox_AMP0.Text = 0.ToString();
+            textBox_AMP1.Text = 0.ToString();
+            textBox_AMP2.Text = 0.ToString();
+            textBox_AMP3.Text = 0.ToString();
+
+            textBox_ATT0.Text = 0.ToString();
+            textBox_ATT1.Text = 0.ToString();
+            textBox_ATT2.Text = 0.ToString();
+            textBox_ATT3.Text = 0.ToString();
+
+            checkBox_Calibrovka.IsChecked = Convert.ToBoolean(0);
+            checkBox_Coherent.IsChecked = Convert.ToBoolean(0);
+
+            textBox_DELAY0.Text = 0.ToString();
+            textBox_DELAY1.Text = 0.ToString();
+            textBox_DELAY2.Text = 0.ToString();
+            textBox_DELAY3.Text = 0.ToString();
+
+            textBox_dev_FREQ.Text = 0.ToString();
+            textBox_FREQ.Text = 0.ToString();
+            textBox_FREQ_STEP.Text = 0.ToString();
+            textBox_FREQ_RATE.Text = 0.ToString();
+
+            textBox_N_intervals.Text = 0.ToString();
+
+            textBox_PHASE0.Text = 0.ToString();
+            textBox_PHASE1.Text = 0.ToString();
+            textBox_PHASE2.Text = 0.ToString();
+            textBox_PHASE3.Text = 0.ToString();
+
+            textBox_Tdop_iz.Text = 0.ToString();
+            textBox_Tdop_pr.Text = 0.ToString();
+            textBox_Ti.Text = 0.ToString();
+            textBox_Tp.Text = 0.ToString();
+
+            textBox_TIME_START.Text = 0.ToString();
+            textBox_Dlitelnost_cikl.Text = (0).ToString();//рассчитываем длительность текущего цикла
+            textBox_Number_record.Text = 0.ToString();                              //номер текущего цикла
+            textBox_N_cikl.Text = (0).ToString();
+            textBox_TIME_END.Text = (0).ToString();
+        }
+
+        void NEW_LIST_FORM ()
+        {
+        //  RABCIKL c0 = new RABCIKL();
+        //  list.Add(c0);
+            textBox_N_cikl.Text = (0).ToString();                //считаем общее количество циклов
+            textBox_Number_record.Text = (0).ToString();  //номер текущего цикла
+        }
+
         private void textBox_Number_record_TextChanged(object sender, TextChangedEventArgs e)
         {
             int a = Convert.ToInt32(textBox_Number_record.Text);
@@ -285,6 +367,15 @@ namespace Stnd_072
                 if (a<list.Count)
                 {
                     FUN_CIKL_DISP(a);//обновляем экран по содержимому структуры
+                }
+                else
+                {
+                    if ((Convert.ToInt32(textBox_Number_record.Text))!=0)
+                    {
+                        textBox_Number_record.Text = (list.Count-1).ToString();
+                        MessageBox.Show("Нет такого элемента!");
+                    }
+                    
                 }
             }
             catch
@@ -316,7 +407,14 @@ namespace Stnd_072
 
         private void button_enter(object sender, RoutedEventArgs e)
         {
-            FUN_LIST_UPDATE(0);
+            FUN_LIST_UPDATE(Convert.ToInt32(textBox_Number_record.Text));
+        }
+
+        private void button1_Copy_Click(object sender, RoutedEventArgs e)
+        {
+            list.Clear();       //удаляем из списка все элементы
+            NEW_LIST_FORM();    //пока с нулевым элементом
+            FUN_CLR_DISP();     // 
         }
     }
 }

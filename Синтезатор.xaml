@@ -68,7 +68,7 @@
         <Label x:Name="label_Copy17" Content="Номер цикла" HorizontalAlignment="Left" Margin="443,71,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="textBox_N_cikl" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="443,43,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="83"/>
         <Label x:Name="label_Copy18" Content="Количество циклов" HorizontalAlignment="Left" Margin="426,17,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="button1_Copy" Content="СБРОС!" HorizontalAlignment="Left" Margin="654,112,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button x:Name="button1_Copy" Content="СБРОС!" HorizontalAlignment="Left" Margin="654,112,0,0" VerticalAlignment="Top" Width="75" Click="button1_Copy_Click"/>
         <Button x:Name="button1_Copy1" Content="Добавить" HorizontalAlignment="Left" Margin="550,42,0,0" VerticalAlignment="Top" Width="75" Click="button1_Copy1_Click"/>
         <Button x:Name="button1_Copy2" Content="Удалить" HorizontalAlignment="Left" Margin="550,76,0,0" VerticalAlignment="Top" Width="75" Click="button1_Copy2_Click"/>
         <TextBox x:Name="textBox_ATT0" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="450,234,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="83"/>
@@ -104,7 +104,7 @@
         <TextBox x:Name="textBox_TIME_END" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="24,82,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="105"/>
         <Label x:Name="label_FREQ_Copy26" Content="мкс" HorizontalAlignment="Left" Margin="141,80,0,0" VerticalAlignment="Top"/>
         <Label x:Name="label_Copy28" Content="Время конца  цикла" HorizontalAlignment="Left" Margin="16,58,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="button_enter" Content="ENTER" HorizontalAlignment="Left" Margin="550,111,0,0" VerticalAlignment="Top" Width="75" Click="button_enter"/>
+        <Button x:Name="btn_enter" Content="ENTER" HorizontalAlignment="Left" Margin="550,111,0,0" VerticalAlignment="Top" Width="75" Click="button_enter"/>
 
     </Grid>
 </Window>
