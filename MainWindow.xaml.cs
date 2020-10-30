@@ -29,6 +29,7 @@ namespace Stnd_072
 
         public UDP_server udp0 ;
         public UDP_sender udp0_sender ;
+        int FLAG_SINT_INIT = 0;
 
         System.Windows.Threading.DispatcherTimer Timer1 = new System.Windows.Threading.DispatcherTimer();
         private void Timer1_Tick(object sender, EventArgs e)
@@ -39,6 +40,15 @@ namespace Stnd_072
             if (Приёмник.init      == false) Панель_приёмника.IsChecked     = false;
             if (Калибровка.init    == false) Панель_калибровки.IsChecked    = false;
             if (Consol.init        == false) Панель_консоли.IsChecked       = false;
+
+            /*
+            if (FLAG_SINT_INIT==0)
+            {
+                FLAG_SINT_INIT = 1;
+                Панель_синтезатора.IsChecked = true;
+                mnuSint_Click(Панель_синтезатора, null);
+            }
+            */
         }
         public MainWindow()
         {
@@ -51,6 +61,7 @@ namespace Stnd_072
             udp0 = z;
             UDP_sender x = new UDP_sender(textBox_IP_dest.Text,textBox_Port_dest.Text);
             udp0_sender=x;
+
         }
 
         private void button_SYS_START_Click(object sender, RoutedEventArgs e)
@@ -59,7 +70,7 @@ namespace Stnd_072
             UDP_server z = new UDP_server(textBox_IP_072.Text,textBox_Port_072.Text);
             udp0 = z;
             UDP_sender x = new UDP_sender(textBox_IP_dest.Text,textBox_Port_dest.Text);
-            udp0_sender=x;
+            udp0_sender=x;           
         }
 //--------------------обработка создания панелей--------------------------
         private void mnuSint_Click(object sender, RoutedEventArgs e)

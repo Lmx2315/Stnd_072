@@ -241,25 +241,30 @@ namespace Stnd_072
             c0.TIME_START = Convert.ToInt64(textBox_TIME_START.Text);
             c0.TYPE = 0;
             c0.NUMBER_RECORD = list.Count;
-
             textBox_Dlitelnost_cikl.Text = FUN_INTERVAL_CALC(c0).ToString();//рассчитываем длительность текущего цикла
-            textBox_TIME_END.Text = (c0.TIME_START + Convert.ToInt64(textBox_Dlitelnost_cikl.Text)).ToString();
-
+  
             if (list.Count > 0)
             {
                 if (c0.TIME_START < list[(a-1)].TIME_END) c0.TIME_START = list[(a-1)].TIME_END;
+                Console.WriteLine("a                    : " + a);
+                Console.WriteLine("c0.TIME_START        : "+ c0.TIME_START);
+                Console.WriteLine("list[(a-1)].TIME_END :" + list[(a - 1)].TIME_END);
             }
             else
             {
                 c0.TIME_START = Convert.ToInt64(textBox_TIME_START.Text);
             }
 
+            c0.TIME_END = c0.TIME_START + Convert.ToInt64(textBox_Dlitelnost_cikl.Text);
+
             if (list.Count != 0)//проверяем что в списке есть элементы
             {
                 list.RemoveAt(a); 
                 list.Insert(a, c0);
             }
-            
+
+            textBox_TIME_END.Text   = c0.TIME_END.ToString();
+            textBox_TIME_START.Text = c0.TIME_START.ToString();
         }
 
         void FUN_CIKL_DISP (int a)
@@ -415,6 +420,23 @@ namespace Stnd_072
             list.Clear();       //удаляем из списка все элементы
             NEW_LIST_FORM();    //пока с нулевым элементом
             FUN_CLR_DISP();     // 
+        }
+
+        private void button_Click(object sender, RoutedEventArgs e)
+        {
+            int error = 0;
+            //--------Проверка списка команд на исполнение--------
+            if (list.Count == 0) MessageBox.Show("Список команд пустой!");
+            else
+            for (var i=0;i<list.Count;i++)
+            {
+               if (i>0)
+                    {
+                        if (list[i].TIME_START < list[i - 1].TIME_END) error++;
+                    }
+            }
+
+            if (error != 0) MessageBox.Show("   Есть ошибки в списке команд!\n Ошибки времени начала команд.");
         }
     }
 }
