@@ -9,6 +9,7 @@
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="_File">
+                <MenuItem x:Name="Конфигурация" Header="_Конфигурация" Click="mnuConfig_Click"></MenuItem>
                 <MenuItem Header="_Exit" />
             </MenuItem>
 
@@ -31,12 +32,12 @@
         </Menu>
 
         <Grid>
-            <TextBox x:Name="textBox_IP_072"   HorizontalContentAlignment="Right"  HorizontalAlignment="Left" Height="23" Margin="298,36,0,0" TextWrapping="Wrap" Text="127.0.0.1" VerticalAlignment="Top" Width="96" AcceptsTab="True"/>
-            <TextBox x:Name="textBox_Port_072" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="298,71,0,0" TextWrapping="Wrap" Text="703" VerticalAlignment="Top" Width="96"/>
+            <TextBox x:Name="textBox_IP_072"   HorizontalContentAlignment="Right"  HorizontalAlignment="Left" Height="23" Margin="298,36,0,0" TextWrapping="Wrap" Text="127.0.0.1" VerticalAlignment="Top" Width="96" AcceptsTab="True" Visibility="Hidden"/>
+            <TextBox x:Name="textBox_Port_072" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="298,71,0,0" TextWrapping="Wrap" Text="703" VerticalAlignment="Top" Width="96" Visibility="Hidden"/>
             <TextBox x:Name="textBox_SYSTIME"   HorizontalContentAlignment="Right"  HorizontalAlignment="Left" Height="23" Margin="36,30,0,0" TextWrapping="Wrap" Text="12:00:00:000:000" VerticalAlignment="Top" Width="120" AcceptsTab="True"/>
             <Label x:Name="label" Content="Системное время" HorizontalAlignment="Left" Margin="36,4,0,0" VerticalAlignment="Top" Width="120"/>
             <Button x:Name="button_SYSTIME_SETUP" Content="SYNC" HorizontalAlignment="Left" Margin="169,30,0,0" VerticalAlignment="Top" Width="44" Click="button_SYSTIME_SETUP_Click"/>
-            <Button x:Name="button_SYS_START" Content="START" HorizontalAlignment="Left" Margin="314,189,0,0" VerticalAlignment="Top" Width="73" ToolTip="Команда общей инициализации" Click="button_SYS_START_Click" />
+            <Button x:Name="button_SYS_START" Content="START" HorizontalAlignment="Left" Margin="39,198,0,0" VerticalAlignment="Top" Width="73" ToolTip="Команда общей инициализации" Click="button_SYS_START_Click" />
 
             <CheckBox x:Name="checkBox_ch1" Content="К1" HorizontalAlignment="Left" Margin="39,162,0,0" VerticalAlignment="Top"/>
             <CheckBox x:Name="checkBox_ch2" Content="К2" HorizontalAlignment="Left" Margin="82,162,0,0" VerticalAlignment="Top"/>
@@ -45,10 +46,10 @@
             <Label    x:Name="label_ch"     Content="Работа/калибровка" HorizontalAlignment="Left" Margin="54,133,0,0" VerticalAlignment="Top" Height="24"/>
             <Button x:Name="button" Content="STATUS" HorizontalAlignment="Left" Margin="39,89,0,0" VerticalAlignment="Top" Width="75" ToolTip="Команда запроса статуса" Click="button_Click" />
             <Label x:Name="label1" Content="ОК" HorizontalAlignment="Left" Margin="129,87,0,0" VerticalAlignment="Top"/>
-            <Label x:Name="label_Copy" Content="адрес сетевой карты" HorizontalAlignment="Left" Margin="284,5,0,0" VerticalAlignment="Top" Width="128"/>
-            <TextBox x:Name="textBox_IP_dest"   HorizontalContentAlignment="Right"  HorizontalAlignment="Left" Height="23" Margin="298,120,0,0" TextWrapping="Wrap" Text="127.0.0.1" VerticalAlignment="Top" Width="96" AcceptsTab="True"/>
-            <TextBox x:Name="textBox_Port_dest" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="298,155,0,0" TextWrapping="Wrap" Text="77" VerticalAlignment="Top" Width="96"/>
-            <Label x:Name="label_Copy1" Content="адрес 072" HorizontalAlignment="Left" Margin="314,95,0,0" VerticalAlignment="Top" Width="65"/>
+            <Label x:Name="label_Copy" Content="адрес сетевой карты" HorizontalAlignment="Left" Margin="284,5,0,0" VerticalAlignment="Top" Width="128" Visibility="Hidden"/>
+            <TextBox x:Name="textBox_IP_dest"   HorizontalContentAlignment="Right"  HorizontalAlignment="Left" Height="23" Margin="298,120,0,0" TextWrapping="Wrap" Text="127.0.0.1" VerticalAlignment="Top" Width="96" AcceptsTab="True" Visibility="Hidden"/>
+            <TextBox x:Name="textBox_Port_dest" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="298,155,0,0" TextWrapping="Wrap" Text="77" VerticalAlignment="Top" Width="96" Visibility="Hidden"/>
+            <Label x:Name="label_Copy1" Content="адрес 072" HorizontalAlignment="Left" Margin="314,95,0,0" VerticalAlignment="Top" Width="65" Visibility="Hidden"/>
 
         </Grid>
 

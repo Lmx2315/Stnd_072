@@ -12,7 +12,12 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
+using System.Xml.Serialization;
+using System.IO;
+using Microsoft.Win32;
+using System.Net;
+using System.Net.Sockets;
+using System.Threading;
 
 namespace Stnd_072
 {
@@ -27,10 +32,19 @@ namespace Stnd_072
         Инициализация panel_Init = null;
         Consol        panel_Cons = null;
 
+        public struct Config
+        {
+            public string my_IP;
+            public string my_PORT;
+            public string dst_IP;
+            public string dst_PORT;
+        }
+
         public UDP_server udp0 ;
         public UDP_sender udp0_sender ;
         int FLAG_SINT_INIT = 0;
 
+        Config cfg = new Config();
         System.Windows.Threading.DispatcherTimer Timer1 = new System.Windows.Threading.DispatcherTimer();
         private void Timer1_Tick(object sender, EventArgs e)
         {
@@ -41,14 +55,14 @@ namespace Stnd_072
             if (Калибровка.init    == false) Панель_калибровки.IsChecked    = false;
             if (Consol.init        == false) Панель_консоли.IsChecked       = false;
 
-            /*
+            
             if (FLAG_SINT_INIT==0)
             {
                 FLAG_SINT_INIT = 1;
                 Панель_синтезатора.IsChecked = true;
                 mnuSint_Click(Панель_синтезатора, null);
             }
-            */
+            
         }
         public MainWindow()
         {
@@ -56,21 +70,16 @@ namespace Stnd_072
             Timer1.Tick += new EventHandler(Timer1_Tick);
             Timer1.Interval = new TimeSpan(0, 0, 0, 0, 250);
             Timer1.Start();//запускаю таймер 
-
-            UDP_server z = new UDP_server(textBox_IP_072.Text,textBox_Port_072.Text);
-            udp0 = z;
-            UDP_sender x = new UDP_sender(textBox_IP_dest.Text,textBox_Port_dest.Text);
-            udp0_sender=x;
-
+            CFG_load();
         }
 
         private void button_SYS_START_Click(object sender, RoutedEventArgs e)
         {
             Log.Write("Инициализируем сервер");
-            UDP_server z = new UDP_server(textBox_IP_072.Text,textBox_Port_072.Text);
+            UDP_server z = new UDP_server(cfg.my_IP, cfg.my_PORT);
             udp0 = z;
-            UDP_sender x = new UDP_sender(textBox_IP_dest.Text,textBox_Port_dest.Text);
-            udp0_sender=x;           
+            UDP_sender x = new UDP_sender(cfg.dst_IP, cfg.dst_PORT);
+            udp0_sender = x;
         }
 //--------------------обработка создания панелей--------------------------
         private void mnuSint_Click(object sender, RoutedEventArgs e)
@@ -235,6 +244,60 @@ namespace Stnd_072
         private void button_SYSTIME_SETUP_Click(object sender, RoutedEventArgs e)
         {
             Log.Write("Посылаем текущее время");
+        }
+
+        private void mnuConfig_Click(object sender, RoutedEventArgs e)
+        {
+            string path = System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase;
+            path = System.IO.Path.GetDirectoryName(path);
+            OpenFileDialog of = new OpenFileDialog();
+            of.Filter = "dat|*.dat";
+            of.Title = "Load config.dat";
+            of.InitialDirectory = path;
+            of.ShowDialog();
+
+            if (of.CheckFileExists == true)
+            {
+                // получаем выбранный файл
+                string filename = of.FileName;
+         //       Console.WriteLine("of.CheckFileExists == true");
+                try
+                {
+                    XmlSerializer xmlSerialaizer = new XmlSerializer(typeof(Config));
+                    FileStream fr = new FileStream(filename, FileMode.Open);
+                    cfg = (Config)xmlSerialaizer.Deserialize(fr);
+                    Log.Write($"Загрузили конфигурационный файл \n server IP:{cfg.my_IP} server PORT:{cfg.my_PORT} \n dst IP:{cfg.dst_IP} dst PORT:{cfg.dst_PORT}");
+                    fr.Close();
+                }
+                catch
+                {
+
+                }
+            }
+        }
+
+        private bool CFG_load ()
+        {
+            bool error = false;
+            string path = System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase;
+            path = System.IO.Path.GetDirectoryName(path);
+
+                // получаем выбранный файл
+                string filename = "cfg.dat";
+                try
+                {
+                    XmlSerializer xmlSerialaizer = new XmlSerializer(typeof(Config));
+                    FileStream fr = new FileStream(filename, FileMode.Open);
+                    cfg = (Config)xmlSerialaizer.Deserialize(fr);
+                    Log.Write($"Загрузили конфигурационный файл \n server IP:{cfg.my_IP} server PORT:{cfg.my_PORT} \n dst IP:{cfg.dst_IP} dst PORT:{cfg.dst_PORT}");
+                    fr.Close();
+                }
+                catch
+                {
+
+                }
+
+            return error;
         }
     }
 }

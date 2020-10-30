@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+  <Config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <my_IP>"127.0.0.1"</my_IP>
+    <my_PORT>"5001"</my_PORT>
+    <dst_IP>"127.0.0.1"</dst_IP>
+    <dst_PORT>"5002"</dst_PORT>
+  </Config>

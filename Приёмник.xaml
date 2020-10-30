@@ -7,16 +7,26 @@
         mc:Ignorable="d"
         Closing="DataWindow_Closing"
         Title="Приёмник" Height="350" Width="400">
-    <Grid>
-        <TextBox x:Name="textBox_Att0" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="22,53,0,0" TextWrapping="Wrap" Text="31" VerticalAlignment="Top" Width="43"/>
-        <Label x:Name="label" Content="Атт0" HorizontalAlignment="Left" Margin="28,27,0,0" VerticalAlignment="Top" Width="43"/>
-        <TextBox x:Name="textBox_Att1" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="70,53,0,0" TextWrapping="Wrap" Text="31" VerticalAlignment="Top" Width="43"/>
-        <Label x:Name="label_Copy" Content="Атт1" HorizontalAlignment="Left" Margin="75,27,0,0" VerticalAlignment="Top" Width="43"/>
-        <TextBox x:Name="textBox_Att2" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="118,53,0,0" TextWrapping="Wrap" Text="31" VerticalAlignment="Top" Width="43"/>
-        <Label x:Name="label_Copy1" Content="Атт2" HorizontalAlignment="Left" Margin="123,27,0,0" VerticalAlignment="Top" Width="43"/>
-        <TextBox x:Name="textBox_Att3" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="166,53,0,0" TextWrapping="Wrap" Text="31" VerticalAlignment="Top" Width="43"/>
-        <Label x:Name="label_Copy2" Content="Атт3" HorizontalAlignment="Left" Margin="171,27,0,0" VerticalAlignment="Top" Width="43"/>
-        <Button x:Name="button" Content="отправить" HorizontalAlignment="Left" Margin="223,53,0,0" VerticalAlignment="Top" Width="64" Click="button_Click"/>
+    <Grid Margin="0,0,0,-1">
+        <TextBox x:Name="textBox_Att0" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="13,38,0,0" TextWrapping="Wrap" Text="31" VerticalAlignment="Top" Width="43"/>
+        <Label x:Name="label" Content="Атт0" HorizontalAlignment="Left" Margin="13,12,0,0" VerticalAlignment="Top" Width="43"/>
+        <TextBox x:Name="textBox_Att1" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="72,38,0,0" TextWrapping="Wrap" Text="31" VerticalAlignment="Top" Width="43"/>
+        <Label x:Name="label_Copy" Content="Атт1" HorizontalAlignment="Left" Margin="72,12,0,0" VerticalAlignment="Top" Width="43"/>
+        <TextBox x:Name="textBox_Att2" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="133,38,0,0" TextWrapping="Wrap" Text="31" VerticalAlignment="Top" Width="43"/>
+        <Label x:Name="label_Copy1" Content="Атт2" HorizontalAlignment="Left" Margin="133,12,0,0" VerticalAlignment="Top" Width="43"/>
+        <TextBox x:Name="textBox_Att3" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="195,38,0,0" TextWrapping="Wrap" Text="31" VerticalAlignment="Top" Width="43"/>
+        <Label x:Name="label_Copy2" Content="Атт3" HorizontalAlignment="Left" Margin="195,12,0,0" VerticalAlignment="Top" Width="43"/>
+        <Button x:Name="button" Content="отправить" HorizontalAlignment="Left" Margin="246,38,0,0" VerticalAlignment="Top" Width="64" Click="button_Click"/>
+        <TextBox x:Name="textBox_CHN" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="326,36,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="64"/>
+        <Label x:Name="label_Copy3" Content="№ канала" HorizontalAlignment="Left" Margin="326,10,0,0" VerticalAlignment="Top" Width="66"/>
+        <CheckBox x:Name="checkBox_SPECTR0" Content="FFT" HorizontalAlignment="Left" Margin="15,62,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="checkBox_TIME0"   Content="time" HorizontalAlignment="Left" Margin="15,83,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="checkBox_SPECTR1" Content="FFT" HorizontalAlignment="Left" Margin="74,62,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="checkBox_TIME1"   Content="time" HorizontalAlignment="Left" Margin="74,83,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="checkBox_SPECTR2" Content="FFT" HorizontalAlignment="Left" Margin="133,62,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="checkBox_TIME2"   Content="time" HorizontalAlignment="Left" Margin="133,83,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="checkBox_SPECTR3" Content="FFT" HorizontalAlignment="Left" Margin="195,62,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="checkBox_TIME3"   Content="time" HorizontalAlignment="Left" Margin="195,83,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>
