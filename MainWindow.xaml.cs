@@ -18,6 +18,7 @@ using Microsoft.Win32;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
+using System.Diagnostics;
 
 namespace Stnd_072
 {
@@ -30,21 +31,14 @@ namespace Stnd_072
         Приёмник      panel_Recv = null;
         Калибровка    panel_Cal  = null;
         Инициализация panel_Init = null;
-        Consol        panel_Cons = null;
-
-        public struct Config
-        {
-            public string my_IP;
-            public string my_PORT;
-            public string dst_IP;
-            public string dst_PORT;
-        }
+        Consol        panel_Cons = null;       
 
         public UDP_server udp0 ;
         public UDP_sender udp0_sender ;
         int FLAG_SINT_INIT = 0;
 
-        Config cfg = new Config();
+        Config cfg = new Config();//тут храним конфигурацию , будем брать её из файла
+
         System.Windows.Threading.DispatcherTimer Timer1 = new System.Windows.Threading.DispatcherTimer();
         private void Timer1_Tick(object sender, EventArgs e)
         {
@@ -54,7 +48,6 @@ namespace Stnd_072
             if (Приёмник.init      == false) Панель_приёмника.IsChecked     = false;
             if (Калибровка.init    == false) Панель_калибровки.IsChecked    = false;
             if (Consol.init        == false) Панель_консоли.IsChecked       = false;
-
             
             if (FLAG_SINT_INIT==0)
             {
@@ -76,7 +69,7 @@ namespace Stnd_072
         private void button_SYS_START_Click(object sender, RoutedEventArgs e)
         {
             Log.Write("Инициализируем сервер");
-            UDP_server z = new UDP_server(cfg.my_IP, cfg.my_PORT);
+            UDP_server z = new UDP_server(cfg.my_IP, cfg.my_PORT,cfg);
             udp0 = z;
             UDP_sender x = new UDP_sender(cfg.dst_IP, cfg.dst_PORT);
             udp0_sender = x;
@@ -93,6 +86,8 @@ namespace Stnd_072
                     Console.WriteLine("Создаём панель");
                     Синтезатор z = new Синтезатор(this);
                     panel_Sint = z;
+                    panel_Sint.Left = 600;//положение левого края панели относительно рабочего стола
+                    panel_Sint.Top = 100; //положение верхнего края панели относительно рабочего стола
                     panel_Sint.Show();
                     panel_Sint.Owner = this;
                 }
@@ -294,8 +289,8 @@ namespace Stnd_072
                 }
                 catch
                 {
-
-                }
+                    Debug.WriteLine("нет файла cfg!");
+                 }
 
             return error;
         }

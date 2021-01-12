@@ -46,20 +46,20 @@ namespace Stnd_072
         Byte[] Rcv_buffer0 = new byte[64000];
         Byte[] Rcv_buffer1 = new byte[64000];
 
-        int MSG_CMD_OK = 3;//квитанция о том что команда выполненна
-
         public bool FLAG_MSG_RCV = false;
         UdpClient _server = null;
         IPEndPoint _client = null;
         Thread _listenThread = null;
         private bool _isServerStarted = false;
 
-       public UDP_server(string ip,string port)//свои адрес и порт!
-        {
-            IPEndPoint serverEnd = new IPEndPoint(IPAddress.Parse(ip), UInt16.Parse(port));
+        Config cfg = new Config();
+
+        public UDP_server(string ip,string port,Config cfg)//свои адрес и порт!
+        {            
             
            try
             {
+                IPEndPoint serverEnd = new IPEndPoint(IPAddress.Parse(ip), UInt16.Parse(port));
                 _server = new UdpClient(serverEnd);
                 _server.Client.ReceiveBufferSize = 8192 * 200;//увеличиваем размер приёмного буфера!!!
 
@@ -70,7 +70,7 @@ namespace Stnd_072
 
                 //Change state to indicate the server starts.
                 _isServerStarted = true;
-
+                this.cfg = cfg;
                 Debug.WriteLine("Waiting for a client...");
             }
            catch (Exception ex)
@@ -112,7 +112,7 @@ namespace Stnd_072
             FLAG_MSG_RCV = false;
 
             MSG1.MSG.CMD.A = new byte[4];
-            //    Debug.WriteLine("------------------");
+            Debug.WriteLine("------------------");
 
             MSG1.Frame_size = Convert.ToUInt16((RCV[0 + tmp] << 8) + RCV[1 + tmp]);
             MSG1.Frame_number = Convert.ToUInt16((RCV[2 + tmp] << 8) + RCV[3 + tmp]);
@@ -124,7 +124,7 @@ namespace Stnd_072
             MSG1.MSG.Msg_type = Convert.ToUInt32((RCV[28] << 24) + (RCV[29] << 16) + (RCV[30] << 8) + (RCV[31] << 0));
             MSG1.MSG.Num_cmd_in_msg = Convert.ToUInt64((RCV[32] << 56) + (RCV[33] << 48) + (RCV[34] << 40) + (RCV[35] << 32) + (RCV[36] << 24) + (RCV[37] << 16) + (RCV[38] << 8) + (RCV[39] << 0));
 
-            /*
+            
             Debug.WriteLine("    Frame_size:" + MSG1.Frame_size);
             Debug.WriteLine("  Frame_number:" + MSG1.Frame_number);
             Debug.WriteLine("   Msg_uniq_id:" + MSG1.Msg_uniq_id);
@@ -133,26 +133,34 @@ namespace Stnd_072
             Debug.WriteLine("      Msg_size:" + MSG1.MSG.Msg_size);
             Debug.WriteLine("      Msg_type:" + MSG1.MSG.Msg_type);
             Debug.WriteLine("Num_cmd_in_msg:" + MSG1.MSG.Num_cmd_in_msg);
-            */
+            
             offset = 40;
 
             for (i = 0; i < Convert.ToInt32(MSG1.MSG.Num_cmd_in_msg); i++)
             {
-                MSG1.MSG.CMD.Cmd_size = Convert.ToUInt32((RCV[offset + 0] << 24) + (RCV[offset + 1] << 16) + (RCV[offset + 2] << 8) + (RCV[offset + 3] << 0));
-                MSG1.MSG.CMD.Cmd_type = Convert.ToUInt32((RCV[offset + 4] << 24) + (RCV[offset + 5] << 16) + (RCV[offset + 6] << 8) + (RCV[offset + 7] << 0));
-                MSG1.MSG.CMD.Cmd_id = Convert.ToUInt64((RCV[offset + 8] << 56) + (RCV[offset + 9] << 48) + (RCV[offset + 10] << 40) + (RCV[offset + 11] << 32) + (RCV[offset + 12] << 24) + (RCV[offset + 13] << 16) + (RCV[offset + 14] << 8) + (RCV[offset + 15] << 0));
+                MSG1.MSG.CMD.Cmd_size = Convert.ToUInt32((RCV[offset + 0]  << 24) + (RCV[offset + 1] << 16) + (RCV[offset + 2] << 8) + (RCV[offset + 3] << 0));
+                MSG1.MSG.CMD.Cmd_type = Convert.ToUInt32((RCV[offset + 4]  << 24) + (RCV[offset + 5] << 16) + (RCV[offset + 6] << 8) + (RCV[offset + 7] << 0));
+                MSG1.MSG.CMD.Cmd_id   = Convert.ToUInt64((RCV[offset + 8]  << 56) + (RCV[offset + 9] << 48) + (RCV[offset + 10] << 40) + (RCV[offset + 11] << 32) + (RCV[offset + 12] << 24) + (RCV[offset + 13] << 16) + (RCV[offset + 14] << 8) + (RCV[offset + 15] << 0));
                 MSG1.MSG.CMD.Cmd_time = Convert.ToUInt64((RCV[offset + 16] << 56) + (RCV[offset + 17] << 48) + (RCV[offset + 18] << 40) + (RCV[offset + 19] << 32) + (RCV[offset + 20] << 24) + (RCV[offset + 21] << 16) + (RCV[offset + 22] << 8) + (RCV[offset + 23] << 0));
 
-                if (MSG1.MSG.CMD.Cmd_type == MSG_CMD_OK)
+                if (MSG1.MSG.CMD.Cmd_type == Convert.ToInt32(cfg.MSG_CMD_OK))
                 {
-                  //  FLAG_TIMER_1 = 0;
+                    //  FLAG_TIMER_1 = 0;
+                    Debug.WriteLine("Принята команда MSG_CMD_OK!");
                 }
-                /*
+
+
+                if (MSG1.MSG.CMD.Cmd_type == Convert.ToInt32(cfg.MSG_STATUS_OK))
+                {
+                    //  FLAG_TIMER_1 = 0;
+                    Debug.WriteLine("Принята команда MSG_STATUS_OK!");
+                }
+
                 Debug.WriteLine("Cmd_size:" + MSG1.MSG.CMD.Cmd_size);
                 Debug.WriteLine("Cmd_type:" + MSG1.MSG.CMD.Cmd_type);
                 Debug.WriteLine("Cmd_id  :" + MSG1.MSG.CMD.Cmd_id);
                 Debug.WriteLine("Cmd_time:" + MSG1.MSG.CMD.Cmd_time);
-                */
+                
                 //---------------------------------------------------------------------------------
 
                 for (j = 0; j < Convert.ToInt32(MSG1.MSG.CMD.Cmd_size); j++)
@@ -160,7 +168,7 @@ namespace Stnd_072
                     MSG1.MSG.CMD.Cmd_data = Convert.ToString(RCV[offset + 24 + j]);
                     MSG1.MSG.CMD.A[j] = RCV[offset + 24 + j];
                     a[3 - j] = RCV[offset + 24 + j];
-                    //if (MSG1.MSG.CMD.Cmd_type == MSG_TEMP_CH1)  Debug.WriteLine("A[j]:" + MSG1.MSG.CMD.A[j]);
+                   // if (MSG1.MSG.CMD.Cmd_type == MSG_TEMP_CH1)  Debug.WriteLine("A[j]:" + MSG1.MSG.CMD.A[j]);
                 }
 
                 switch (MSG1.MSG.CMD.Cmd_type)

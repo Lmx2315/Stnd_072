@@ -6,19 +6,25 @@
         xmlns:local="clr-namespace:Stnd_072"
         Closing="DataWindow_Closing"
         mc:Ignorable="d"        
-        Title="Инициализация" Height="300" Width="150" MinWidth="150" MinHeight="300" MaxWidth="150" MaxHeight="250">
+        Title="Инициализация" Height="300" Width="200" MinWidth="200" MinHeight="300" MaxWidth="150" MaxHeight="250">
 
-    <Grid Width="142" Margin="0,0,0,-4">
-        <Button x:Name="button_DAC0_init" Content="ЦАП0 иниц." HorizontalAlignment="Left" Margin="23,58,0,0" VerticalAlignment="Top" Width="73" ToolTip="Команда общей инициализации" Click="button_DAC0_init_Click" />
-        <Button x:Name="button_DAC1_init" Content="ЦАП1 иниц." HorizontalAlignment="Left" Margin="23,92,0,0" VerticalAlignment="Top" Width="73" ToolTip="Команда общей инициализации" />
-        <Button x:Name="button_ADC0_init" Content="АЦП0 иниц." HorizontalAlignment="Left" Margin="23,128,0,0" VerticalAlignment="Top" Width="73" ToolTip="Команда общей инициализации" />
-        <Button x:Name="button_ADC1_init" Content="АЦП1 иниц." HorizontalAlignment="Left" Margin="23,162,0,0" VerticalAlignment="Top" Width="73" ToolTip="Команда общей инициализации" />
-        <Button x:Name="button_PLL_init" Content="PLL иниц." HorizontalAlignment="Left" Margin="23,198,0,0" VerticalAlignment="Top" Width="73" ToolTip="Команда общей инициализации" />
+    <Grid Margin="10,0,25,-4">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="87*"/>
+            <RowDefinition Height="29*"/>
+            <RowDefinition Height="116*"/>
+            <RowDefinition Height="42*"/>
+        </Grid.RowDefinitions>
+        <Button x:Name="button_DAC0_init" Content="ЦАП0 иниц." HorizontalAlignment="Left" Margin="8,66,0,0" VerticalAlignment="Top" Width="72" ToolTip="Команда общей инициализации" Click="button_DAC0_init_Click" Grid.RowSpan="2" />
+        <Button x:Name="button_DAC1_init" Content="ЦАП1 иниц." HorizontalAlignment="Left" Margin="8,13,0,0" VerticalAlignment="Top" Width="72" ToolTip="Команда общей инициализации" Grid.RowSpan="2" Grid.Row="1" />
+        <Button x:Name="button_ADC0_init" Content="АЦП0 иниц." HorizontalAlignment="Left" Margin="8,20,0,0" VerticalAlignment="Top" Width="72" ToolTip="Команда общей инициализации" Grid.Row="2" />
+        <Button x:Name="button_ADC1_init" Content="АЦП1 иниц." HorizontalAlignment="Left" Margin="8,54,0,0" VerticalAlignment="Top" Width="72" ToolTip="Команда общей инициализации" Grid.Row="2" />
+        <Button x:Name="button_PLL_init" Content="PLL иниц." HorizontalAlignment="Left" Margin="8,90,0,0" VerticalAlignment="Top" Width="72" ToolTip="Команда общей инициализации" Grid.Row="2" />
 
-        <Label x:Name="label_ADC1_init" Content="OK" HorizontalAlignment="Left" Margin="101,160,0,0" VerticalAlignment="Top" Height="22" FontSize="10"/>
-        <Label x:Name="label_ADC0_init" Content="OK" HorizontalAlignment="Left" Margin="101,126,0,0" VerticalAlignment="Top" Height="22" FontSize="10"/>
-        <Label x:Name="label__PLL_init" Content="OK" HorizontalAlignment="Left" Margin="101,198,0,0" VerticalAlignment="Top" Height="22" FontSize="10"/>
-        <Label x:Name="label_DAC0_init" Content="OK" HorizontalAlignment="Left" Margin="101,58,0,0" VerticalAlignment="Top" Height="22" FontSize="10"/>
-        <Label x:Name="label_DAC1_init" Content="OK" HorizontalAlignment="Left" Margin="101,92,0,0" VerticalAlignment="Top" Height="22" FontSize="10"/>
+        <Label x:Name="label_ADC1_init" Content="OK" HorizontalAlignment="Left" Margin="86,52,0,0" VerticalAlignment="Top" Height="22" FontSize="10" Grid.Row="2"/>
+        <Label x:Name="label_ADC0_init" Content="OK" HorizontalAlignment="Left" Margin="86,18,0,0" VerticalAlignment="Top" Height="22" FontSize="10" Grid.Row="2"/>
+        <Label x:Name="label__PLL_init" Content="OK" HorizontalAlignment="Left" Margin="86,90,0,0" VerticalAlignment="Top" Height="22" FontSize="10" Grid.Row="2"/>
+        <Label x:Name="label_DAC0_init" Content="OK" HorizontalAlignment="Left" Margin="86,66,0,0" VerticalAlignment="Top" Height="22" FontSize="10" Grid.RowSpan="2"/>
+        <Label x:Name="label_DAC1_init" Content="OK" HorizontalAlignment="Left" Margin="86,13,0,0" VerticalAlignment="Top" Height="22" FontSize="10" Grid.RowSpan="2" Grid.Row="1"/>
     </Grid>
 </Window>
