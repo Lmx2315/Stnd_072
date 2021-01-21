@@ -40,7 +40,6 @@ namespace Stnd_072
             public Message MSG;
         }
 
-        Frame FRAME;
         Frame MSG1 = new Frame();
 
         Byte[] Rcv_buffer0 = new byte[64000];
@@ -49,13 +48,11 @@ namespace Stnd_072
         public bool FLAG_MSG_RCV = false;
         UdpClient _server = null;
         IPEndPoint _client = null;
-        Thread _listenThread = null;
-        private bool _isServerStarted = false;
+        Config cfg = null;
+        STATUS_b072 b072 = null;
 
-        Config cfg = new Config();
-
-        public UDP_server(string ip,string port,Config cfg)//свои адрес и порт!
-        {            
+        public UDP_server(string ip,string port,Config cfg, STATUS_b072 b072)//свои адрес и порт!
+        {           
             
            try
             {
@@ -69,8 +66,8 @@ namespace Stnd_072
                 listenThread.Start();
 
                 //Change state to indicate the server starts.
-                _isServerStarted = true;
                 this.cfg = cfg;
+                this.b072 = b072;
                 Debug.WriteLine("Waiting for a client...");
             }
            catch (Exception ex)
@@ -89,7 +86,7 @@ namespace Stnd_072
                 {
                     //receieve a message form a client.
                     byte[] data = _server.Receive(ref _client);
-                    Debug.WriteLine("UDP rcv");
+                  //  Debug.WriteLine("UDP rcv");
                     Array.Copy(data, Rcv_buffer0, data.Length);//копируем массив отсчётов в форму обработки   
                     UDP_BUF_DESCRIPT(Rcv_buffer0);
                 }
@@ -111,8 +108,8 @@ namespace Stnd_072
 
             FLAG_MSG_RCV = false;
 
-            MSG1.MSG.CMD.A = new byte[4];
-            Debug.WriteLine("------------------");
+            MSG1.MSG.CMD.A = new byte[256];//массив с принимаемыми данными
+      //      Debug.WriteLine("------------------");
 
             MSG1.Frame_size = Convert.ToUInt16((RCV[0 + tmp] << 8) + RCV[1 + tmp]);
             MSG1.Frame_number = Convert.ToUInt16((RCV[2 + tmp] << 8) + RCV[3 + tmp]);
@@ -124,7 +121,7 @@ namespace Stnd_072
             MSG1.MSG.Msg_type = Convert.ToUInt32((RCV[28] << 24) + (RCV[29] << 16) + (RCV[30] << 8) + (RCV[31] << 0));
             MSG1.MSG.Num_cmd_in_msg = Convert.ToUInt64((RCV[32] << 56) + (RCV[33] << 48) + (RCV[34] << 40) + (RCV[35] << 32) + (RCV[36] << 24) + (RCV[37] << 16) + (RCV[38] << 8) + (RCV[39] << 0));
 
-            
+            /*
             Debug.WriteLine("    Frame_size:" + MSG1.Frame_size);
             Debug.WriteLine("  Frame_number:" + MSG1.Frame_number);
             Debug.WriteLine("   Msg_uniq_id:" + MSG1.Msg_uniq_id);
@@ -133,7 +130,7 @@ namespace Stnd_072
             Debug.WriteLine("      Msg_size:" + MSG1.MSG.Msg_size);
             Debug.WriteLine("      Msg_type:" + MSG1.MSG.Msg_type);
             Debug.WriteLine("Num_cmd_in_msg:" + MSG1.MSG.Num_cmd_in_msg);
-            
+            */
             offset = 40;
 
             for (i = 0; i < Convert.ToInt32(MSG1.MSG.Num_cmd_in_msg); i++)
@@ -146,44 +143,179 @@ namespace Stnd_072
                 if (MSG1.MSG.CMD.Cmd_type == Convert.ToInt32(cfg.MSG_CMD_OK))
                 {
                     //  FLAG_TIMER_1 = 0;
-                    Debug.WriteLine("Принята команда MSG_CMD_OK!");
+                //    Debug.WriteLine("Принята команда MSG_CMD_OK!");
                 }
 
 
                 if (MSG1.MSG.CMD.Cmd_type == Convert.ToInt32(cfg.MSG_STATUS_OK))
                 {
                     //  FLAG_TIMER_1 = 0;
-                    Debug.WriteLine("Принята команда MSG_STATUS_OK!");
+               //     Debug.WriteLine("Принята команда MSG_STATUS_OK!");
                 }
-
+                /*
                 Debug.WriteLine("Cmd_size:" + MSG1.MSG.CMD.Cmd_size);
                 Debug.WriteLine("Cmd_type:" + MSG1.MSG.CMD.Cmd_type);
                 Debug.WriteLine("Cmd_id  :" + MSG1.MSG.CMD.Cmd_id);
                 Debug.WriteLine("Cmd_time:" + MSG1.MSG.CMD.Cmd_time);
-                
+                */
                 //---------------------------------------------------------------------------------
 
-                for (j = 0; j < Convert.ToInt32(MSG1.MSG.CMD.Cmd_size); j++)
+                for (j = 0; j < Convert.ToInt32(MSG1.MSG.CMD.Cmd_size); j++)//заполняем массив принятыми данными - DATA
                 {
                     MSG1.MSG.CMD.Cmd_data = Convert.ToString(RCV[offset + 24 + j]);
                     MSG1.MSG.CMD.A[j] = RCV[offset + 24 + j];
-                    a[3 - j] = RCV[offset + 24 + j];
-                   // if (MSG1.MSG.CMD.Cmd_type == MSG_TEMP_CH1)  Debug.WriteLine("A[j]:" + MSG1.MSG.CMD.A[j]);
                 }
 
-                switch (MSG1.MSG.CMD.Cmd_type)
+                if (MSG1.MSG.CMD.Cmd_type== Convert.ToInt32(cfg.MSG_STATUS_OK))
                 {
-                    case 0: break;
+                    int n = 0;
+                    b072.DAC0.dac_pll_locked    = MSG1.MSG.CMD.A[n++];
+                    b072.DAC0.ALARM_ERROR       = (MSG1.MSG.CMD.A[n++]<<8)+(MSG1.MSG.CMD.A[n++]);
+                    b072.DAC0.SYNC_N_ERROR      = MSG1.MSG.CMD.A[n++];
+                    b072.DAC0.INIT              = MSG1.MSG.CMD.A[n++];
+                    b072.DAC0.alarms_from_lanes = MSG1.MSG.CMD.A[n++];
+                    b072.DAC0.memin_pll_lfvolt  = MSG1.MSG.CMD.A[n++];
+                    b072.DAC0.alarm_rw0_pll     = MSG1.MSG.CMD.A[n++]; 
+                    b072.DAC0.alarm_sysref_err  = MSG1.MSG.CMD.A[n++];
+                    b072.DAC0.alarm_l_error_0   = MSG1.MSG.CMD.A[n++];
+                    b072.DAC0.alarm_fifo_flags_0= MSG1.MSG.CMD.A[n++]; 
+                    b072.DAC0.alarm_l_error_1   = MSG1.MSG.CMD.A[n++];
+                    b072.DAC0.alarm_fifo_flags_1= MSG1.MSG.CMD.A[n++];
+                    b072.DAC0.error_count_link0 = (MSG1.MSG.CMD.A[n++] << 8) + (MSG1.MSG.CMD.A[n++]);
+                    b072.DAC0.error_count_link1 = (MSG1.MSG.CMD.A[n++] << 8) + (MSG1.MSG.CMD.A[n++]);
+                    b072.DAC0.TEMP              = MSG1.MSG.CMD.A[n++];
+                    /*
+                    Debug.WriteLine("");
+                    Debug.WriteLine("DAC0.dac_pll_locked     :" + b072.DAC0.dac_pll_locked);
+                    Debug.WriteLine("DAC0.ALARM_ERROR        :" + b072.DAC0.ALARM_ERROR);
+                    Debug.WriteLine("DAC0.SYNC_N_ERROR       :" + b072.DAC0.SYNC_N_ERROR);
+                    Debug.WriteLine("DAC0.INIT               :" + b072.DAC0.INIT);
+                    Debug.WriteLine("DAC0.alarms_from_lanes  :" + b072.DAC0.alarms_from_lanes);
+                    Debug.WriteLine("DAC0.memin_pll_lfvolt   :" + b072.DAC0.memin_pll_lfvolt);
+                    Debug.WriteLine("DAC0.alarm_rw0_pll      :" + b072.DAC0.alarm_rw0_pll);
+                    Debug.WriteLine("DAC0.alarm_sysref_err   :" + b072.DAC0.alarm_sysref_err);
+                    Debug.WriteLine("DAC0.alarm_l_error_0    :" + b072.DAC0.alarm_l_error_0);
+                    Debug.WriteLine("DAC0.alarm_fifo_flags_0 :" + b072.DAC0.alarm_fifo_flags_0);
+                    Debug.WriteLine("DAC0.alarm_l_error_1    :" + b072.DAC0.alarm_l_error_1);
+                    Debug.WriteLine("DAC0.alarm_fifo_flags_1 :" + b072.DAC0.alarm_fifo_flags_1);
+                    Debug.WriteLine("DAC0.error_count_link0  :" + b072.DAC0.error_count_link0);
+                    Debug.WriteLine("DAC0.error_count_link1  :" + b072.DAC0.error_count_link1);
+                    Debug.WriteLine("");
+                    */
+                    b072.DAC1.dac_pll_locked     = MSG1.MSG.CMD.A[n++];
+                    b072.DAC1.ALARM_ERROR        = (MSG1.MSG.CMD.A[n++] << 8) + (MSG1.MSG.CMD.A[n++]);
+                    b072.DAC1.SYNC_N_ERROR       = MSG1.MSG.CMD.A[n++];
+                    b072.DAC1.INIT               = MSG1.MSG.CMD.A[n++];
+                    b072.DAC1.alarms_from_lanes  = MSG1.MSG.CMD.A[n++];
+                    b072.DAC1.memin_pll_lfvolt   = MSG1.MSG.CMD.A[n++];
+                    b072.DAC1.alarm_rw0_pll      = MSG1.MSG.CMD.A[n++];
+                    b072.DAC1.alarm_sysref_err   = MSG1.MSG.CMD.A[n++];
+                    b072.DAC1.alarm_l_error_0    = MSG1.MSG.CMD.A[n++];
+                    b072.DAC1.alarm_fifo_flags_0 = MSG1.MSG.CMD.A[n++];
+                    b072.DAC1.alarm_l_error_1    = MSG1.MSG.CMD.A[n++];
+                    b072.DAC1.alarm_fifo_flags_1 = MSG1.MSG.CMD.A[n++];
+                    b072.DAC1.error_count_link0  = (MSG1.MSG.CMD.A[n++] << 8) + (MSG1.MSG.CMD.A[n++]);
+                    b072.DAC1.error_count_link1  = (MSG1.MSG.CMD.A[n++] << 8) + (MSG1.MSG.CMD.A[n++]);
+                    b072.DAC1.TEMP               = MSG1.MSG.CMD.A[n++];
+                    /*
+                    Debug.WriteLine("");
+                    Debug.WriteLine("DAC1.dac_pll_locked     :" + b072.DAC1.dac_pll_locked);
+                    Debug.WriteLine("DAC1.ALARM_ERROR        :" + b072.DAC1.ALARM_ERROR);
+                    Debug.WriteLine("DAC1.SYNC_N_ERROR       :" + b072.DAC1.SYNC_N_ERROR);
+                    Debug.WriteLine("DAC1.INIT               :" + b072.DAC1.INIT);
+                    Debug.WriteLine("DAC1.alarms_from_lanes  :" + b072.DAC1.alarms_from_lanes);
+                    Debug.WriteLine("DAC1.memin_pll_lfvolt   :" + b072.DAC1.memin_pll_lfvolt);
+                    Debug.WriteLine("DAC1.alarm_rw0_pll      :" + b072.DAC1.alarm_rw0_pll);
+                    Debug.WriteLine("DAC1.alarm_sysref_err   :" + b072.DAC1.alarm_sysref_err);
+                    Debug.WriteLine("DAC1.alarm_l_error_0    :" + b072.DAC1.alarm_l_error_0);
+                    Debug.WriteLine("DAC1.alarm_fifo_flags_0 :" + b072.DAC1.alarm_fifo_flags_0);
+                    Debug.WriteLine("DAC1.alarm_l_error_1    :" + b072.DAC1.alarm_l_error_1);
+                    Debug.WriteLine("DAC1.alarm_fifo_flags_1 :" + b072.DAC1.alarm_fifo_flags_1);
+                    Debug.WriteLine("DAC1.error_count_link0  :" + b072.DAC1.error_count_link0);
+                    Debug.WriteLine("DAC1.error_count_link1  :" + b072.DAC1.error_count_link1);
+                    Debug.WriteLine("");
+                    */
+
+                    b072.ADC0.INIT               = MSG1.MSG.CMD.A[n++];
+                    b072.ADC0.rx_datak_adc       = MSG1.MSG.CMD.A[n++];
+                    b072.ADC0.rx_errdetect_adc   = MSG1.MSG.CMD.A[n++]; 
+                    b072.ADC0.align_ok_adc       = MSG1.MSG.CMD.A[n++]; 
+                    b072.ADC0.rx_ready_adc       = MSG1.MSG.CMD.A[n++];
+                    b072.ADC0.sync_n_adc         = MSG1.MSG.CMD.A[n++]; 
+                    b072.ADC0.rx_syncstatus_adc  = MSG1.MSG.CMD.A[n++];
+                    b072.ADC0.align_adc          = MSG1.MSG.CMD.A[n++]; 
+                    b072.ADC0.error_adc          = (MSG1.MSG.CMD.A[n++] << 8) + (MSG1.MSG.CMD.A[n++]);
+                    b072.ADC0.error_sysref_adc   = (MSG1.MSG.CMD.A[n++] << 8) + (MSG1.MSG.CMD.A[n++]);
+                    /*
+                    Debug.WriteLine("");
+                    Debug.WriteLine("ADC0.INIT               :" + b072.ADC0.INIT);
+                    Debug.WriteLine("ADC0.rx_datak_adc       :" + b072.ADC0.rx_datak_adc);
+                    Debug.WriteLine("ADC0.rx_errdetect_adc   :" + b072.ADC0.rx_errdetect_adc);
+                    Debug.WriteLine("ADC0.align_ok_adc       :" + b072.ADC0.align_ok_adc.ToString("X"));
+                    Debug.WriteLine("ADC0.rx_ready_adc       :" + b072.ADC0.rx_ready_adc.ToString("X"));
+                    Debug.WriteLine("ADC0.sync_n_adc         :" + b072.ADC0.sync_n_adc);
+                    Debug.WriteLine("ADC0.rx_syncstatus_adc  :" + b072.ADC0.rx_syncstatus_adc.ToString("X"));
+                    Debug.WriteLine("ADC0.align_adc          :" + b072.ADC0.align_adc.ToString("X"));
+                    Debug.WriteLine("ADC0.error_adc          :" + b072.ADC0.error_adc);
+                    Debug.WriteLine("ADC0.error_sysref_adc   :" + b072.ADC0.error_sysref_adc);
+                    Debug.WriteLine("");
+                    */
+                    b072.ADC1.INIT               = MSG1.MSG.CMD.A[n++];
+                    b072.ADC1.rx_datak_adc       = MSG1.MSG.CMD.A[n++];
+                    b072.ADC1.rx_errdetect_adc   = MSG1.MSG.CMD.A[n++];
+                    b072.ADC1.align_ok_adc       = MSG1.MSG.CMD.A[n++];
+                    b072.ADC1.rx_ready_adc       = MSG1.MSG.CMD.A[n++];
+                    b072.ADC1.sync_n_adc         = MSG1.MSG.CMD.A[n++];
+                    b072.ADC1.rx_syncstatus_adc  = MSG1.MSG.CMD.A[n++];
+                    b072.ADC1.align_adc          = MSG1.MSG.CMD.A[n++];
+                    b072.ADC1.error_adc          = (MSG1.MSG.CMD.A[n++] << 8) + (MSG1.MSG.CMD.A[n++]);
+                    b072.ADC1.error_sysref_adc   = (MSG1.MSG.CMD.A[n++] << 8) + (MSG1.MSG.CMD.A[n++]);
+                    /*
+                    Debug.WriteLine("");
+                    Debug.WriteLine("ADC1.INIT               :" + b072.ADC1.INIT);
+                    Debug.WriteLine("ADC1.rx_datak_adc       :" + b072.ADC1.rx_datak_adc.ToString("X"));
+                    Debug.WriteLine("ADC1.rx_errdetect_adc   :" + b072.ADC1.rx_errdetect_adc);
+                    Debug.WriteLine("ADC1.align_ok_adc       :" + b072.ADC1.align_ok_adc.ToString("X"));
+                    Debug.WriteLine("ADC1.rx_ready_adc       :" + b072.ADC1.rx_ready_adc);
+                    Debug.WriteLine("ADC1.sync_n_adc         :" + b072.ADC1.sync_n_adc);
+                    Debug.WriteLine("ADC1.rx_syncstatus_adc  :" + b072.ADC1.rx_syncstatus_adc.ToString("X"));
+                    Debug.WriteLine("ADC1.align_adc          :" + b072.ADC1.align_adc.ToString("X"));
+                    Debug.WriteLine("ADC1.error_adc          :" + b072.ADC1.error_adc);
+                    Debug.WriteLine("ADC1.error_sysref_adc   :" + b072.ADC1.error_sysref_adc);
+                    Debug.WriteLine("");
+                    */
+                    b072.LMK.lb                  = (MSG1.MSG.CMD.A[n++] << 8) + (MSG1.MSG.CMD.A[n++]);
+                    b072.LMK.RB_DAC_VALUE        = (MSG1.MSG.CMD.A[n++] << 8) + (MSG1.MSG.CMD.A[n++]);
+                    b072.LMK.PLL2_LD             =  MSG1.MSG.CMD.A[n++];
+                    b072.LMK.PLL1_LD             =  MSG1.MSG.CMD.A[n++];
+                    /*
+                    Debug.WriteLine("");
+                    Debug.WriteLine("LMK.lb       :" + b072.LMK.lb.ToString("X"));
+                    Debug.WriteLine("RB_DAC_VALUE :" + b072.LMK.RB_DAC_VALUE.ToString("X"));
+                    Debug.WriteLine("LMK.PLL2_LD  :" + b072.LMK.PLL2_LD);
+                    Debug.WriteLine("LMK.PLL1_LD  :" + b072.LMK.PLL1_LD);
+                    Debug.WriteLine("");
+                    */
+                    b072.FPGA.TEMP               = MSG1.MSG.CMD.A[n++];
+                    b072.BRD.TEMP0               = MSG1.MSG.CMD.A[n++];
+                    b072.BRD.TEMP1               = MSG1.MSG.CMD.A[n++];
+                    /*
+                    Debug.WriteLine("");
+                    Debug.WriteLine("DAC0.TEMP :" + b072.DAC0.TEMP);
+                    Debug.WriteLine("DAC1.TEMP :" + b072.DAC1.TEMP);
+                    Debug.WriteLine("FPGA.TEMP :" + b072.FPGA.TEMP);
+                    Debug.WriteLine("BRD.TEMP0 :" + b072.BRD.TEMP0);
+                    Debug.WriteLine("BRD.TEMP1 :" + b072.BRD.TEMP1);
+                    */
                 }
 
-                // TEMP_channel(MSG1.MSG.CMD.A);
+          
 
                 offset = offset + 24 + j;
             }
 
             FLAG_MSG_RCV = true;
         }
-
 
     }
 }

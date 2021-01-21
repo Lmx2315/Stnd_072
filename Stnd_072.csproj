@@ -60,11 +60,31 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ADC_panel.xaml.cs">
+      <DependentUpon>ADC_panel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ADC_status.cs" />
+    <Compile Include="BOARD_panel.xaml.cs">
+      <DependentUpon>BOARD_panel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="BOARD_status.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="Consol.xaml.cs">
       <DependentUpon>Consol.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DAC_panel.xaml.cs">
+      <DependentUpon>DAC_panel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DAC_status.cs" />
+    <Compile Include="DDS_code.cs" />
+    <Compile Include="FPGA_panel.xaml.cs">
+      <DependentUpon>FPGA_panel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FPGA_status.cs" />
+    <Compile Include="LMK_status.cs" />
     <Compile Include="Loghelper.cs" />
+    <Compile Include="STATUS_b072.cs" />
+    <Compile Include="Sys_status_072.cs" />
     <Compile Include="UDP_sender.cs" />
     <Compile Include="UDP_server.cs" />
     <Compile Include="Инициализация.xaml.cs">
@@ -79,7 +99,23 @@
     <Compile Include="Синтезатор.xaml.cs">
       <DependentUpon>Синтезатор.xaml</DependentUpon>
     </Compile>
+    <Page Include="ADC_panel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="BOARD_panel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Consol.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DAC_panel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="FPGA_panel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

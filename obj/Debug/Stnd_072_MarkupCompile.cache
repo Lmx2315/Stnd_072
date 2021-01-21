@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Work_murmansk\CSHARP_STEND\Stnd_072\obj\Debug\
+C:\Work_murmansk\SOFT_comp\STEND_072\Stnd_072\obj\Debug\
 Stnd_072
 none
 false
 DEBUG;TRACE
-C:\Work_murmansk\CSHARP_STEND\Stnd_072\App.xaml
-6-45494918
+C:\Work_murmansk\SOFT_comp\STEND_072\Stnd_072\App.xaml
+101890659641
 
-14-1563806287
+2644327831
 15-1358686748
-Consol.xaml;MainWindow.xaml;Инициализация.xaml;Калибровка.xaml;Приёмник.xaml;Синтезатор.xaml;
+ADC_panel.xaml;BOARD_panel.xaml;Consol.xaml;DAC_panel.xaml;FPGA_panel.xaml;MainWindow.xaml;Инициализация.xaml;Калибровка.xaml;Приёмник.xaml;Синтезатор.xaml;
 
 False
 

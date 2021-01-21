@@ -15,6 +15,5 @@ namespace Stnd_072
 
             public string MSG_CMD_OK;//
             public string MSG_STATUS_OK;//
-
     }
 }

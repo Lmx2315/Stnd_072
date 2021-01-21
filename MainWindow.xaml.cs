@@ -31,13 +31,31 @@ namespace Stnd_072
         Приёмник      panel_Recv = null;
         Калибровка    panel_Cal  = null;
         Инициализация panel_Init = null;
-        Consol        panel_Cons = null;       
+        Consol        panel_Cons = null;
+        DAC_panel     panel_DAC0 = null;
+        DAC_panel     panel_DAC1 = null;
+        ADC_panel     panel_ADC0 = null;
+        ADC_panel     panel_ADC1 = null;
+        FPGA_panel    panel_FPGA = null;
+        BOARD_panel   panel_BOARD = null;
+
+        DDS_code dds_code   = null;
+        public List<DDS_code> list = null;
 
         public UDP_server udp0 ;
         public UDP_sender udp0_sender ;
         int FLAG_SINT_INIT = 0;
 
         Config cfg = new Config();//тут храним конфигурацию , будем брать её из файла
+
+        public STATUS_b072 b072 = new STATUS_b072();//структура хранит состояния составляющих кассеты 072
+        /*
+        DAC_status DAC0  = new DAC_status();
+        DAC_status DAC1  = new DAC_status();
+        ADC_status ADC0  = new ADC_status();
+        ADC_status ADC1  = new ADC_status();
+        LMK_status LMK   = new LMK_status();
+        BOARD_status BRD = new BOARD_status();*/
 
         System.Windows.Threading.DispatcherTimer Timer1 = new System.Windows.Threading.DispatcherTimer();
         private void Timer1_Tick(object sender, EventArgs e)
@@ -52,10 +70,11 @@ namespace Stnd_072
             if (FLAG_SINT_INIT==0)
             {
                 FLAG_SINT_INIT = 1;
-                Панель_синтезатора.IsChecked = true;
+                Панель_синтезатора.IsChecked = true;                
                 mnuSint_Click(Панель_синтезатора, null);
             }
-            
+            CMD_REAL_TIME_SEND();
+            SYS_CONTROL();
         }
         public MainWindow()
         {
@@ -64,17 +83,107 @@ namespace Stnd_072
             Timer1.Interval = new TimeSpan(0, 0, 0, 0, 250);
             Timer1.Start();//запускаю таймер 
             CFG_load();
+            b072.DAC0 = new DAC_status();
+            b072.DAC1 = new DAC_status();
+            b072.ADC0 = new ADC_status();
+            b072.ADC1 = new ADC_status();
+            b072.LMK  = new LMK_status();
+            b072.BRD  = new BOARD_status();
+            b072.FPGA = new FPGA_status();
         }
 
         private void button_SYS_START_Click(object sender, RoutedEventArgs e)
         {
             Log.Write("Инициализируем сервер");
-            UDP_server z = new UDP_server(cfg.my_IP, cfg.my_PORT,cfg);
+            UDP_server z = new UDP_server(cfg.my_IP, cfg.my_PORT,cfg,b072);
             udp0 = z;
             UDP_sender x = new UDP_sender(cfg.dst_IP, cfg.dst_PORT);
             udp0_sender = x;
         }
-//--------------------обработка создания панелей--------------------------
+        //--------------------обработка создания панелей--------------------------
+        private void button_DAC0_Click(object sender, RoutedEventArgs e)
+        {
+            if (DAC_panel.DAC0 == false)
+            {
+                Console.WriteLine("Создаём панель");
+                DAC_panel z = new DAC_panel(this,"DAC0");
+                panel_DAC0 = z;
+                panel_DAC0.Left = 600;//положение левого края панели относительно рабочего стола
+                panel_DAC0.Top = 100; //положение верхнего края панели относительно рабочего стола
+                panel_DAC0.Show();
+                panel_DAC0.Owner = this;
+            }
+        }
+        private void button_DAC1_Click(object sender, RoutedEventArgs e)
+        {
+            if (DAC_panel.DAC1 == false)
+            {
+                Console.WriteLine("Создаём панель");
+                DAC_panel z = new DAC_panel(this, "DAC1");
+                panel_DAC1 = z;
+                panel_DAC1.Left = 600;//положение левого края панели относительно рабочего стола
+                panel_DAC1.Top = 100; //положение верхнего края панели относительно рабочего стола
+                panel_DAC1.Show();
+                panel_DAC1.Owner = this;
+            }
+        }
+
+        private void button_ADC0_Click(object sender, RoutedEventArgs e)
+        {
+            if (ADC_panel.ADC0 == false)
+            {
+                Console.WriteLine("Создаём панель");
+                ADC_panel z = new ADC_panel(this, "ADC0");
+                panel_ADC0 = z;
+                panel_ADC0.Left = 600;//положение левого края панели относительно рабочего стола
+                panel_ADC0.Top = 100; //положение верхнего края панели относительно рабочего стола
+                panel_ADC0.Show();
+                panel_ADC0.Owner = this;
+            }
+        }
+
+        private void button_ADC1_Click(object sender, RoutedEventArgs e)
+        {
+            if (ADC_panel.ADC1 == false)
+            {
+                Console.WriteLine("Создаём панель");
+                ADC_panel z = new ADC_panel(this, "ADC1");
+                panel_ADC1 = z;
+                panel_ADC1.Left = 600;//положение левого края панели относительно рабочего стола
+                panel_ADC1.Top = 100; //положение верхнего края панели относительно рабочего стола
+                panel_ADC1.Show();
+                panel_ADC1.Owner = this;
+            }
+        }
+
+        private void button_FPGA_Click(object sender, RoutedEventArgs e)
+        {
+            if (FPGA_panel.FPGA == false)
+            {
+                Console.WriteLine("Создаём панель");
+                FPGA_panel z = new FPGA_panel(this, "FPGA");
+                panel_FPGA = z;
+                panel_FPGA.Left = 600;//положение левого края панели относительно рабочего стола
+                panel_FPGA.Top = 100; //положение верхнего края панели относительно рабочего стола
+                panel_FPGA.Show();
+                panel_FPGA.Owner = this;
+            }
+        }
+
+        private void button_BOARD_Click(object sender, RoutedEventArgs e)
+        {
+            if (BOARD_panel.BOARD == false)
+            {
+                Console.WriteLine("Создаём панель");
+                BOARD_panel z = new BOARD_panel(this, "BOARD");
+                panel_BOARD = z;
+                panel_BOARD.Left = 600;//положение левого края панели относительно рабочего стола
+                panel_BOARD.Top = 100; //положение верхнего края панели относительно рабочего стола
+                panel_BOARD.Show();
+                panel_BOARD.Owner = this;
+            }
+        }
+
         private void mnuSint_Click(object sender, RoutedEventArgs e)
         {
             var item = sender as MenuItem;
@@ -86,8 +195,8 @@ namespace Stnd_072
                     Console.WriteLine("Создаём панель");
                     Синтезатор z = new Синтезатор(this);
                     panel_Sint = z;
-                    panel_Sint.Left = 600;//положение левого края панели относительно рабочего стола
-                    panel_Sint.Top = 100; //положение верхнего края панели относительно рабочего стола
+                    panel_Sint.Left = 500;//положение левого края панели относительно рабочего стола
+                    panel_Sint.Top  = 0; //положение верхнего края панели относительно рабочего стола
                     panel_Sint.Show();
                     panel_Sint.Owner = this;
                 }
@@ -232,8 +341,6 @@ namespace Stnd_072
                 Console.WriteLine("Проблема с UDP!");
                         Log.Write("Проблема с UDP!");
             }
-            
-
         }
 
         private void button_SYSTIME_SETUP_Click(object sender, RoutedEventArgs e)
@@ -294,5 +401,116 @@ namespace Stnd_072
 
             return error;
         }
+
+        void CMD_REAL_TIME_SEND()
+        {
+            if (list!=null)
+            {
+                Console.WriteLine("список не пустой!");
+                list = null;
+            }
+        }
+
+
+        private void SYS_CONTROL ()
+        {
+            int error = 0;
+            string msg="";
+ 
+            if (b072.ADC0.INIT == 1)
+            {
+                if((b072.ADC0.align_ok_adc != 0x0A)&&
+                   (b072.ADC0.align_ok_adc != 0x05))     { error++; msg += "align_ok_adc     :" + b072.ADC0.align_ok_adc.ToString("X") + "\r"; }
+                if (b072.ADC0.rx_ready_adc != 1)         { error++; msg += "rx_ready_adc     :" + b072.ADC0.rx_ready_adc.ToString("X") + "\r"; }
+                if (b072.ADC0.sync_n_adc   != 1)         { error++; msg += "sync_n_adc       :" + b072.ADC0.sync_n_adc.ToString("X") + "\r"; }
+                if (b072.ADC0.rx_syncstatus_adc != 0xFF) { error++; msg += "rx_syncstatus_adc:" + b072.ADC0.rx_syncstatus_adc.ToString("X") + "\r"; }
+        //      if (b072.ADC0.align_adc != 0x55) { /*error++;*/ msg += "align_adc        :" + b072.ADC0.align_adc.ToString("X") + "\r"; }
+
+                b072.ADC0.ERROR = error;
+                b072.ADC0.MSG = msg;
+
+                if  (error==0) button_ADC0.Background = new LinearGradientBrush(Colors.White, Colors.LightGreen, 90);
+                else           button_ADC0.Background = new LinearGradientBrush(Colors.White, Colors.Red, 90);
+
+                error = 0;
+                msg = "";
+            }
+            else button_ADC0.Background = new LinearGradientBrush(Colors.White, Colors.LightGray, 90);
+
+            if (b072.ADC1.INIT == 1)
+            {
+                if((b072.ADC1.align_ok_adc      != 0x0A)&&
+                   (b072.ADC1.align_ok_adc      != 0x05)){ error++; msg += "align_ok_adc     :" + b072.ADC1.align_ok_adc.ToString("X") + "\r"; }
+                if (b072.ADC1.rx_ready_adc      !=    1) { error++; msg += "rx_ready_adc     :" + b072.ADC1.rx_ready_adc.ToString("X") + "\r"; }
+                if (b072.ADC1.sync_n_adc        !=    1) { error++; msg += "sync_n_adc       :" + b072.ADC1.sync_n_adc.ToString("X") + "\r"; }
+                if (b072.ADC1.rx_syncstatus_adc != 0xFF) { error++; msg += "rx_syncstatus_adc:" + b072.ADC1.rx_syncstatus_adc.ToString("X") + "\r"; }
+      //        if (b072.ADC1.align_adc         != 0x55) {/* error++; */msg += "align_adc        :" + b072.ADC1.align_adc.ToString("X") + "\r"; }
+                
+                b072.ADC1.ERROR = error;
+                b072.ADC1.MSG = msg;
+
+                if (error == 0) button_ADC1.Background = new LinearGradientBrush(Colors.White, Colors.LightGreen, 90);
+                else            button_ADC1.Background = new LinearGradientBrush(Colors.White, Colors.Red, 90);
+
+                error = 0;
+                msg = "";
+            }
+            else button_ADC1.Background = new LinearGradientBrush(Colors.White, Colors.LightGray, 90);
+
+            if (b072.DAC0.INIT==1)
+            {
+                if  (b072.DAC0.dac_pll_locked    != 1)   { error++; msg += "dac_pll_locked    :" + b072.DAC0.dac_pll_locked.ToString() + "\r"; }
+                if ((b072.DAC0.memin_pll_lfvolt   < 3)||
+                    (b072.DAC0.memin_pll_lfvolt   > 4))  { error++; msg += "memin_pll_lfvolt   :" + b072.DAC0.memin_pll_lfvolt.ToString() + "\r"; }
+                if  (b072.DAC0.alarms_from_lanes  > 0)   { error++; msg += "alarms_from_lanes  :" + b072.DAC0.alarms_from_lanes.ToString() + "\r"; }
+                if  (b072.DAC0.alarm_fifo_flags_0 > 0)   { error++; msg += "alarm_fifo_flags_0 :" + b072.DAC0.alarm_fifo_flags_0.ToString() + "\r"; }
+                if  (b072.DAC0.alarm_fifo_flags_1 > 0)   { error++; msg += "alarm_fifo_flags_1 :" + b072.DAC0.alarm_fifo_flags_1.ToString() + "\r"; }
+                if  (b072.DAC0.ALARM_ERROR        > 0)   { error++; msg += "ALARM_ERROR        :" + b072.DAC0.ALARM_ERROR.ToString() + "\r"; }
+                if  (b072.DAC0.SYNC_N_ERROR       > 0)   { error++; msg += "SYNC_N_ERROR       :" + b072.DAC0.SYNC_N_ERROR.ToString() + "\r"; }
+                if  (b072.DAC0.alarm_l_error_0    > 0)   { error++; msg += "alarm_l_error_0    :" + b072.DAC0.alarm_l_error_0.ToString() + "\r"; }
+                if  (b072.DAC0.alarm_l_error_1    > 0)   { error++; msg += "alarm_l_error_1    :" + b072.DAC0.alarm_l_error_1.ToString() + "\r"; }
+                if  (b072.DAC0.error_count_link0  > 0)   { error++; msg += "error_count_link0  :" + b072.DAC0.error_count_link0.ToString() + "\r"; }
+                if  (b072.DAC0.error_count_link1  > 0)   { error++; msg += "error_count_link1  :" + b072.DAC0.error_count_link1.ToString() + "\r"; }
+
+                b072.DAC0.ERROR = error;
+                b072.DAC0.MSG = msg;
+
+                if (error == 0) button_DAC0.Background = new LinearGradientBrush(Colors.White, Colors.LightGreen, 90);
+                else            button_DAC0.Background = new LinearGradientBrush(Colors.White, Colors.Red, 90);
+
+                error = 0;
+                msg = "";
+            }
+            else button_DAC0.Background = new LinearGradientBrush(Colors.White, Colors.LightGray, 90);
+
+            if (b072.DAC1.INIT == 1)
+            {
+                if  (b072.DAC1.dac_pll_locked    != 1) { error++; msg += "dac_pll_locked     :" + b072.DAC1.dac_pll_locked.ToString() + "\r"; }
+                if ((b072.DAC1.memin_pll_lfvolt   < 3) ||
+                    (b072.DAC1.memin_pll_lfvolt   > 4)){ error++; msg += "memin_pll_lfvolt   :" + b072.DAC1.memin_pll_lfvolt.ToString() + "\r"; }
+                if  (b072.DAC1.alarms_from_lanes  > 0) { error++; msg += "alarms_from_lanes  :" + b072.DAC1.alarms_from_lanes.ToString() + "\r"; }
+                if  (b072.DAC1.alarm_fifo_flags_0 > 0) { error++; msg += "alarm_fifo_flags_0 :" + b072.DAC1.alarm_fifo_flags_0.ToString() + "\r"; }
+                if  (b072.DAC1.alarm_fifo_flags_1 > 0) { error++; msg += "alarm_fifo_flags_1 :" + b072.DAC1.alarm_fifo_flags_1.ToString() + "\r"; }
+                if  (b072.DAC1.ALARM_ERROR        > 0) { error++; msg += "ALARM_ERROR        :" + b072.DAC1.ALARM_ERROR.ToString() + "\r"; }
+                if  (b072.DAC1.SYNC_N_ERROR       > 0) { error++; msg += "SYNC_N_ERROR       :" + b072.DAC1.SYNC_N_ERROR.ToString() + "\r"; }
+                if  (b072.DAC1.alarm_l_error_0    > 0) { error++; msg += "alarm_l_error_0    :" + b072.DAC1.alarm_l_error_0.ToString() + "\r"; }
+                if  (b072.DAC1.alarm_l_error_1    > 0) { error++; msg += "alarm_l_error_1    :" + b072.DAC1.alarm_l_error_1.ToString() + "\r"; }
+                if  (b072.DAC1.error_count_link0  > 0) { error++; msg += "error_count_link0  :" + b072.DAC1.error_count_link0.ToString() + "\r"; }
+                if  (b072.DAC1.error_count_link1  > 0) { error++; msg += "error_count_link1  :" + b072.DAC1.error_count_link1.ToString() + "\r"; }
+
+                b072.DAC1.ERROR = error;
+                b072.DAC1.MSG = msg;
+
+                if (error == 0) button_DAC1.Background = new LinearGradientBrush(Colors.White, Colors.LightGreen, 90);
+                else            button_DAC1.Background = new LinearGradientBrush(Colors.White, Colors.Red, 90);
+
+                error = 0;
+                msg = "";
+            }
+            else button_DAC1.Background = new LinearGradientBrush(Colors.White, Colors.LightGray, 90);
+
+
+        }
+
     }
 }

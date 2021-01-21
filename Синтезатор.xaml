@@ -14,7 +14,7 @@
         <TextBox x:Name="textBox_dev_FREQ" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="22,181,0,0" TextWrapping="Wrap" Text="1000000" VerticalAlignment="Top" Width="83"/>
         <Label x:Name="label_FREQ_Copy" Content="Гц" HorizontalAlignment="Left" Margin="110,181,0,0" VerticalAlignment="Top"/>
         <Label x:Name="label_Copy" Content="Девиация" HorizontalAlignment="Left" Margin="31,155,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="textBox_N_intervals" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="155,184,0,0" TextWrapping="Wrap" Text="256" VerticalAlignment="Top" Width="83"/>
+        <TextBox x:Name="textBox_N_intervals" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="155,184,0,0" TextWrapping="Wrap" Text="256" VerticalAlignment="Top" Width="83" TextChanged="textBox_N_intervals_TextChanged"/>
         <Label x:Name="label_FREQ_Copy1" Content="Ед." HorizontalAlignment="Left" Margin="243,182,0,0" VerticalAlignment="Top"/>
         <Label x:Name="label_Copy1" Content="Число интервалов" HorizontalAlignment="Left" Margin="139,158,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="textBox_Ti" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="153,234,0,0" TextWrapping="Wrap" Text="100" VerticalAlignment="Top" Width="83"/>
@@ -56,8 +56,14 @@
         <TextBox x:Name="textBox_FREQ_STEP" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="23,234,0,0" TextWrapping="Wrap" Text="1000" VerticalAlignment="Top" Width="83"/>
         <Label x:Name="label_FREQ_Copy14" Content="Гц" HorizontalAlignment="Left" Margin="111,232,0,0" VerticalAlignment="Top"/>
         <Label x:Name="label_Copy14" Content="FREQ STEP" HorizontalAlignment="Left" Margin="31,208,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="textBox_FREQ_RATE" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="23,288,0,0" TextWrapping="Wrap" Text="1000" VerticalAlignment="Top" Width="83"/>
-        <Label x:Name="label_FREQ_Copy15" Content="Ед" HorizontalAlignment="Left" Margin="111,286,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="textBox_FREQ_RATE" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="23,288,0,0" TextWrapping="Wrap" Text="1000" VerticalAlignment="Top" Width="83">
+        <TextBox.ToolTip>
+            <TextBlock>Информация в наносекундах!</TextBlock>
+        </TextBox.ToolTip>
+        </TextBox>
+
+
+        <Label x:Name="label_FREQ_Copy15" Content="нс" HorizontalAlignment="Left" Margin="111,286,0,0" VerticalAlignment="Top"/>
         <Label x:Name="label_Copy15" Content="FREQ RATE" HorizontalAlignment="Left" Margin="31,262,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="textBox_TIME_START" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="24,41,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="105"/>
         <Label x:Name="label_FREQ_Copy16" Content="мкс" HorizontalAlignment="Left" Margin="141,39,0,0" VerticalAlignment="Top"/>
@@ -90,7 +96,7 @@
         <Label x:Name="label_FREQ_Copy22" Content="%" HorizontalAlignment="Left" Margin="504,454,0,0" VerticalAlignment="Top"/>
         <Label x:Name="label_Copy24" Content="Амплитуда 3 канал" HorizontalAlignment="Left" Margin="403,430,0,0" VerticalAlignment="Top"/>
         <Button x:Name="button1_Copy3" Content="Save File" HorizontalAlignment="Left" Margin="654,44,0,0" VerticalAlignment="Top" Width="75" Click="button1_Copy3_Click"/>
-        <CheckBox x:Name="checkBox_Coherent" Content="Пачка когерентная" HorizontalAlignment="Left" Margin="561,338,0,0" VerticalAlignment="Top" ToolTip="Тип пачки излучения" />
+        <CheckBox x:Name="checkBox_Coherent" Content="Пачка когерентная" HorizontalAlignment="Left" Margin="561,338,0,0" VerticalAlignment="Top" ToolTip="Тип пачки излучения" Checked="checkBox_Coherent_Checked" />
         <CheckBox x:Name="checkBox_Calibrovka" Content="Калибровка" HorizontalAlignment="Left" Margin="561,369,0,0" VerticalAlignment="Top" ToolTip="Интервал работы АЦП : приём или излучение" />
         <TextBox x:Name="textBox_Dlitelnost_cikl" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="240,39,0,0" TextWrapping="Wrap" Text="102400" VerticalAlignment="Top" Width="105"/>
         <Label x:Name="label_FREQ_Copy23" Content="мкс" HorizontalAlignment="Left" Margin="356,39,0,0" VerticalAlignment="Top"/>
@@ -105,6 +111,5 @@
         <Label x:Name="label_FREQ_Copy26" Content="мкс" HorizontalAlignment="Left" Margin="141,80,0,0" VerticalAlignment="Top"/>
         <Label x:Name="label_Copy28" Content="Время конца  цикла" HorizontalAlignment="Left" Margin="16,58,0,0" VerticalAlignment="Top"/>
         <Button x:Name="btn_enter" Content="ENTER" HorizontalAlignment="Left" Margin="550,111,0,0" VerticalAlignment="Top" Width="75" Click="button_enter"/>
-
     </Grid>
 </Window>

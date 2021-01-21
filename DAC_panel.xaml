@@ -1,0 +1,24 @@
+﻿<Window x:Class="Stnd_072.DAC_panel"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Stnd_072"
+        mc:Ignorable="d"
+        Closing="DataWindow_Closing"
+        Title="DAC" Height="239.437" Width="300">
+    <Grid>
+        <Label x:Name="label" Content="Темп:" HorizontalAlignment="Left" Margin="228,17,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label_Temp" Content="25" HorizontalAlignment="Left" Margin="228,48,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label_Copy1" Content="С" HorizontalAlignment="Left" Margin="251,48,0,0" VerticalAlignment="Top"/>
+        <RichTextBox x:Name="richTextBox" HorizontalAlignment="Left" Height="209" VerticalAlignment="Top" Width="223">
+            <FlowDocument>
+                <Paragraph>
+                    <Run Text=""/>
+                </Paragraph>
+            </FlowDocument>
+        </RichTextBox>
+        <Button x:Name="button_clr" Content="CLR" HorizontalAlignment="Left" Margin="236,167,0,0" VerticalAlignment="Top" Width="33" Click="button_clr_Click"/>
+
+    </Grid>
+</Window>
