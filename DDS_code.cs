@@ -9,7 +9,9 @@ namespace Stnd_072
     public class DDS_code
     {
         static UInt32 FREQ_TIMER  = 48; //частота тактов системного времени ПЛИС 48 МГЦ
-        static UInt32 FREQ_DDS   = 96; //частота тактов DDS в ПЛИС 48 МГЦ
+
+        static UInt32 FREQ_DDS   = 96_000_000; //частота тактов DDS в ПЛИС 48 МГЦ
+
         static byte   Accum_base = 48; //разрядность аакумулятора DDS
 
         public UInt64 zTIME { get; set; }           //время срабатывания данной команды	
@@ -23,6 +25,16 @@ namespace Stnd_072
         public UInt32 zTblank1 { get; set; }        //интервал времени перед излучением N*(1/48 МГц)
         public UInt32 zTblank2 { get; set; }        //интервал времени перед приёмом    N*(1/48 МГц)
 
+        public int zAmp0 { get; set; } //Уровень сигнала в 0-м канале синтезатора
+        public int zAmp1 { get; set; } //Уровень сигнала в 0-м канале синтезатора
+        public int zAmp2 { get; set; } //Уровень сигнала в 0-м канале синтезатора
+        public int zAmp3 { get; set; } //Уровень сигнала в 0-м канале синтезатора
+
+        public int zPhase0 { get; set; } //начальная фаза в 0-м канале синтезатора
+        public int zPhase1 { get; set; } //начальная фаза в 1-м канале синтезатора
+        public int zPhase2 { get; set; } //начальная фаза в 2-м канале синтезатора
+        public int zPhase3 { get; set; } //начальная фаза в 3-м канале синтезатора
+
         public void TIME (UInt64 t)//пока напрямую переводит микросекунды в код
         {
             UInt64 time_sec;
@@ -32,17 +44,18 @@ namespace Stnd_072
             zTIME = code;
         }
 
-        public void FREQ (UInt64 freq)//переводим частоту в Гц в код
+        public void FREQ (double freq)//переводим частоту в Гц в код
         {
             UInt64 z;
-            z = (UInt64)(freq / FREQ_DDS * (ulong)(2 ^ Accum_base));
+            Console.WriteLine("freq:"+ freq);
+            z = (UInt64)(((freq-430000000) / FREQ_DDS )* ((ulong)(Math.Pow(2,Accum_base))));
             zFREQ = z;
         }
 
-        public void FREQ_STEP(Int64 freq)//переводим частоту шага приращения Гц в код (частотный шаг может быть отрицательным для получения отрицательной девиации)
+        public void FREQ_STEP(double freq)//переводим частоту шага приращения Гц в код (частотный шаг может быть отрицательным для получения отрицательной девиации)
         {
             Int64 z;
-            z = freq / FREQ_DDS * (2 ^ Accum_base);
+            z = (Int64)(freq / FREQ_DDS * (Math.Pow(2, Accum_base)));
             zFREQ_STEP = z;
         }
 
@@ -51,7 +64,7 @@ namespace Stnd_072
             UInt64 time_sec;
             UInt64 code;
             time_sec = Convert.ToUInt64(t);
-            code = time_sec * FREQ_TIMER; //
+            code = time_sec / FREQ_TIMER; //
             zFREQ_RATE = (uint)code;
         }
 
@@ -101,5 +114,56 @@ namespace Stnd_072
             zTblank2 = (uint)code;
         }
 
+        public void Amp0(int a)
+        {
+            double z = Math.Round((a / 100.0)*1000);
+            zAmp0 = (int)z;
+        }
+
+        public void Amp1(int a)
+        {
+            double z = Math.Round((a / 100.0) * 1000);
+            zAmp1 = (int)z;
+        }
+
+        public void Amp2(int a)
+        {
+            double z = Math.Round((a / 100.0) * 1000);
+            zAmp2 = (int)z;
+        }
+
+        public void Amp3(int a)
+        {
+            double z = Math.Round((a / 100.0) * 1000);
+            zAmp3 = (int)z;
+        }
+
+        public void Phase0(int a)
+        {
+            double h16 = (Math.Pow(2,16))/360;//цена деления фазы
+            double z = Math.Round(a*h16);
+            zPhase0 = (int)z;
+        }
+
+        public void Phase1(int a)
+        {
+            double h16 = (Math.Pow(2, 16)) / 360;//цена деления фазы
+            double z = Math.Round(a * h16);
+            zPhase1 = (int)z;
+        }
+
+        public void Phase2(int a)
+        {
+            double h16 = (Math.Pow(2, 16)) / 360;//цена деления фазы
+            double z = Math.Round(a * h16);
+            zPhase2 = (int)z;
+        }
+
+        public void Phase3(int a)
+        {
+            double h16 = (Math.Pow(2, 16)) / 360;//цена деления фазы
+            double z = Math.Round(a * h16);
+            zPhase3 = (int)z;
+        }
     }
 }

@@ -89,3 +89,7 @@ C:\Work_murmansk\SOFT_comp\STEND_072\Stnd_072\obj\Debug\Stnd_072.csproj.Generate
 C:\Work_murmansk\SOFT_comp\STEND_072\Stnd_072\obj\Debug\Stnd_072.csproj.CoreCompileInputs.cache
 C:\Work_murmansk\SOFT_comp\STEND_072\Stnd_072\obj\Debug\Stnd_072.exe
 C:\Work_murmansk\SOFT_comp\STEND_072\Stnd_072\obj\Debug\Stnd_072.pdb
+C:\Work_murmansk\SOFT_comp\STEND_072\Stnd_072\obj\Debug\Тестирование.g.cs
+C:\Work_murmansk\SOFT_comp\STEND_072\Stnd_072\obj\Debug\Тестирование.baml
+C:\Work_murmansk\SOFT_comp\STEND_072\Stnd_072\obj\Debug\Stnd_072.Plot.resources
+C:\Work_murmansk\SOFT_comp\STEND_072\Stnd_072\obj\Debug\Stnd_072.Plot3.resources

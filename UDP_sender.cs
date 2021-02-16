@@ -43,9 +43,12 @@ namespace Stnd_072
 
         public enum CMD:byte
         {
-            CMD_TIME_SETUP = 1,
-            CMD_STATUS = 100,
-            CMD_ATT = 72
+            CMD_TIME_SETUP =1,
+            CMD_STATUS     =100,
+            CMD_ATT        =72,
+            CMD_REALTIME   =77,
+            CMD_START      =73,
+            CMD_CHANNEL    =69
         }
 
         Frame FRAME;

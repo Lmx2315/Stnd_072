@@ -4,6 +4,10 @@
     <my_PORT>139</my_PORT>
     <dst_IP>1.3.1.60</dst_IP>
     <dst_PORT>77</dst_PORT>
+	<DATA0_IP>1.3.1.1</DATA0_IP>
+    <DATA0_PORT>140</DATA0_PORT>
+	<DATA1_IP>1.3.1.2</DATA1_IP>
+    <DATA1_PORT>140</DATA1_PORT>
     <MSG_CMD_OK>3</MSG_CMD_OK>
     <MSG_STATUS_OK>100</MSG_STATUS_OK>
   </Config>

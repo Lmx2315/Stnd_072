@@ -70,8 +70,13 @@ namespace Stnd_072
         }
         public void Show_data(string a)
         {
-            richTextBox.AppendText(a);
-            richTextBox.ScrollToEnd();
+            string myText = new TextRange(richTextBox.Document.ContentStart, richTextBox.Document.ContentEnd).Text;
+            if (a != myText)
+            {
+                richTextBox.Document.Blocks.Clear();
+                richTextBox.AppendText(a);
+                richTextBox.ScrollToEnd();
+            }
         }
 
         private void button_clr_Click(object sender, RoutedEventArgs e)

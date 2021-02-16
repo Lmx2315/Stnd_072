@@ -16,5 +16,7 @@ namespace Stnd_072
         public FPGA_status FPGA;
         public BOARD_status BRD;
 
+        static public int timer_obmen;//отслеживает запаздывание ответа от абанента
+
     }
 }

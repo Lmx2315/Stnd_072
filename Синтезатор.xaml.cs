@@ -34,8 +34,8 @@ namespace Stnd_072
             public Int32 NUMBER_RECORD;//номер цикла
             public UInt64 TIME_START;   //стартовое время цикла
             public UInt64 TIME_END;     //финишное  время цикла
-            public UInt64 FREQ;         //частота
-            public Int64  FREQ_STEP;    //Считается изходя из девиации частоты или наоборот
+            public double FREQ;         //частота
+            public double FREQ_STEP;    //Считается изходя из девиации частоты или наоборот
             public UInt32 FREQ_RATE;    //Считается изходя из девиации частоты или наоборот
             public UInt16 N_cikl;       //число интервалов
             public Int64 deviation;    //девиация частоты
@@ -102,11 +102,6 @@ namespace Stnd_072
             c0.Amplitude1 = Convert.ToInt16(textBox_AMP1.Text);
             c0.Amplitude2 = Convert.ToInt16(textBox_AMP2.Text);
             c0.Amplitude3 = Convert.ToInt16(textBox_AMP3.Text);
-
-            c0.Att0 = Convert.ToInt16(textBox_ATT0.Text);
-            c0.Att1 = Convert.ToInt16(textBox_ATT1.Text);
-            c0.Att2 = Convert.ToInt16(textBox_ATT2.Text);
-            c0.Att3 = Convert.ToInt16(textBox_ATT3.Text);
 
             c0.Calibrovka=Convert.ToInt16(checkBox_Calibrovka.IsChecked);
             c0.Coherent  =Convert.ToInt16(checkBox_Coherent.IsChecked);
@@ -217,18 +212,30 @@ namespace Stnd_072
         {
             RABCIKL c0 = new RABCIKL();
 
+            //--------Считаем параметры девиации если надо----------
+            int FLAG_COGERENT=0;
+            double step=0;
+            double rate=1.0/96.0;
+            double Timp    =Convert.ToDouble(textBox_Ti.Text);
+            double FREQ_DEV=Convert.ToDouble(textBox_dev_FREQ.Text);
+            double N_step=Math.Round(Timp/rate);//расчитываем число шагов для DDS
+           // Console.WriteLine("Timp:"+Timp);
+           // Console.WriteLine("FREQ_DEV:"+FREQ_DEV);
+           // Console.WriteLine("N_step:"+N_step);
+            step=FREQ_DEV/N_step;//расчитываем длинну шага в Гц
+
+            rate = Math.Round(rate * 1000.0);
+            textBox_FREQ_STEP.Text=step.ToString();
+            textBox_FREQ_RATE.Text=rate.ToString();
+            //------------------------------------------------------
+
             c0.Amplitude0 = Convert.ToInt16(textBox_AMP0.Text);
             c0.Amplitude1 = Convert.ToInt16(textBox_AMP1.Text);
             c0.Amplitude2 = Convert.ToInt16(textBox_AMP2.Text);
             c0.Amplitude3 = Convert.ToInt16(textBox_AMP3.Text);
 
-            c0.Att0 = Convert.ToInt16(textBox_ATT0.Text);
-            c0.Att1 = Convert.ToInt16(textBox_ATT1.Text);
-            c0.Att2 = Convert.ToInt16(textBox_ATT2.Text);
-            c0.Att3 = Convert.ToInt16(textBox_ATT3.Text);
-
-            c0.Calibrovka = Convert.ToInt16(checkBox_Calibrovka.IsChecked);
-            c0.Coherent = Convert.ToInt16(checkBox_Coherent.IsChecked);
+            if (checkBox_Calibrovka.IsChecked == true) c0.Calibrovka = 0; else c0.Calibrovka = 1;
+            if (checkBox_Coherent.IsChecked == true) c0.Coherent = 1; else c0.Coherent = 0;
 
             c0.DELAY0 = Convert.ToInt16(textBox_DELAY0.Text);
             c0.DELAY1 = Convert.ToInt16(textBox_DELAY1.Text);
@@ -237,8 +244,8 @@ namespace Stnd_072
 
             c0.deviation = Convert.ToInt64(textBox_dev_FREQ.Text);
 
-            c0.FREQ = Convert.ToUInt64(textBox_FREQ.Text);
-            c0.FREQ_STEP = Convert.ToInt64(textBox_FREQ_STEP.Text);
+            c0.FREQ = Convert.ToDouble(textBox_FREQ.Text);
+            c0.FREQ_STEP = Convert.ToDouble(textBox_FREQ_STEP.Text);
             c0.FREQ_RATE = Convert.ToUInt32(textBox_FREQ_RATE.Text);
 
             c0.N_cikl = Convert.ToUInt16(textBox_N_intervals.Text);//число интервалов в цикле
@@ -256,7 +263,13 @@ namespace Stnd_072
             c0.Tp = Convert.ToUInt32(textBox_Tp.Text);
 
             c0.TIME_START = Convert.ToUInt64(textBox_TIME_START.Text);
-            c0.TYPE = (ushort)((0x2&(c0.Calibrovka<<1))+ c0.Coherent&0x1);
+
+            Console.WriteLine("c0.Calibrovka:" + c0.Calibrovka);
+
+            c0.TYPE = (ushort)(((c0.Calibrovka&1)<<1)+ (c0.Coherent&1));
+
+            Console.WriteLine("c0.TYPE:" + c0.TYPE);
+
             c0.NUMBER_RECORD = list.Count;
             textBox_Dlitelnost_cikl.Text = FUN_INTERVAL_CALC(c0).ToString();//рассчитываем длительность текущего цикла
   
@@ -296,11 +309,6 @@ namespace Stnd_072
             textBox_AMP2.Text = list[a].Amplitude2.ToString();
             textBox_AMP3.Text = list[a].Amplitude3.ToString();
 
-            textBox_ATT0.Text = list[a].Att0.ToString();
-            textBox_ATT1.Text = list[a].Att1.ToString();
-            textBox_ATT2.Text = list[a].Att2.ToString();
-            textBox_ATT3.Text = list[a].Att3.ToString();
-
             checkBox_Calibrovka.IsChecked = Convert.ToBoolean(list[a].Calibrovka);
             checkBox_Coherent.IsChecked   = Convert.ToBoolean(list[a].Coherent);
 
@@ -339,11 +347,6 @@ namespace Stnd_072
             textBox_AMP1.Text = 0.ToString();
             textBox_AMP2.Text = 0.ToString();
             textBox_AMP3.Text = 0.ToString();
-
-            textBox_ATT0.Text = 0.ToString();
-            textBox_ATT1.Text = 0.ToString();
-            textBox_ATT2.Text = 0.ToString();
-            textBox_ATT3.Text = 0.ToString();
 
             checkBox_Calibrovka.IsChecked = Convert.ToBoolean(0);
             checkBox_Coherent.IsChecked = Convert.ToBoolean(0);
@@ -475,7 +478,25 @@ namespace Stnd_072
                     dds_code.Interval_Ti(list[i].Ti);
                     dds_code.Interval_Tp(list[i].Tp);
                     dds_code.Tblank1(list[i].Tblank1);
-                    dds_code.Tblank2(list[i].Tblank2);                   
+                    dds_code.Tblank2(list[i].Tblank2);
+                    dds_code.Amp0(list[i].Amplitude0);
+                    dds_code.Amp1(list[i].Amplitude1);
+                    dds_code.Amp2(list[i].Amplitude2);
+                    dds_code.Amp3(list[i].Amplitude3);
+                    dds_code.Phase0(list[i].PHASE0);
+                    dds_code.Phase1(list[i].PHASE1);
+                    dds_code.Phase2(list[i].PHASE2);
+                    dds_code.Phase3(list[i].PHASE3);
+
+                    Console.WriteLine("dds_code.zAmp0:" + dds_code.zAmp0);
+                    Console.WriteLine("dds_code.zAmp1:" + dds_code.zAmp1);
+                    Console.WriteLine("dds_code.zAmp2:" + dds_code.zAmp2);
+                    Console.WriteLine("dds_code.zAmp3:" + dds_code.zAmp3);
+
+                    Console.WriteLine("dds_code.zPhase0:" + dds_code.zPhase0);
+                    Console.WriteLine("dds_code.zPhase1:" + dds_code.zPhase1);
+                    Console.WriteLine("dds_code.zPhase2:" + dds_code.zPhase2);
+                    Console.WriteLine("dds_code.zPhase3:" + dds_code.zPhase3);
 
                     list_DDS_code.Add(dds_code);
                 }

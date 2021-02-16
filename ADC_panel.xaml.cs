@@ -82,9 +82,13 @@ namespace Stnd_072
         }
         public void Show_data(string a)
         {
-            //       richTextBox.Document.Blocks.Add(new Paragraph(new Run(a)));
-            richTextBox.AppendText(a);
-            richTextBox.ScrollToEnd();
+            string myText = new TextRange(richTextBox.Document.ContentStart, richTextBox.Document.ContentEnd).Text;
+            if (a != myText)
+            {
+                richTextBox.Document.Blocks.Clear();
+                richTextBox.AppendText(a);
+                richTextBox.ScrollToEnd();
+            }
         }
 
         void TEMP_disp(int temp)

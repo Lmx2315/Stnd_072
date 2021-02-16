@@ -6,27 +6,51 @@
         xmlns:local="clr-namespace:Stnd_072"
         mc:Ignorable="d"
         Closing="DataWindow_Closing"
-        Title="Приёмник" Height="350" Width="400">
-    <Grid Margin="0,0,0,-1">
-        <TextBox x:Name="textBox_Att0" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="13,38,0,0" TextWrapping="Wrap" Text="31" VerticalAlignment="Top" Width="43"/>
-        <Label x:Name="label" Content="Атт0" HorizontalAlignment="Left" Margin="13,12,0,0" VerticalAlignment="Top" Width="43"/>
-        <TextBox x:Name="textBox_Att1" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="72,38,0,0" TextWrapping="Wrap" Text="31" VerticalAlignment="Top" Width="43"/>
-        <Label x:Name="label_Copy" Content="Атт1" HorizontalAlignment="Left" Margin="72,12,0,0" VerticalAlignment="Top" Width="43"/>
-        <TextBox x:Name="textBox_Att2" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="133,38,0,0" TextWrapping="Wrap" Text="31" VerticalAlignment="Top" Width="43"/>
-        <Label x:Name="label_Copy1" Content="Атт2" HorizontalAlignment="Left" Margin="133,12,0,0" VerticalAlignment="Top" Width="43"/>
-        <TextBox x:Name="textBox_Att3" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="195,38,0,0" TextWrapping="Wrap" Text="31" VerticalAlignment="Top" Width="43"/>
-        <Label x:Name="label_Copy2" Content="Атт3" HorizontalAlignment="Left" Margin="195,12,0,0" VerticalAlignment="Top" Width="43"/>
-        <Button x:Name="button" Content="отправить" HorizontalAlignment="Left" Margin="246,38,0,0" VerticalAlignment="Top" Width="64" Click="button_Click"/>
-        <TextBox x:Name="textBox_CHN" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="326,36,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="64"/>
-        <Label x:Name="label_Copy3" Content="№ канала" HorizontalAlignment="Left" Margin="326,10,0,0" VerticalAlignment="Top" Width="66"/>
-        <CheckBox x:Name="checkBox_SPECTR0" Content="FFT" HorizontalAlignment="Left" Margin="15,62,0,0" VerticalAlignment="Top"/>
-        <CheckBox x:Name="checkBox_TIME0"   Content="time" HorizontalAlignment="Left" Margin="15,83,0,0" VerticalAlignment="Top"/>
-        <CheckBox x:Name="checkBox_SPECTR1" Content="FFT" HorizontalAlignment="Left" Margin="74,62,0,0" VerticalAlignment="Top"/>
-        <CheckBox x:Name="checkBox_TIME1"   Content="time" HorizontalAlignment="Left" Margin="74,83,0,0" VerticalAlignment="Top"/>
-        <CheckBox x:Name="checkBox_SPECTR2" Content="FFT" HorizontalAlignment="Left" Margin="133,62,0,0" VerticalAlignment="Top"/>
-        <CheckBox x:Name="checkBox_TIME2"   Content="time" HorizontalAlignment="Left" Margin="133,83,0,0" VerticalAlignment="Top"/>
-        <CheckBox x:Name="checkBox_SPECTR3" Content="FFT" HorizontalAlignment="Left" Margin="195,62,0,0" VerticalAlignment="Top"/>
-        <CheckBox x:Name="checkBox_TIME3"   Content="time" HorizontalAlignment="Left" Margin="195,83,0,0" VerticalAlignment="Top"/>
+        Title="Приёмник" Height="350" Width="420">
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem x:Name="cfg_FFT" Header="Параметры БПФ" >
+                <MenuItem x:Name="winFFT"  Header="Тип окна"   Click="mnu_winFFT_Click">
+                    <ComboBox x:Name="comboBox_winFFT" Width="120" Initialized="comboBox_winFFT_Initialized" SelectionChanged="comboBox_winFFT_SelectionChanged">
+                    </ComboBox>
+                </MenuItem>
+                <MenuItem x:Name="sizeFFT" Header="Размер БПФ">
+                    <TextBox x:Name="textBox_sizeFFT" Height="23" TextWrapping="Wrap" Text="16384" Width="60" HorizontalContentAlignment="Center" TextChanged="textBox_sizeFFT_TextChanged"/>
+                </MenuItem>
+                <MenuItem x:Name="smooth_1" Header="Фильтр1"   Click="mnu_smooth1_Click" IsCheckable="True" IsChecked="false" ></MenuItem>
+                <MenuItem x:Name="smooth_2" Header="Фильтр2"   Click="mnu_smooth2_Click" IsCheckable="True" IsChecked="false"></MenuItem>
+            </MenuItem>
+        </Menu>
+        <Grid Margin="0,0,2,-1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="39*"/>
+                <ColumnDefinition Width="23*"/>
+                <ColumnDefinition Width="348*"/>
+            </Grid.ColumnDefinitions>
+            <TextBox x:Name="textBox_Att0" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="16,51,0,0" TextWrapping="Wrap" Text="31" VerticalAlignment="Top" Width="43" Grid.ColumnSpan="2"/>
+            <Label x:Name="label" Content="Атт0" HorizontalAlignment="Left" Margin="16,25,0,0" VerticalAlignment="Top" Width="43" Grid.ColumnSpan="2"/>
+            <TextBox x:Name="textBox_Att1" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="12.725,51,0,0" TextWrapping="Wrap" Text="31" VerticalAlignment="Top" Width="43" Grid.Column="2"/>
+            <Label x:Name="label_Copy" Content="Атт1" HorizontalAlignment="Left" Margin="12.725,25,0,0" VerticalAlignment="Top" Width="43" Grid.Column="2"/>
+            <TextBox x:Name="textBox_Att2" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="73.725,51,0,0" TextWrapping="Wrap" Text="31" VerticalAlignment="Top" Width="43" Grid.Column="2"/>
+            <Label x:Name="label_Copy1" Content="Атт2" HorizontalAlignment="Left" Margin="73.725,25,0,0" VerticalAlignment="Top" Width="43" Grid.Column="2"/>
+            <TextBox x:Name="textBox_Att3" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="135.725,51,0,0" TextWrapping="Wrap" Text="31" VerticalAlignment="Top" Width="43" Grid.Column="2"/>
+            <Label x:Name="label_Copy2" Content="Атт3" HorizontalAlignment="Left" Margin="135.725,25,0,0" VerticalAlignment="Top" Width="43" Grid.Column="2"/>
+            <Button x:Name="button" Content="отправить" HorizontalAlignment="Left" Margin="186.725,51,0,0" VerticalAlignment="Top" Width="64" Click="button_Click" Grid.Column="2"/>
+            <Label x:Name="label_Copy3" Content="№ канала" HorizontalAlignment="Left" Margin="28.725,0,0,0" VerticalAlignment="Top" Width="66" Grid.Column="2"/>
+            <CheckBox x:Name="checkBox_SPECTR0" Content="FFT" HorizontalAlignment="Left" Margin="18,75,0,0" VerticalAlignment="Top" Checked="checkBox_SPECTR0_Checked" Unchecked="checkBox_SPECTR0_Unchecked" Grid.ColumnSpan="2"/>
+            <CheckBox x:Name="checkBox_TIME0"   Content="time" HorizontalAlignment="Left" Margin="18,96,0,0" VerticalAlignment="Top" Checked="checkBox_TIME0_Checked" Unchecked="checkBox_TIME0_Unchecked" Grid.ColumnSpan="2"/>
+            <CheckBox x:Name="checkBox_SPECTR1" Content="FFT" HorizontalAlignment="Left" Margin="14.725,75,0,0" VerticalAlignment="Top" Checked="checkBox_SPECTR1_Checked" Unchecked="checkBox_SPECTR1_Unchecked" Grid.Column="2"/>
+            <CheckBox x:Name="checkBox_TIME1"   Content="time" HorizontalAlignment="Left" Margin="14.725,96,0,0" VerticalAlignment="Top" Checked="checkBox_TIME1_Checked" Unchecked="checkBox_TIME1_Unchecked" Grid.Column="2"/>
+            <CheckBox x:Name="checkBox_SPECTR2" Content="FFT" HorizontalAlignment="Left" Margin="73.725,75,0,0" VerticalAlignment="Top" Checked="checkBox_SPECTR2_Checked" Unchecked="checkBox_SPECTR2_Unchecked" Grid.Column="2"/>
+            <CheckBox x:Name="checkBox_TIME2"   Content="time" HorizontalAlignment="Left" Margin="73.725,96,0,0" VerticalAlignment="Top" Checked="checkBox_TIME2_Checked" Unchecked="checkBox_TIME2_Unchecked" Grid.Column="2"/>
+            <CheckBox x:Name="checkBox_SPECTR3" Content="FFT" HorizontalAlignment="Left" Margin="135.725,75,0,0" VerticalAlignment="Top" Checked="checkBox_SPECTR3_Checked" Unchecked="checkBox_SPECTR3_Unchecked" Grid.Column="2"/>
+            <CheckBox x:Name="checkBox_TIME3"   Content="time" HorizontalAlignment="Left" Margin="135.725,96,0,0" VerticalAlignment="Top" Checked="checkBox_TIME3_Checked" Unchecked="checkBox_TIME3_Unchecked" Grid.Column="2"/>
+            <TextBox x:Name="textBox_Att0_Copy" HorizontalContentAlignment="Right" Height="23" Margin="17,206,4.275,0" TextWrapping="Wrap" Text="31" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+            <Label x:Name="label_Copy4" Content="Дин.диап" HorizontalAlignment="Left" Margin="9,180,0,0" VerticalAlignment="Top" Width="61" Grid.ColumnSpan="3"/>
+            <Label x:Name="label_Copy5" Content="Дб" HorizontalAlignment="Left" Margin="0.725,206,0,0" VerticalAlignment="Top" Width="27" Grid.Column="2"/>
+            <TextBox x:Name="textBox_SCH_UDP0" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="279.725,18,0,0" TextWrapping="Wrap" Text="31" VerticalAlignment="Top" Width="43" Grid.Column="2"/>
+            <TextBox x:Name="textBox_SCH_UDP1" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="279.725,46,0,0" TextWrapping="Wrap" Text="31" VerticalAlignment="Top" Width="43" Grid.Column="2"/>
 
-    </Grid>
+        </Grid>
+    </DockPanel>
 </Window>

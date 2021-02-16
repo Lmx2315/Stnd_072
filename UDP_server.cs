@@ -97,7 +97,6 @@ namespace Stnd_072
             }
         }
 
-
         void UDP_BUF_DESCRIPT(Byte[] RCV)
         {
             int i = 0;
@@ -149,8 +148,8 @@ namespace Stnd_072
 
                 if (MSG1.MSG.CMD.Cmd_type == Convert.ToInt32(cfg.MSG_STATUS_OK))
                 {
-                    //  FLAG_TIMER_1 = 0;
-               //     Debug.WriteLine("Принята команда MSG_STATUS_OK!");
+                  //FLAG_TIMER_1 = 0;
+                  //Debug.WriteLine("Принята команда MSG_STATUS_OK!");
                 }
                 /*
                 Debug.WriteLine("Cmd_size:" + MSG1.MSG.CMD.Cmd_size);
@@ -169,6 +168,9 @@ namespace Stnd_072
                 if (MSG1.MSG.CMD.Cmd_type== Convert.ToInt32(cfg.MSG_STATUS_OK))
                 {
                     int n = 0;
+
+                    STATUS_b072.timer_obmen = 0;//сбрасываем таймер контроля длительности обмена
+
                     b072.DAC0.dac_pll_locked    = MSG1.MSG.CMD.A[n++];
                     b072.DAC0.ALARM_ERROR       = (MSG1.MSG.CMD.A[n++]<<8)+(MSG1.MSG.CMD.A[n++]);
                     b072.DAC0.SYNC_N_ERROR      = MSG1.MSG.CMD.A[n++];
@@ -183,6 +185,7 @@ namespace Stnd_072
                     b072.DAC0.alarm_fifo_flags_1= MSG1.MSG.CMD.A[n++];
                     b072.DAC0.error_count_link0 = (MSG1.MSG.CMD.A[n++] << 8) + (MSG1.MSG.CMD.A[n++]);
                     b072.DAC0.error_count_link1 = (MSG1.MSG.CMD.A[n++] << 8) + (MSG1.MSG.CMD.A[n++]);
+                    b072.DAC0.D_ALARM           = MSG1.MSG.CMD.A[n++];
                     b072.DAC0.TEMP              = MSG1.MSG.CMD.A[n++];
                     /*
                     Debug.WriteLine("");
@@ -216,6 +219,7 @@ namespace Stnd_072
                     b072.DAC1.alarm_fifo_flags_1 = MSG1.MSG.CMD.A[n++];
                     b072.DAC1.error_count_link0  = (MSG1.MSG.CMD.A[n++] << 8) + (MSG1.MSG.CMD.A[n++]);
                     b072.DAC1.error_count_link1  = (MSG1.MSG.CMD.A[n++] << 8) + (MSG1.MSG.CMD.A[n++]);
+                    b072.DAC1.D_ALARM            = MSG1.MSG.CMD.A[n++];
                     b072.DAC1.TEMP               = MSG1.MSG.CMD.A[n++];
                     /*
                     Debug.WriteLine("");
@@ -284,10 +288,14 @@ namespace Stnd_072
                     Debug.WriteLine("ADC1.error_sysref_adc   :" + b072.ADC1.error_sysref_adc);
                     Debug.WriteLine("");
                     */
+                    b072.LMK.INIT                =  MSG1.MSG.CMD.A[n++];
                     b072.LMK.lb                  = (MSG1.MSG.CMD.A[n++] << 8) + (MSG1.MSG.CMD.A[n++]);
                     b072.LMK.RB_DAC_VALUE        = (MSG1.MSG.CMD.A[n++] << 8) + (MSG1.MSG.CMD.A[n++]);
                     b072.LMK.PLL2_LD             =  MSG1.MSG.CMD.A[n++];
                     b072.LMK.PLL1_LD             =  MSG1.MSG.CMD.A[n++];
+                    b072.LMK.STATUS_LD1          =  MSG1.MSG.CMD.A[n++];
+                    b072.LMK.STATUS_LD2          =  MSG1.MSG.CMD.A[n++];
+
                     /*
                     Debug.WriteLine("");
                     Debug.WriteLine("LMK.lb       :" + b072.LMK.lb.ToString("X"));
@@ -296,17 +304,65 @@ namespace Stnd_072
                     Debug.WriteLine("LMK.PLL1_LD  :" + b072.LMK.PLL1_LD);
                     Debug.WriteLine("");
                     */
+                    b072.FPGA.INIT               = MSG1.MSG.CMD.A[n++];
                     b072.FPGA.TEMP               = MSG1.MSG.CMD.A[n++];
+                    b072.FPGA.STATUS_REF         = MSG1.MSG.CMD.A[n++];
+                    b072.FPGA.STATUS_SYNC        = MSG1.MSG.CMD.A[n++];
+                    b072.FPGA.STATUS_1HZ         = MSG1.MSG.CMD.A[n++];
+
+                    b072.FPGA.ERROR_1HZ          = (MSG1.MSG.CMD.A[n++] << 24) + 
+                                                   (MSG1.MSG.CMD.A[n++] << 16) + 
+                                                   (MSG1.MSG.CMD.A[n++] <<  8) + 
+                                                   (MSG1.MSG.CMD.A[n++] <<  0);
+
+                    b072.FPGA.SYNC0_MIN          = (MSG1.MSG.CMD.A[n++] << 24) +
+                                                   (MSG1.MSG.CMD.A[n++] << 16) +
+                                                   (MSG1.MSG.CMD.A[n++] << 8) +
+                                                   (MSG1.MSG.CMD.A[n++] << 0);
+
+                    b072.FPGA.SYNC0_MAX          = (MSG1.MSG.CMD.A[n++] << 24) +
+                                                   (MSG1.MSG.CMD.A[n++] << 16) +
+                                                   (MSG1.MSG.CMD.A[n++] << 8) +
+                                                   (MSG1.MSG.CMD.A[n++] << 0);
+
+                    b072.FPGA.SYNC1_MIN          = (MSG1.MSG.CMD.A[n++] << 24) +
+                                                   (MSG1.MSG.CMD.A[n++] << 16) +
+                                                   (MSG1.MSG.CMD.A[n++] << 8) +
+                                                   (MSG1.MSG.CMD.A[n++] << 0);
+
+                    b072.FPGA.SYNC1_MAX          = (MSG1.MSG.CMD.A[n++] << 24) +
+                                                   (MSG1.MSG.CMD.A[n++] << 16) +
+                                                   (MSG1.MSG.CMD.A[n++] << 8) +
+                                                   (MSG1.MSG.CMD.A[n++] << 0);
+
+                    b072.FPGA.SYNC2_MIN          = (MSG1.MSG.CMD.A[n++] << 24) +
+                                                   (MSG1.MSG.CMD.A[n++] << 16) +
+                                                   (MSG1.MSG.CMD.A[n++] << 8) +
+                                                   (MSG1.MSG.CMD.A[n++] << 0);
+
+                    b072.FPGA.SYNC2_MAX          = (MSG1.MSG.CMD.A[n++] << 24) +
+                                                   (MSG1.MSG.CMD.A[n++] << 16) +
+                                                   (MSG1.MSG.CMD.A[n++] << 8) +
+                                                   (MSG1.MSG.CMD.A[n++] << 0);
+
+                    b072.BRD.INIT                = MSG1.MSG.CMD.A[n++];
                     b072.BRD.TEMP0               = MSG1.MSG.CMD.A[n++];
                     b072.BRD.TEMP1               = MSG1.MSG.CMD.A[n++];
+                    b072.BRD.BRD_NUMBER          = MSG1.MSG.CMD.A[n++];
+
                     /*
-                    Debug.WriteLine("");
-                    Debug.WriteLine("DAC0.TEMP :" + b072.DAC0.TEMP);
-                    Debug.WriteLine("DAC1.TEMP :" + b072.DAC1.TEMP);
-                    Debug.WriteLine("FPGA.TEMP :" + b072.FPGA.TEMP);
-                    Debug.WriteLine("BRD.TEMP0 :" + b072.BRD.TEMP0);
-                    Debug.WriteLine("BRD.TEMP1 :" + b072.BRD.TEMP1);
-                    */
+                    Debug.WriteLine("b072.BRD.INIT      :" + b072.BRD.INIT);
+                    Debug.WriteLine("b072.BRD.TEMP0     :" + b072.BRD.TEMP0);
+                    Debug.WriteLine("b072.BRD.TEMP1     :" + b072.BRD.TEMP1);
+                    Debug.WriteLine("b072.BRD.BRD_NUMBER:" + b072.BRD.BRD_NUMBER);
+                    
+                     Debug.WriteLine("");
+                     Debug.WriteLine("b072.DAC0.D_ALARM :" + b072.DAC0.D_ALARM);
+                     Debug.WriteLine("b072.DAC1.D_ALARM :" + b072.DAC1.D_ALARM);
+                     Debug.WriteLine("b072.LMK.STATUS_LD1 :" + b072.LMK.STATUS_LD1);
+                     Debug.WriteLine("b072.LMK.STATUS_LD2 :" + b072.LMK.STATUS_LD2);
+                     Debug.WriteLine("BRD.BRD_NUMBER :" + b072.BRD.BRD_NUMBER);
+                     */
                 }
 
           

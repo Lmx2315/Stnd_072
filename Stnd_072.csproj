@@ -41,7 +41,9 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Numerics" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -68,6 +70,7 @@
       <DependentUpon>BOARD_panel.xaml</DependentUpon>
     </Compile>
     <Compile Include="BOARD_status.cs" />
+    <Compile Include="Complex.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="Consol.xaml.cs">
       <DependentUpon>Consol.xaml</DependentUpon>
@@ -77,14 +80,37 @@
     </Compile>
     <Compile Include="DAC_status.cs" />
     <Compile Include="DDS_code.cs" />
+    <Compile Include="FFT.cs" />
     <Compile Include="FPGA_panel.xaml.cs">
       <DependentUpon>FPGA_panel.xaml</DependentUpon>
     </Compile>
     <Compile Include="FPGA_status.cs" />
+    <Compile Include="generator_SMW200A.cs" />
     <Compile Include="LMK_status.cs" />
     <Compile Include="Loghelper.cs" />
+    <Compile Include="Plot.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Plot2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Plot3.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Plt1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Plt2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Plt3.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="STATUS_b072.cs" />
+    <Compile Include="STRUCT_FFT_DATA.cs" />
     <Compile Include="Sys_status_072.cs" />
+    <Compile Include="TelnetInterface.cs" />
+    <Compile Include="UDP_DATA_SERVER.cs" />
     <Compile Include="UDP_sender.cs" />
     <Compile Include="UDP_server.cs" />
     <Compile Include="Инициализация.xaml.cs">
@@ -98,6 +124,9 @@
     </Compile>
     <Compile Include="Синтезатор.xaml.cs">
       <DependentUpon>Синтезатор.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Тестирование.xaml.cs">
+      <DependentUpon>Тестирование.xaml</DependentUpon>
     </Compile>
     <Page Include="ADC_panel.xaml">
       <SubType>Designer</SubType>
@@ -147,6 +176,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Тестирование.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -162,6 +195,8 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <EmbeddedResource Include="Plot.resx" />
+    <EmbeddedResource Include="Plot3.resx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

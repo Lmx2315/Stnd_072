@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Work_murmansk\SOFT_comp\STEND_072\Stnd_072\App.xaml
-101890659641
+112038072115
 
-27-299760717
-15-1358686748
-ADC_panel.xaml;BOARD_panel.xaml;Consol.xaml;DAC_panel.xaml;FPGA_panel.xaml;MainWindow.xaml;Инициализация.xaml;Калибровка.xaml;Приёмник.xaml;Синтезатор.xaml;
+40-1211078721
+17649828674
+ADC_panel.xaml;BOARD_panel.xaml;Consol.xaml;DAC_panel.xaml;FPGA_panel.xaml;MainWindow.xaml;Инициализация.xaml;Калибровка.xaml;Приёмник.xaml;Синтезатор.xaml;Тестирование.xaml;
 
 True
 

@@ -22,6 +22,7 @@ namespace Stnd_072
         public int alarm_fifo_flags_1 { get; set; }
         public int error_count_link0 { get; set; }
         public int error_count_link1 { get; set; }
+        public int D_ALARM { get; set; }
         public int TEMP { get; set; }
 
         public int ERROR { get; set; }

@@ -1,50 +1,17 @@
 <?xml version="1.0"?>
 <ArrayOfRABCIKL xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <RABCIKL>
-    <NUMBER_RECORD>0</NUMBER_RECORD>
-    <TIME_START>0</TIME_START>
-    <TIME_END>102400</TIME_END>
-    <FREQ>435000000</FREQ>
-    <FREQ_STEP>1000</FREQ_STEP>
-    <FREQ_RATE>1000</FREQ_RATE>
-    <N_cikl>256</N_cikl>
-    <deviation>1000000</deviation>
-    <TYPE>0</TYPE>
-    <Ti>100</Ti>
-    <Tp>100</Tp>
-    <Tblank1>100</Tblank1>
-    <Tblank2>100</Tblank2>
-    <Att0>0</Att0>
-    <Att1>0</Att1>
-    <Att2>0</Att2>
-    <Att3>0</Att3>
-    <PHASE0>0</PHASE0>
-    <PHASE1>0</PHASE1>
-    <PHASE2>0</PHASE2>
-    <PHASE3>0</PHASE3>
-    <DELAY0>0</DELAY0>
-    <DELAY1>0</DELAY1>
-    <DELAY2>0</DELAY2>
-    <DELAY3>0</DELAY3>
-    <Amplitude0>100</Amplitude0>
-    <Amplitude1>100</Amplitude1>
-    <Amplitude2>100</Amplitude2>
-    <Amplitude3>100</Amplitude3>
-    <Calibrovka>0</Calibrovka>
-    <Coherent>0</Coherent>
-  </RABCIKL>
-  <RABCIKL>
     <NUMBER_RECORD>1</NUMBER_RECORD>
-    <TIME_START>102400</TIME_START>
-    <TIME_END>204800</TIME_END>
-    <FREQ>435000000</FREQ>
-    <FREQ_STEP>1000</FREQ_STEP>
-    <FREQ_RATE>1000</FREQ_RATE>
-    <N_cikl>256</N_cikl>
-    <deviation>1000000</deviation>
+    <TIME_START>100000</TIME_START>
+    <TIME_END>134500000</TIME_END>
+    <FREQ>438000000</FREQ>
+    <FREQ_STEP>0</FREQ_STEP>
+    <FREQ_RATE>10</FREQ_RATE>
+    <N_cikl>32000</N_cikl>
+    <deviation>0</deviation>
     <TYPE>0</TYPE>
-    <Ti>100</Ti>
-    <Tp>100</Tp>
+    <Ti>2000</Ti>
+    <Tp>2000</Tp>
     <Tblank1>100</Tblank1>
     <Tblank2>100</Tblank2>
     <Att0>0</Att0>

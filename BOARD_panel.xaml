@@ -9,9 +9,9 @@
         Title="BOARD" Height="239.437" Width="300">
     <Grid>
         <Label x:Name="label" Content="Темп0:" HorizontalAlignment="Left" Margin="228,17,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="label_Temp0" Content="25" HorizontalAlignment="Left" Margin="235,43,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label_Temp0" Content="25" HorizontalAlignment="Left" Margin="235,43,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
         <Label x:Name="label_Copy1" Content="С" HorizontalAlignment="Left" Margin="258,43,0,0" VerticalAlignment="Top"/>
-        <RichTextBox x:Name="richTextBox" HorizontalAlignment="Left" Height="209" VerticalAlignment="Top" Width="223">
+        <RichTextBox x:Name="richTextBox" Margin="0,0,70,0">
             <FlowDocument>
                 <Paragraph>
                     <Run Text=""/>
@@ -20,7 +20,7 @@
         </RichTextBox>
         <Button x:Name="button_clr" Content="CLR" HorizontalAlignment="Left" Margin="236,167,0,0" VerticalAlignment="Top" Width="33" Click="button_clr_Click"/>
         <Label x:Name="label_Copy" Content="Темп1:" HorizontalAlignment="Left" Margin="228,68,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="label_Temp1" Content="25" HorizontalAlignment="Left" Margin="235,94,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label_Temp1" Content="25" HorizontalAlignment="Left" Margin="235,94,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
         <Label x:Name="label_Copy2" Content="С" HorizontalAlignment="Left" Margin="258,94,0,0" VerticalAlignment="Top"/>
 
     </Grid>

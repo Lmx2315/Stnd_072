@@ -24,6 +24,7 @@
             </MenuItem>
 
             <MenuItem x:Name="Панель_управления" Header="_Панели управления">
+                <MenuItem x:Name="Панель_тестирования" Header="_Панель тестирования" Click="mnuTest_Click" IsCheckable="True" IsChecked="false"></MenuItem>
                 <MenuItem x:Name="Панель_инициализации" Header="_Панель Инициализации" Click="mnuInit_Click" IsCheckable="True" IsChecked="false"></MenuItem>
                 <MenuItem x:Name="Панель_синтезатора" Header="_Панель Синтезатора"   Click="mnuSint_Click" IsCheckable="True" IsChecked="false"></MenuItem>
                 <MenuItem x:Name="Панель_приёмника" Header="_Панель Приёмника"     Click="mnuRecv_Click" IsCheckable="True" IsChecked="false"></MenuItem>
@@ -36,18 +37,17 @@
         <Grid>
             <TextBox x:Name="textBox_IP_072"   HorizontalContentAlignment="Right"  HorizontalAlignment="Left" Height="23" Margin="298,36,0,0" TextWrapping="Wrap" Text="127.0.0.1" VerticalAlignment="Top" Width="96" AcceptsTab="True" Visibility="Hidden"/>
             <TextBox x:Name="textBox_Port_072" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="298,71,0,0" TextWrapping="Wrap" Text="703" VerticalAlignment="Top" Width="96" Visibility="Hidden"/>
-            <TextBox x:Name="textBox_SYSTIME"   HorizontalContentAlignment="Right"  HorizontalAlignment="Left" Height="23" Margin="36,30,0,0" TextWrapping="Wrap" Text="12:00:00:000:000" VerticalAlignment="Top" Width="120" AcceptsTab="True"/>
+            <TextBox x:Name="textBox_SYSTIME"   HorizontalContentAlignment="Right"  HorizontalAlignment="Left" Height="23" Margin="36,30,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120" AcceptsTab="True"/>
             <Label x:Name="label" Content="Системное время" HorizontalAlignment="Left" Margin="36,4,0,0" VerticalAlignment="Top" Width="120"/>
             <Button x:Name="button_SYSTIME_SETUP" Content="SYNC" HorizontalAlignment="Left" Margin="169,30,0,0" VerticalAlignment="Top" Width="44" Click="button_SYSTIME_SETUP_Click"/>
-            <Button x:Name="button_SYS_START" Content="START" HorizontalAlignment="Left" Margin="39,198,0,0" VerticalAlignment="Top" Width="73" ToolTip="Команда общей инициализации" Click="button_SYS_START_Click" />
+            <Button x:Name="button_SYS_START" Content="SERVER" HorizontalAlignment="Left" Margin="306,298,0,0" VerticalAlignment="Top" Width="73" ToolTip="Команда общей инициализации" Click="button_SYS_START_Click" />
 
-            <CheckBox x:Name="checkBox_ch1" Content="К1" HorizontalAlignment="Left" Margin="39,162,0,0" VerticalAlignment="Top"/>
-            <CheckBox x:Name="checkBox_ch2" Content="К2" HorizontalAlignment="Left" Margin="82,162,0,0" VerticalAlignment="Top"/>
-            <CheckBox x:Name="checkBox_ch3" Content="К3" HorizontalAlignment="Left" Margin="125,162,0,0" VerticalAlignment="Top"/>
-            <CheckBox x:Name="checkBox_ch4" Content="К4" HorizontalAlignment="Left" Margin="168,162,0,0" VerticalAlignment="Top"/>
-            <Label    x:Name="label_ch"     Content="Работа/калибровка" HorizontalAlignment="Left" Margin="54,133,0,0" VerticalAlignment="Top" Height="24"/>
-            <Button x:Name="button" Content="STATUS" HorizontalAlignment="Left" Margin="39,89,0,0" VerticalAlignment="Top" Width="75" ToolTip="Команда запроса статуса" Click="button_Click" />
-            <Label x:Name="label1" Content="ОК" HorizontalAlignment="Left" Margin="129,87,0,0" VerticalAlignment="Top"/>
+            <CheckBox x:Name="checkBox_ch1" Content="К1" HorizontalAlignment="Left" Margin="23,95,0,0" VerticalAlignment="Top" Checked="checkBox_ch1_Checked" IsChecked="True"/>
+            <CheckBox x:Name="checkBox_ch2" Content="К2" HorizontalAlignment="Left" Margin="66,95,0,0" VerticalAlignment="Top" IsChecked="True"/>
+            <CheckBox x:Name="checkBox_ch3" Content="К3" HorizontalAlignment="Left" Margin="109,95,0,0" VerticalAlignment="Top" IsChecked="True"/>
+            <CheckBox x:Name="checkBox_ch4" Content="К4" HorizontalAlignment="Left" Margin="152,95,0,0" VerticalAlignment="Top" IsChecked="True"/>
+            <Label    x:Name="label_ch"     Content="Работа/калибровка" HorizontalAlignment="Left" Margin="38,66,0,0" VerticalAlignment="Top" Height="24"/>
+            <Button x:Name="button" Content="START" HorizontalAlignment="Left" Margin="306,260,0,0" VerticalAlignment="Top" Width="73" ToolTip="Команда запроса статуса" Click="button_Click" RenderTransformOrigin="0.493,-0.091" />
             <Label x:Name="label_Copy" Content="адрес сетевой карты" HorizontalAlignment="Left" Margin="284,5,0,0" VerticalAlignment="Top" Width="128" Visibility="Hidden"/>
             <TextBox x:Name="textBox_IP_dest"   HorizontalContentAlignment="Right"  HorizontalAlignment="Left" Height="23" Margin="298,120,0,0" TextWrapping="Wrap" Text="127.0.0.1" VerticalAlignment="Top" Width="96" AcceptsTab="True" Visibility="Hidden"/>
             <TextBox x:Name="textBox_Port_dest" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="298,155,0,0" TextWrapping="Wrap" Text="77" VerticalAlignment="Top" Width="96" Visibility="Hidden"/>
@@ -58,6 +58,20 @@
             <Button x:Name="button_ADC1" Content="ADC1" HorizontalAlignment="Left" Margin="306,133,0,0" VerticalAlignment="Top" Width="73" ToolTip="Команда общей инициализации"   Click="button_ADC1_Click" Height="29" />
             <Button x:Name="button_FPGA" Content="FPGA" HorizontalAlignment="Left" Margin="306,167,0,0" VerticalAlignment="Top" Width="73" ToolTip="Команда общей инициализации"   Click="button_FPGA_Click" Height="29" />
             <Button x:Name="button_BOARD" Content="BOARD" HorizontalAlignment="Left" Margin="306,201,0,0" VerticalAlignment="Top" Width="73" ToolTip="Команда общей инициализации" Click="button_BOARD_Click" Height="29" />
+            <Button x:Name="button_calibr_ch_ok" Content="OK" HorizontalAlignment="Left" Margin="192,89,0,0" VerticalAlignment="Top" Width="32" ToolTip="Команда запроса статуса"  Click="button_calibr_ch_OK_Click" />
+            <TextBox x:Name="textBox_ATT0" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="42,165,0,0" TextWrapping="Wrap" Text="31" VerticalAlignment="Top" Width="44"/>
+            <Label x:Name="label_FREQ_Copy17" Content="Дб" HorizontalAlignment="Left" Margin="90,163,0,0" VerticalAlignment="Top"/>
+            <Label x:Name="label_Copy19" Content="Вх. аттенюатор 0" HorizontalAlignment="Left" Margin="10,136,0,0" VerticalAlignment="Top"/>
+            <TextBox x:Name="textBox_ATT2" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="42,266,0,0" TextWrapping="Wrap" Text="31" VerticalAlignment="Top" Width="44"/>
+            <Label x:Name="label_FREQ_Copy18" Content="Дб" HorizontalAlignment="Left" Margin="90,264,0,0" VerticalAlignment="Top"/>
+            <Label x:Name="label_Copy20" Content="Вх. аттенюатор 2" HorizontalAlignment="Left" Margin="14,240,0,0" VerticalAlignment="Top"/>
+            <TextBox x:Name="textBox_ATT1" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="42,217,0,0" TextWrapping="Wrap" Text="31" VerticalAlignment="Top" Width="44"/>
+            <Label x:Name="label_FREQ_Copy24" Content="Дб" HorizontalAlignment="Left" Margin="92,217,0,0" VerticalAlignment="Top"/>
+            <Label x:Name="label_Copy26" Content="Вх. аттенюатор 1" HorizontalAlignment="Left" Margin="12,190,0,0" VerticalAlignment="Top"/>
+            <TextBox x:Name="textBox_ATT3" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="42,321,0,0" TextWrapping="Wrap" Text="31" VerticalAlignment="Top" Width="44"/>
+            <Label x:Name="label_FREQ_Copy25" Content="Дб" HorizontalAlignment="Left" Margin="90,314,0,0" VerticalAlignment="Top"/>
+            <Label x:Name="label_Copy27" Content="Вх. аттенюатор 3" HorizontalAlignment="Left" Margin="14,296,0,0" VerticalAlignment="Top"/>
+            <Button x:Name="button_att_Copy" Content="OK" HorizontalAlignment="Left" Margin="44,356,0,0" VerticalAlignment="Top" Width="42" ToolTip="Команда установки аттенюатора"  Click="button_ATT_Click" />
 
         </Grid>
 

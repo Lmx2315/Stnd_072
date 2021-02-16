@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.ComponentModel; // CancelEventArgs
+using PlotWrapper;
+using System.Diagnostics;
 
 namespace Stnd_072
 {
@@ -22,6 +24,125 @@ namespace Stnd_072
     {
         public static bool init;
         MainWindow main = null;
+        public int FLAG_SMOOTH_FILTR;//состояние сглаживающего фильтра для спектра
+        static int BUF_SIZE = 131072;          //это размер максимального БПФ*4 (т.е. в байтах)
+        static int FFT_SIZE_MAX = BUF_SIZE / 4;//максимальный размер БПФ
+
+        Plot3 fig_TIME0 = new Plot3("time", "x", "y");
+        Plot  fig_FFT0  = new Plot(90, "FFT (dBV)", "кГц", "Mag (dBV)", "", "", "", "", "");
+
+        Plot3 fig_TIME1 = new Plot3("time", "x", "y");
+        Plot fig_FFT1 = new Plot(90, "FFT (dBV)", "кГц", "Mag (dBV)", "", "", "", "", "");
+
+        Plot3 fig_TIME2 = new Plot3("time", "x", "y");
+        Plot fig_FFT2 = new Plot(90, "FFT (dBV)", "кГц", "Mag (dBV)", "", "", "", "", "");
+
+        Plot3 fig_TIME3 = new Plot3("time", "x", "y");
+        Plot fig_FFT3 = new Plot(90, "FFT (dBV)", "кГц", "Mag (dBV)", "", "", "", "", "");
+
+        public uint FFT_SIZE;
+        public string selectedWindowName="Hann";//название сглаживающего окна для БПФ
+
+        int FLAG_DISP_FFT0 = 0;
+        int FLAG_DISP_FFT1 = 0;
+        int FLAG_DISP_FFT2 = 0;
+        int FLAG_DISP_FFT3 = 0;
+
+        int FLAG_DISP_TIME0 = 0;
+
+        public STRUCT_FFT_DATA data0;
+        public STRUCT_FFT_DATA data1;
+        public STRUCT_FFT_DATA data2;
+        public STRUCT_FFT_DATA data3;
+
+        private void checkBox_SPECTR0_Checked(object sender, RoutedEventArgs e)
+        {
+            FLAG_DISP_FFT0 = 1;
+            fig_FFT0.Visible=true;
+        }
+
+        private void checkBox_SPECTR0_Unchecked(object sender, RoutedEventArgs e)
+        {
+            FLAG_DISP_FFT0 = 0;
+            fig_FFT0.Visible = false;
+        }
+
+        private void checkBox_TIME0_Checked(object sender, RoutedEventArgs e)
+        {
+            FLAG_DISP_TIME0 = 1;
+            fig_FFT1.Visible = true;
+        }
+
+        private void checkBox_TIME0_Unchecked(object sender, RoutedEventArgs e)
+        {
+            FLAG_DISP_TIME0 = 0;
+            fig_FFT1.Visible = false;
+        }
+
+        private void checkBox_SPECTR1_Checked(object sender, RoutedEventArgs e)
+        {
+            FLAG_DISP_FFT1 = 1;
+        }
+
+        private void checkBox_SPECTR1_Unchecked(object sender, RoutedEventArgs e)
+        {
+            FLAG_DISP_FFT1 = 0;
+        }
+
+        private void checkBox_TIME1_Checked(object sender, RoutedEventArgs e)
+        {
+            FLAG_DISP_TIME1 = 1;
+        }
+
+        private void checkBox_TIME1_Unchecked(object sender, RoutedEventArgs e)
+        {
+            FLAG_DISP_TIME1 = 0;
+        }
+
+        private void checkBox_SPECTR2_Checked(object sender, RoutedEventArgs e)
+        {
+            FLAG_DISP_FFT2 = 1;
+        }
+
+        private void checkBox_SPECTR2_Unchecked(object sender, RoutedEventArgs e)
+        {
+            FLAG_DISP_FFT2 = 0;
+        }
+
+        private void checkBox_TIME2_Checked(object sender, RoutedEventArgs e)
+        {
+            FLAG_DISP_TIME2 = 1;
+        }
+
+        private void checkBox_TIME2_Unchecked(object sender, RoutedEventArgs e)
+        {
+            FLAG_DISP_TIME2 = 0;
+        }
+
+        private void checkBox_SPECTR3_Checked(object sender, RoutedEventArgs e)
+        {
+            FLAG_DISP_FFT3 = 1;
+        }
+
+        private void checkBox_SPECTR3_Unchecked(object sender, RoutedEventArgs e)
+        {
+            FLAG_DISP_FFT3 = 0;
+        }
+
+        private void checkBox_TIME3_Checked(object sender, RoutedEventArgs e)
+        {
+            FLAG_DISP_TIME3 = 1;
+        }
+
+        private void checkBox_TIME3_Unchecked(object sender, RoutedEventArgs e)
+        {
+            FLAG_DISP_TIME3 = 0;
+        }
+
+        int FLAG_DISP_TIME1 = 0;
+        int FLAG_DISP_TIME2 = 0;
+        int FLAG_DISP_TIME3 = 0;
+
         public Приёмник(MainWindow a)
         {
             InitializeComponent();
@@ -31,11 +152,42 @@ namespace Stnd_072
             {
                 
             }
+            FFT_SIZE = main.FFT_SIZE;
+
+            Timer1.Tick += new EventHandler(Timer1_Tick);
+            Timer1.Interval = new TimeSpan(0, 0, 0, 0, 25);
+            Timer1.Start();//запускаю таймер 
+
+            comboBox_winFFT.ItemsSource = Enum.GetNames(typeof(DSPLib.DSP.Window.Type));
+            comboBox_winFFT.SelectedItem=1;
+            //selectedWindowName = comboBox_winFFT.SelectedValue.ToString();
+            //
         }
 
         ~Приёмник()
         {
             init = false;
+        }
+
+        System.Windows.Threading.DispatcherTimer Timer1 = new System.Windows.Threading.DispatcherTimer();
+
+        private void Timer1_Tick(object sender, EventArgs e)
+        {
+            if ((main.FLAG_DISPAY0==1)&&(FLAG_DISP_FFT0==1))
+           {
+                DISPLAY_FFT_0();
+                main.FLAG_DISPAY0 = 0;
+                textBox_SCH_UDP0.Text = data0.SCH_FFT_PKG0.ToString();
+                data0.SCH_FFT_PKG0 = 0;
+            }
+
+            if ((main.FLAG_DISPAY1 == 1) && (FLAG_DISP_FFT1 == 1))
+           {
+                DISPLAY_FFT_1();
+                main.FLAG_DISPAY1 = 0;
+                textBox_SCH_UDP1.Text = data1.SCH_FFT_PKG0.ToString();
+                data1.SCH_FFT_PKG0 = 0;
+            }
         }
 
         void DataWindow_Closing(object sender, CancelEventArgs e)
@@ -60,6 +212,126 @@ namespace Stnd_072
                     Log.Write    (log_txt);
                 main.udp0_sender.UDP_SEND(UDP_sender.CMD.CMD_ATT,a,4,0);
             }
+        }
+
+        void DISPLAY_FFT_0()
+        {
+            // размер БПФ
+            double[] TSAMPL_tmp      = new double[FFT_SIZE];
+            double[] MAG_LOG_tmp     = new double[FFT_SIZE];
+            double[] time_series_tmp = new double[FFT_SIZE];
+
+            if (data0!=null)
+            {
+                Array.Copy(data0.TSAMPL, TSAMPL_tmp, FFT_SIZE);
+                Array.Copy(data0.MAG_LOG, MAG_LOG_tmp, FFT_SIZE);
+
+                //Console.WriteLine("AMAX0:"+ data0.AMAX);
+
+                Stopwatch stopwatch = new Stopwatch();
+                stopwatch.Start();
+                fig_FFT0.PlotData(TSAMPL_tmp, MAG_LOG_tmp, data0.AMAX, data0.BMAX, data0.CMAX, data0.M1X, data0.M1Y, data0.M2X, data0.M2Y, data0.M3X, data0.M3Y);
+                fig_FFT0.Show();
+            }
+
+        }
+
+        void DISPLAY_FFT_1()
+        {
+            // размер БПФ
+            double[] TSAMPL_tmp = new double[FFT_SIZE];
+            double[] MAG_LOG_tmp = new double[FFT_SIZE];
+            double[] time_series_tmp = new double[FFT_SIZE];
+
+            if (data1 != null)
+            {
+                Array.Copy(data1.TSAMPL, TSAMPL_tmp, FFT_SIZE);
+                Array.Copy(data1.MAG_LOG, MAG_LOG_tmp, FFT_SIZE);
+
+                //Console.WriteLine("AMAX0:"+ data0.AMAX);
+
+                Stopwatch stopwatch = new Stopwatch();
+                stopwatch.Start();
+                fig_FFT1.PlotData(TSAMPL_tmp, MAG_LOG_tmp, data1.AMAX, data1.BMAX, data1.CMAX, data1.M1X, data1.M1Y, data1.M2X, data1.M2Y, data1.M3X, data1.M3Y);
+                fig_FFT1.Show();
+            }
+
+        }
+
+        void DISPLAY_TIME_0()
+        {/*
+            // размер БПФ
+            double[] TSAMPL_tmp = new double[FFT_SIZE];
+            double[] MAG_LOG_tmp = new double[FFT_SIZE];
+            double[] time_series_tmp = new double[FFT_SIZE];
+
+            Array.Copy(TSAMPL, TSAMPL_tmp, FFT_SIZE);
+            Array.Copy(MAG_LOG, MAG_LOG_tmp, FFT_SIZE);
+            Array.Copy(time_series, time_series_tmp, FFT_SIZE);
+            // Debug.WriteLine("*");
+            // Start a Stopwatch
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
+            fig3.PlotData(TSAMPL_tmp, MAG_LOG_tmp, AMAX, BMAX, CMAX, M1X, M1Y, M2X, M2Y, M3X, M3Y);
+            fig3.Show();
+
+            fig2.PlotData(time_series_tmp);
+            fig2.Show();
+            */
+        }
+
+        private void mnu_winFFT_Click(object sender, RoutedEventArgs e)
+        {
+            selectedWindowName=comboBox_winFFT.SelectedValue.ToString();
+        }
+
+        private void mnu_smooth1_Click(object sender, RoutedEventArgs e)
+        {
+            var item = sender as MenuItem;
+
+            if (item.IsChecked)
+            {
+                FLAG_SMOOTH_FILTR = 1;
+                smooth_2.IsChecked = false;
+            }
+            else
+            {
+                if (smooth_2.IsChecked==false) FLAG_SMOOTH_FILTR = 0;
+            }
+        }
+
+        private void mnu_smooth2_Click(object sender, RoutedEventArgs e)
+        {
+            var item = sender as MenuItem;
+
+            if (item.IsChecked)
+            {
+                FLAG_SMOOTH_FILTR = 2;
+                smooth_1.IsChecked = false;
+            }
+            else
+            {
+                if (smooth_1.IsChecked == false) FLAG_SMOOTH_FILTR = 0;
+            }
+        }
+
+        private void comboBox_winFFT_Initialized(object sender, EventArgs e)
+        {
+           // comboBox_winFFT.ItemsSource = Enum.GetNames(typeof(DSPLib.DSP.Window.Type));
+        }
+
+        private void textBox_sizeFFT_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            int n = 0;
+            string txt = textBox_sizeFFT.Text;
+            if (txt == "") txt = "0";
+            n = Convert.ToInt16(txt);
+            if ((n == 64) || (n == 128) || (n == 256) || (n == 512) || (n == 1024) || (n == 2048) || (n == 4096) || (n == 8192) || (n == 16384)) FFT_SIZE = Convert.ToUInt32(textBox_sizeFFT.Text);
+        }
+
+        private void comboBox_winFFT_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            selectedWindowName = comboBox_winFFT.SelectedValue.ToString();
         }
     }
 }

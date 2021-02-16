@@ -1,17 +1,17 @@
 <?xml version="1.0"?>
 <ArrayOfRABCIKL xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <RABCIKL>
-    <NUMBER_RECORD>0</NUMBER_RECORD>
-    <TIME_START>0</TIME_START>
-    <TIME_END>102400</TIME_END>
-    <FREQ>435000000</FREQ>
-    <FREQ_STEP>1000</FREQ_STEP>
-    <FREQ_RATE>1000</FREQ_RATE>
-    <N_cikl>256</N_cikl>
-    <deviation>1000000</deviation>
+    <NUMBER_RECORD>1</NUMBER_RECORD>
+    <TIME_START>100000</TIME_START>
+    <TIME_END>88102200</TIME_END>
+    <FREQ>438000000</FREQ>
+    <FREQ_STEP>0</FREQ_STEP>
+    <FREQ_RATE>10</FREQ_RATE>
+    <N_cikl>1</N_cikl>
+    <deviation>0</deviation>
     <TYPE>0</TYPE>
-    <Ti>100</Ti>
-    <Tp>100</Tp>
+    <Ti>88000000</Ti>
+    <Tp>2000</Tp>
     <Tblank1>100</Tblank1>
     <Tblank2>100</Tblank2>
     <Att0>0</Att0>

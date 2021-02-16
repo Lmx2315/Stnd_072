@@ -13,6 +13,12 @@ namespace Stnd_072
             public string dst_IP;
             public string dst_PORT;
 
+            public string DATA0_IP;
+            public string DATA0_PORT;
+
+            public string DATA1_IP;
+            public string DATA1_PORT;
+
             public string MSG_CMD_OK;//
             public string MSG_STATUS_OK;//
     }

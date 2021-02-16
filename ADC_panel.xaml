@@ -6,12 +6,12 @@
         xmlns:local="clr-namespace:Stnd_072"
         mc:Ignorable="d"
         Closing="DataWindow_Closing"
-        Title="ADC" Height="239.437" Width="300">
+        Title="ADC" Height="246.931" Width="300">
     <Grid>
         <Label x:Name="label" Content="Темп:" HorizontalAlignment="Left" Margin="228,17,0,0" VerticalAlignment="Top" Visibility="Hidden"/>
         <Label x:Name="label_Temp" Content="25" HorizontalAlignment="Left" Margin="228,48,0,0" VerticalAlignment="Top" Visibility="Hidden"/>
         <Label x:Name="label_Copy1" Content="С" HorizontalAlignment="Left" Margin="251,48,0,0" VerticalAlignment="Top" Visibility="Hidden"/>
-        <RichTextBox x:Name="richTextBox" HorizontalAlignment="Left" Height="209" VerticalAlignment="Top" Width="223" TextChanged="richTextBox_TextChanged">
+        <RichTextBox x:Name="richTextBox" Margin="0,0,70,0" TextChanged="richTextBox_TextChanged">
             <FlowDocument>
                 <Paragraph>
                     <Run Text=""/>

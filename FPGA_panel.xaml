@@ -9,9 +9,9 @@
         Title="FPGA" Height="239.437" Width="300">
     <Grid>
         <Label x:Name="label" Content="Темп:" HorizontalAlignment="Left" Margin="228,17,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="label_Temp" Content="25" HorizontalAlignment="Left" Margin="228,48,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label_Temp" Content="25" HorizontalAlignment="Left" Margin="228,48,0,0" VerticalAlignment="Top" ToolTip="Температура ПЛИС" FontWeight="Bold"/>
         <Label x:Name="label_Copy1" Content="С" HorizontalAlignment="Left" Margin="251,48,0,0" VerticalAlignment="Top"/>
-        <RichTextBox x:Name="richTextBox" HorizontalAlignment="Left" Height="209" VerticalAlignment="Top" Width="223">
+        <RichTextBox x:Name="richTextBox" Margin="0,0,70,0">
             <FlowDocument>
                 <Paragraph>
                     <Run Text=""/>
