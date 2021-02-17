@@ -42,6 +42,8 @@ namespace Stnd_072
         FPGA_panel    panel_FPGA = null;
         BOARD_panel   panel_BOARD = null;
 
+        BRD_state BRD_st = new BRD_state();
+
         DDS_code dds_code   = null;
         public List<DDS_code> list = null;
 
@@ -447,24 +449,11 @@ namespace Stnd_072
 
         private void button_ATT_Click(object sender, RoutedEventArgs e)
         {
-            //команда старт!
-            byte[] a = new byte[4];
-            int att0, att1, att2, att3;
 
-            att0 = Convert.ToInt16(textBox_ATT0.Text);
-            att1 = Convert.ToInt16(textBox_ATT1.Text);
-            att2 = Convert.ToInt16(textBox_ATT2.Text);
-            att3 = Convert.ToInt16(textBox_ATT3.Text);
-
-            a[0] = (byte)att0;
-            a[1] = (byte)att1;
-            a[2] = (byte)att2;
-            a[3] = (byte)att3;
-
-            Console.WriteLine(" a[0]:" + a[0]);
-            Console.WriteLine(" a[1]:" + a[1]);
-            Console.WriteLine(" a[2]:" + a[2]);
-            Console.WriteLine(" a[3]:" + a[3]);
+            BRD_st.Att0 = Convert.ToInt16(textBox_ATT0.Text);
+            BRD_st.Att1 = Convert.ToInt16(textBox_ATT1.Text);
+            BRD_st.Att2 = Convert.ToInt16(textBox_ATT2.Text);
+            BRD_st.Att3 = Convert.ToInt16(textBox_ATT3.Text);
 
             Log.Write("управляем аттенюаторами!");
             try
@@ -472,9 +461,9 @@ namespace Stnd_072
                 Console.WriteLine("Отсылаем команду управления аттенюаторами!");
                 udp0_sender.UDP_SEND
                        (
-                       UDP_sender.CMD.CMD_ATT, //команда 
-                       a,   //данные
-                       4,   //число данных в байтах
+                       UDP_sender.CMD.CMD_ATT,      //команда 
+                       BRD_st.ATT_TDATA(),          //данные
+                (uint) BRD_st.ATT_TDATA().Length,   //число данных в байтах
                        0    //время исполнения , 0 - значит немедленно как сможешь.
                        );
             }

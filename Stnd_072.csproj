@@ -70,6 +70,7 @@
       <DependentUpon>BOARD_panel.xaml</DependentUpon>
     </Compile>
     <Compile Include="BOARD_status.cs" />
+    <Compile Include="BRD_state.cs" />
     <Compile Include="Complex.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="Consol.xaml.cs">

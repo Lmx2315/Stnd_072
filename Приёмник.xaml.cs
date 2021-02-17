@@ -24,7 +24,7 @@ namespace Stnd_072
     {
         public static bool init;
         MainWindow main = null;
-        public int FLAG_SMOOTH_FILTR;//состояние сглаживающего фильтра для спектра
+        public int FLAG_SMOOTH_FILTR=2;//состояние сглаживающего фильтра для спектра
         static int BUF_SIZE = 131072;          //это размер максимального БПФ*4 (т.е. в байтах)
         static int FFT_SIZE_MAX = BUF_SIZE / 4;//максимальный размер БПФ
 
@@ -41,7 +41,7 @@ namespace Stnd_072
         Plot fig_FFT3 = new Plot(90, "FFT (dBV)", "кГц", "Mag (dBV)", "", "", "", "", "");
 
         public uint FFT_SIZE;
-        public string selectedWindowName="Hann";//название сглаживающего окна для БПФ
+        public string selectedWindowName="HFT248D";//название сглаживающего окна для БПФ
 
         int FLAG_DISP_FFT0 = 0;
         int FLAG_DISP_FFT1 = 0;
@@ -54,6 +54,8 @@ namespace Stnd_072
         public STRUCT_FFT_DATA data1;
         public STRUCT_FFT_DATA data2;
         public STRUCT_FFT_DATA data3;
+
+        BRD_state BRD_st = new BRD_state();
 
         private void checkBox_SPECTR0_Checked(object sender, RoutedEventArgs e)
         {
@@ -70,23 +72,23 @@ namespace Stnd_072
         private void checkBox_TIME0_Checked(object sender, RoutedEventArgs e)
         {
             FLAG_DISP_TIME0 = 1;
-            fig_FFT1.Visible = true;
         }
 
         private void checkBox_TIME0_Unchecked(object sender, RoutedEventArgs e)
         {
             FLAG_DISP_TIME0 = 0;
-            fig_FFT1.Visible = false;
         }
 
         private void checkBox_SPECTR1_Checked(object sender, RoutedEventArgs e)
         {
             FLAG_DISP_FFT1 = 1;
+            fig_FFT1.Visible = true;
         }
 
         private void checkBox_SPECTR1_Unchecked(object sender, RoutedEventArgs e)
         {
             FLAG_DISP_FFT1 = 0;
+            fig_FFT1.Visible = false;
         }
 
         private void checkBox_TIME1_Checked(object sender, RoutedEventArgs e)
@@ -167,6 +169,11 @@ namespace Stnd_072
         ~Приёмник()
         {
             init = false;
+
+            if (fig_FFT0 != null) fig_FFT0.Dispose();
+            if (fig_FFT1 != null) fig_FFT1.Dispose();
+            if (fig_FFT2 != null) fig_FFT2.Dispose();
+            if (fig_FFT3 != null) fig_FFT3.Dispose();
         }
 
         System.Windows.Threading.DispatcherTimer Timer1 = new System.Windows.Threading.DispatcherTimer();
@@ -197,20 +204,19 @@ namespace Stnd_072
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
-            byte[] a = new byte[4];
             string log_txt;
-            a[0]=Convert.ToByte(textBox_Att0.Text);
-            a[1]=Convert.ToByte(textBox_Att1.Text);
-            a[2]=Convert.ToByte(textBox_Att2.Text);
-            a[3]=Convert.ToByte(textBox_Att3.Text);
+            BRD_st.Att0 = Convert.ToByte(textBox_Att0.Text);
+            BRD_st.Att1 = Convert.ToByte(textBox_Att1.Text);
+            BRD_st.Att2 = Convert.ToByte(textBox_Att2.Text);
+            BRD_st.Att3 = Convert.ToByte(textBox_Att3.Text);
 
-            log_txt = "Отправляем значения аттенюатора 0=" + a[0].ToString() + ",1=" + a[1].ToString() + ",2=" + a[2].ToString() + ",3=" + a[3].ToString();
+            log_txt = "Отправляем значения аттенюатора 0=" + BRD_st.Att0.ToString() + ",1=" + BRD_st.Att1.ToString() + ",2=" + BRD_st.Att2.ToString() + ",3=" + BRD_st.Att3.ToString();
 
             if (main != null)
             {
                 Console.WriteLine(log_txt);
                     Log.Write    (log_txt);
-                main.udp0_sender.UDP_SEND(UDP_sender.CMD.CMD_ATT,a,4,0);
+                main.udp0_sender.UDP_SEND(UDP_sender.CMD.CMD_ATT, BRD_st.ATT_TDATA(),(byte) BRD_st.ATT_TDATA().Length, 0);
             }
         }
 
