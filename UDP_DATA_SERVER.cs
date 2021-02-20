@@ -446,8 +446,7 @@ namespace Stnd_072
 
 
                         FLAG_FFT0 = 0;//обработка завершена
-                        FLAG_DISPAY0 = 1;
-
+                        FLAG_DISPAY0 = 1;                        
                     }
 
                 }

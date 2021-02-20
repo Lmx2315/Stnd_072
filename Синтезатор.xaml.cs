@@ -235,7 +235,7 @@ namespace Stnd_072
             c0.Amplitude3 = Convert.ToInt16(textBox_AMP3.Text);
 
             if (checkBox_Calibrovka.IsChecked == true) c0.Calibrovka = 0; else c0.Calibrovka = 1;
-            if (checkBox_Coherent.IsChecked == true) c0.Coherent = 1; else c0.Coherent = 0;
+            if (checkBox_Coherent.IsChecked   == true) c0.Coherent = 1; else c0.Coherent = 0;            
 
             c0.DELAY0 = Convert.ToInt16(textBox_DELAY0.Text);
             c0.DELAY1 = Convert.ToInt16(textBox_DELAY1.Text);
@@ -309,8 +309,8 @@ namespace Stnd_072
             textBox_AMP2.Text = list[a].Amplitude2.ToString();
             textBox_AMP3.Text = list[a].Amplitude3.ToString();
 
-            checkBox_Calibrovka.IsChecked = Convert.ToBoolean(list[a].Calibrovka);
-            checkBox_Coherent.IsChecked   = Convert.ToBoolean(list[a].Coherent);
+            if (list[a].Calibrovka > 0) checkBox_Calibrovka.IsChecked = false; else checkBox_Calibrovka.IsChecked = true;
+            if (list[a].Coherent > 0) checkBox_Coherent.IsChecked = true; else checkBox_Coherent.IsChecked = false;
 
             textBox_DELAY0.Text = list[a].DELAY0.ToString();
             textBox_DELAY1.Text = list[a].DELAY1.ToString();
@@ -508,7 +508,15 @@ namespace Stnd_072
 
         private void textBox_N_intervals_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (Convert.ToInt32(textBox_N_intervals.Text) == 0) textBox_N_intervals.Text = "1";
+            try 
+            {
+                if (Convert.ToInt32(textBox_N_intervals.Text) == 0) textBox_N_intervals.Text = "1";
+            }
+            catch 
+            {
+
+            }
+            
         }
 
         private void checkBox_Coherent_Checked(object sender, RoutedEventArgs e)

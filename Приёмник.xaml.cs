@@ -49,6 +49,9 @@ namespace Stnd_072
         int FLAG_DISP_FFT3 = 0;
 
         int FLAG_DISP_TIME0 = 0;
+        int FLAG_DISP_TIME1 = 0;
+        int FLAG_DISP_TIME2 = 0;
+        int FLAG_DISP_TIME3 = 0;
 
         public STRUCT_FFT_DATA data0;
         public STRUCT_FFT_DATA data1;
@@ -104,11 +107,13 @@ namespace Stnd_072
         private void checkBox_SPECTR2_Checked(object sender, RoutedEventArgs e)
         {
             FLAG_DISP_FFT2 = 1;
+            fig_FFT2.Visible = true;
         }
 
         private void checkBox_SPECTR2_Unchecked(object sender, RoutedEventArgs e)
         {
             FLAG_DISP_FFT2 = 0;
+            fig_FFT2.Visible = false;
         }
 
         private void checkBox_TIME2_Checked(object sender, RoutedEventArgs e)
@@ -124,11 +129,13 @@ namespace Stnd_072
         private void checkBox_SPECTR3_Checked(object sender, RoutedEventArgs e)
         {
             FLAG_DISP_FFT3 = 1;
+            fig_FFT3.Visible = true;
         }
 
         private void checkBox_SPECTR3_Unchecked(object sender, RoutedEventArgs e)
         {
             FLAG_DISP_FFT3 = 0;
+            fig_FFT3.Visible = false;
         }
 
         private void checkBox_TIME3_Checked(object sender, RoutedEventArgs e)
@@ -140,10 +147,6 @@ namespace Stnd_072
         {
             FLAG_DISP_TIME3 = 0;
         }
-
-        int FLAG_DISP_TIME1 = 0;
-        int FLAG_DISP_TIME2 = 0;
-        int FLAG_DISP_TIME3 = 0;
 
         public Приёмник(MainWindow a)
         {
@@ -157,7 +160,7 @@ namespace Stnd_072
             FFT_SIZE = main.FFT_SIZE;
 
             Timer1.Tick += new EventHandler(Timer1_Tick);
-            Timer1.Interval = new TimeSpan(0, 0, 0, 0, 25);
+            Timer1.Interval = new TimeSpan(0, 0, 0, 0, 50);
             Timer1.Start();//запускаю таймер 
 
             comboBox_winFFT.ItemsSource = Enum.GetNames(typeof(DSPLib.DSP.Window.Type));
@@ -194,6 +197,22 @@ namespace Stnd_072
                 main.FLAG_DISPAY1 = 0;
                 textBox_SCH_UDP1.Text = data1.SCH_FFT_PKG0.ToString();
                 data1.SCH_FFT_PKG0 = 0;
+            }
+
+            if ((main.FLAG_DISPAY2 == 1) && (FLAG_DISP_FFT2 == 1))
+            {
+                DISPLAY_FFT_2();
+                main.FLAG_DISPAY2 = 0;
+                textBox_SCH_UDP2.Text = data2.SCH_FFT_PKG0.ToString();
+                data2.SCH_FFT_PKG0 = 0;
+            }
+
+            if ((main.FLAG_DISPAY3 == 1) && (FLAG_DISP_FFT3 == 1))
+            {
+                DISPLAY_FFT_3();
+                main.FLAG_DISPAY3 = 0;
+                textBox_SCH_UDP3.Text = data3.SCH_FFT_PKG0.ToString();
+                data3.SCH_FFT_PKG0 = 0;
             }
         }
 
@@ -261,7 +280,48 @@ namespace Stnd_072
                 fig_FFT1.PlotData(TSAMPL_tmp, MAG_LOG_tmp, data1.AMAX, data1.BMAX, data1.CMAX, data1.M1X, data1.M1Y, data1.M2X, data1.M2Y, data1.M3X, data1.M3Y);
                 fig_FFT1.Show();
             }
+        }
 
+        void DISPLAY_FFT_2()
+        {
+            // размер БПФ
+            double[] TSAMPL_tmp = new double[FFT_SIZE];
+            double[] MAG_LOG_tmp = new double[FFT_SIZE];
+            double[] time_series_tmp = new double[FFT_SIZE];
+
+            if (data2 != null)
+            {
+                Array.Copy(data2.TSAMPL, TSAMPL_tmp, FFT_SIZE);
+                Array.Copy(data2.MAG_LOG, MAG_LOG_tmp, FFT_SIZE);
+
+                //Console.WriteLine("AMAX0:"+ data0.AMAX);
+
+                Stopwatch stopwatch = new Stopwatch();
+                stopwatch.Start();
+                fig_FFT2.PlotData(TSAMPL_tmp, MAG_LOG_tmp, data2.AMAX, data2.BMAX, data2.CMAX, data2.M1X, data2.M1Y, data2.M2X, data2.M2Y, data2.M3X, data2.M3Y);
+                fig_FFT2.Show();
+            }
+        }
+
+        void DISPLAY_FFT_3()
+        {
+            // размер БПФ
+            double[] TSAMPL_tmp = new double[FFT_SIZE];
+            double[] MAG_LOG_tmp = new double[FFT_SIZE];
+            double[] time_series_tmp = new double[FFT_SIZE];
+
+            if (data3 != null)
+            {
+                Array.Copy(data3.TSAMPL, TSAMPL_tmp, FFT_SIZE);
+                Array.Copy(data3.MAG_LOG, MAG_LOG_tmp, FFT_SIZE);
+
+                //Console.WriteLine("AMAX0:"+ data0.AMAX);
+
+                Stopwatch stopwatch = new Stopwatch();
+                stopwatch.Start();
+                fig_FFT3.PlotData(TSAMPL_tmp, MAG_LOG_tmp, data3.AMAX, data3.BMAX, data3.CMAX, data3.M1X, data3.M1Y, data3.M2X, data3.M2Y, data3.M3X, data3.M3Y);
+                fig_FFT3.Show();
+            }
         }
 
         void DISPLAY_TIME_0()

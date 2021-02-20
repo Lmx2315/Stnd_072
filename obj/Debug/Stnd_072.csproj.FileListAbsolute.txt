@@ -59,7 +59,6 @@ C:\Work_murmansk\SOFT_comp\CSHARP_STEND\Stnd_072\obj\Debug\BOARD_panel.baml
 C:\Work_murmansk\SOFT_comp\STEND_072\Stnd_072\bin\Debug\Stnd_072.exe.config
 C:\Work_murmansk\SOFT_comp\STEND_072\Stnd_072\bin\Debug\Stnd_072.exe
 C:\Work_murmansk\SOFT_comp\STEND_072\Stnd_072\bin\Debug\Stnd_072.pdb
-C:\Work_murmansk\SOFT_comp\STEND_072\Stnd_072\obj\Debug\Stnd_072.csprojAssemblyReference.cache
 C:\Work_murmansk\SOFT_comp\STEND_072\Stnd_072\obj\Debug\ADC_panel.g.cs
 C:\Work_murmansk\SOFT_comp\STEND_072\Stnd_072\obj\Debug\BOARD_panel.g.cs
 C:\Work_murmansk\SOFT_comp\STEND_072\Stnd_072\obj\Debug\Consol.g.cs
@@ -93,3 +92,4 @@ C:\Work_murmansk\SOFT_comp\STEND_072\Stnd_072\obj\Debug\Тестирование
 C:\Work_murmansk\SOFT_comp\STEND_072\Stnd_072\obj\Debug\Тестирование.baml
 C:\Work_murmansk\SOFT_comp\STEND_072\Stnd_072\obj\Debug\Stnd_072.Plot.resources
 C:\Work_murmansk\SOFT_comp\STEND_072\Stnd_072\obj\Debug\Stnd_072.Plot3.resources
+C:\Work_murmansk\SOFT_comp\STEND_072\Stnd_072\obj\Debug\Stnd_072.csprojAssemblyReference.cache

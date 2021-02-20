@@ -59,19 +59,19 @@
             <Button x:Name="button_FPGA" Content="FPGA" HorizontalAlignment="Left" Margin="306,167,0,0" VerticalAlignment="Top" Width="73" ToolTip="Команда общей инициализации"   Click="button_FPGA_Click" Height="29" />
             <Button x:Name="button_BOARD" Content="BOARD" HorizontalAlignment="Left" Margin="306,201,0,0" VerticalAlignment="Top" Width="73" ToolTip="Команда общей инициализации" Click="button_BOARD_Click" Height="29" />
             <Button x:Name="button_calibr_ch_ok" Content="OK" HorizontalAlignment="Left" Margin="192,89,0,0" VerticalAlignment="Top" Width="32" ToolTip="Команда запроса статуса"  Click="button_calibr_ch_OK_Click" />
-            <TextBox x:Name="textBox_ATT0" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="42,165,0,0" TextWrapping="Wrap" Text="31" VerticalAlignment="Top" Width="44"/>
-            <Label x:Name="label_FREQ_Copy17" Content="Дб" HorizontalAlignment="Left" Margin="90,163,0,0" VerticalAlignment="Top"/>
-            <Label x:Name="label_Copy19" Content="Вх. аттенюатор 0" HorizontalAlignment="Left" Margin="10,136,0,0" VerticalAlignment="Top"/>
-            <TextBox x:Name="textBox_ATT2" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="42,266,0,0" TextWrapping="Wrap" Text="31" VerticalAlignment="Top" Width="44"/>
-            <Label x:Name="label_FREQ_Copy18" Content="Дб" HorizontalAlignment="Left" Margin="90,264,0,0" VerticalAlignment="Top"/>
-            <Label x:Name="label_Copy20" Content="Вх. аттенюатор 2" HorizontalAlignment="Left" Margin="14,240,0,0" VerticalAlignment="Top"/>
-            <TextBox x:Name="textBox_ATT1" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="42,217,0,0" TextWrapping="Wrap" Text="31" VerticalAlignment="Top" Width="44"/>
-            <Label x:Name="label_FREQ_Copy24" Content="Дб" HorizontalAlignment="Left" Margin="92,217,0,0" VerticalAlignment="Top"/>
-            <Label x:Name="label_Copy26" Content="Вх. аттенюатор 1" HorizontalAlignment="Left" Margin="12,190,0,0" VerticalAlignment="Top"/>
-            <TextBox x:Name="textBox_ATT3" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="42,321,0,0" TextWrapping="Wrap" Text="31" VerticalAlignment="Top" Width="44"/>
-            <Label x:Name="label_FREQ_Copy25" Content="Дб" HorizontalAlignment="Left" Margin="90,314,0,0" VerticalAlignment="Top"/>
-            <Label x:Name="label_Copy27" Content="Вх. аттенюатор 3" HorizontalAlignment="Left" Margin="14,296,0,0" VerticalAlignment="Top"/>
-            <Button x:Name="button_att_Copy" Content="OK" HorizontalAlignment="Left" Margin="44,356,0,0" VerticalAlignment="Top" Width="42" ToolTip="Команда установки аттенюатора"  Click="button_ATT_Click" />
+            <TextBox x:Name="textBox_ATT0" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="42,165,0,0" TextWrapping="Wrap" Text="31" VerticalAlignment="Top" Width="44" Visibility="Hidden"/>
+            <Label x:Name="label_FREQ_Copy17" Content="Дб" HorizontalAlignment="Left" Margin="90,163,0,0" VerticalAlignment="Top" Visibility="Hidden"/>
+            <Label x:Name="label_Copy19" Content="Вх. аттенюатор 0" HorizontalAlignment="Left" Margin="10,136,0,0" VerticalAlignment="Top" Visibility="Hidden"/>
+            <TextBox x:Name="textBox_ATT2" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="42,266,0,0" TextWrapping="Wrap" Text="31" VerticalAlignment="Top" Width="44" Visibility="Hidden"/>
+            <Label x:Name="label_FREQ_Copy18" Content="Дб" HorizontalAlignment="Left" Margin="90,264,0,0" VerticalAlignment="Top" Visibility="Hidden"/>
+            <Label x:Name="label_Copy20" Content="Вх. аттенюатор 2" HorizontalAlignment="Left" Margin="14,240,0,0" VerticalAlignment="Top" Visibility="Hidden"/>
+            <TextBox x:Name="textBox_ATT1" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="42,217,0,0" TextWrapping="Wrap" Text="31" VerticalAlignment="Top" Width="44" Visibility="Hidden"/>
+            <Label x:Name="label_FREQ_Copy24" Content="Дб" HorizontalAlignment="Left" Margin="92,217,0,0" VerticalAlignment="Top" Visibility="Hidden"/>
+            <Label x:Name="label_Copy26" Content="Вх. аттенюатор 1" HorizontalAlignment="Left" Margin="12,190,0,0" VerticalAlignment="Top" Visibility="Hidden"/>
+            <TextBox x:Name="textBox_ATT3" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="42,321,0,0" TextWrapping="Wrap" Text="31" VerticalAlignment="Top" Width="44" Visibility="Hidden"/>
+            <Label x:Name="label_FREQ_Copy25" Content="Дб" HorizontalAlignment="Left" Margin="90,314,0,0" VerticalAlignment="Top" Visibility="Hidden"/>
+            <Label x:Name="label_Copy27" Content="Вх. аттенюатор 3" HorizontalAlignment="Left" Margin="14,296,0,0" VerticalAlignment="Top" Visibility="Hidden"/>
+            <Button x:Name="button_att_Copy" Content="OK" HorizontalAlignment="Left" Margin="44,356,0,0" VerticalAlignment="Top" Width="42" ToolTip="Команда установки аттенюатора"  Click="button_ATT_Click" Visibility="Hidden" />
 
         </Grid>
 

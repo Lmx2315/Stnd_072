@@ -82,23 +82,9 @@ namespace Stnd_072
         STRUCT_FFT_DATA data3;
 
         System.Windows.Threading.DispatcherTimer Timer1 = new System.Windows.Threading.DispatcherTimer();
-        private void Timer1_Tick(object sender, EventArgs e)
+        System.Windows.Threading.DispatcherTimer Timer2 = new System.Windows.Threading.DispatcherTimer();
+        private void Timer1_Tick(object sender, EventArgs e)//быстрое перывание - отвечает за обновление данных для вывода на экран
         {
-            //Console.WriteLine("Инициализация.init:"+Инициализация.init);
-            if (Инициализация.init == false) Панель_инициализации.IsChecked = false;
-            if (Синтезатор.init    == false) Панель_синтезатора.IsChecked   = false;
-            if (Приёмник.init      == false) Панель_приёмника.IsChecked     = false;
-            if (Калибровка.init    == false) Панель_калибровки.IsChecked    = false;
-            if (Consol.init        == false) Панель_консоли.IsChecked       = false;
-            
-            if (FLAG_SINT_INIT==0)
-            {
-                FLAG_SINT_INIT = 1;
-                Панель_синтезатора.IsChecked = true;                
-                mnuSint_Click(Панель_синтезатора, null);
-            }
-            CMD_REAL_TIME_SEND();
-            SYS_CONTROL();
 
             if (panel_Recv != null)
             {
@@ -130,15 +116,72 @@ namespace Stnd_072
                 FLAG_DISPAY2 = sDATA1.FLAG_DISPAY0;
                 FLAG_DISPAY3 = sDATA1.FLAG_DISPAY1;
                 data2 = sDATA1.data0;
-                data3 = sDATA1.data0;
+                data3 = sDATA1.data1;
+            }
+        }
+
+        private void Timer2_Tick(object sender, EventArgs e)//медленное прерывание - отвечает за обмен с поделкой
+        {
+            //Console.WriteLine("Инициализация.init:"+Инициализация.init);
+            if (Инициализация.init == false) Панель_инициализации.IsChecked = false;
+            if (Синтезатор.init == false) Панель_синтезатора.IsChecked = false;
+            if (Приёмник.init == false) Панель_приёмника.IsChecked = false;
+            if (Калибровка.init == false) Панель_калибровки.IsChecked = false;
+            if (Consol.init == false) Панель_консоли.IsChecked = false;
+
+            if (FLAG_SINT_INIT == 0)
+            {
+                FLAG_SINT_INIT = 1;
+                Панель_синтезатора.IsChecked = true;
+                mnuSint_Click(Панель_синтезатора, null);
+            }
+            CMD_REAL_TIME_SEND();
+            SYS_CONTROL();
+
+            if (panel_Recv != null)
+            {
+                FFT_SIZE = panel_Recv.FFT_SIZE;                    //тут мы получаем размер БПФ
+                selectedWindowName = panel_Recv.selectedWindowName;//тут мы получаем тип окна БПФ
+                FILTR_SMOOTH = panel_Recv.FLAG_SMOOTH_FILTR;       //тут мы получаем тип сглаживающего фильтра перед выводом на экран
+                panel_Recv.data0 = data0;
+                panel_Recv.data1 = data1;
+                panel_Recv.data2 = data2;
+                panel_Recv.data3 = data3;
+            }
+
+            if (sDATA0 != null)
+            {
+                sDATA0.FFT_SIZE = FFT_SIZE;//передаём размер БПФ для обработки
+                sDATA0.FLAG_filtr = FILTR_SMOOTH;
+                sDATA0.selectedWindowName = selectedWindowName;
+                FLAG_DISPAY0 = sDATA0.FLAG_DISPAY0;
+                FLAG_DISPAY1 = sDATA0.FLAG_DISPAY1;
+                data0 = sDATA0.data0;
+                data1 = sDATA0.data1;
+            }
+
+            if (sDATA1 != null)
+            {
+                sDATA1.FFT_SIZE = FFT_SIZE;//передаём размер БПФ для обработки
+                sDATA1.FLAG_filtr = FILTR_SMOOTH;
+                sDATA1.selectedWindowName = selectedWindowName;
+                FLAG_DISPAY2 = sDATA1.FLAG_DISPAY0;
+                FLAG_DISPAY3 = sDATA1.FLAG_DISPAY1;
+                data2 = sDATA1.data0;
+                data3 = sDATA1.data1;
             }
         }
         public MainWindow()
         {
             InitializeComponent();
             Timer1.Tick += new EventHandler(Timer1_Tick);
-            Timer1.Interval = new TimeSpan(0, 0, 0, 0, 25);
+            Timer1.Interval = new TimeSpan(0, 0, 0, 0,10);
             Timer1.Start();//запускаю таймер 
+
+            Timer2.Tick += new EventHandler(Timer2_Tick);
+            Timer2.Interval = new TimeSpan(0, 0, 0, 0,500);
+            Timer2.Start();//запускаю таймер 
+            
             CFG_load();
             b072.DAC0 = new DAC_status();
             b072.DAC1 = new DAC_status();
@@ -158,12 +201,10 @@ namespace Stnd_072
             udp0_sender = x;
 
             UDP_DATA_SERVER y = new UDP_DATA_SERVER(this,cfg.DATA0_IP, cfg.DATA0_PORT);// 
-            sDATA0 = y;
-
-            /*
-            UDP_DATA_SERVER q = new UDP_DATA_SERVER(cfg.DATA0_IP, cfg.DATA0_PORT);
+            sDATA0 = y;            
+            UDP_DATA_SERVER q = new UDP_DATA_SERVER(this,cfg.DATA1_IP, cfg.DATA1_PORT);
             sDATA1 = q;
-            */
+            
         }
         //--------------------обработка создания панелей--------------------------
         private void button_DAC0_Click(object sender, RoutedEventArgs e)

@@ -45,11 +45,14 @@
             <CheckBox x:Name="checkBox_TIME2"   Content="time" HorizontalAlignment="Left" Margin="73.725,96,0,0" VerticalAlignment="Top" Checked="checkBox_TIME2_Checked" Unchecked="checkBox_TIME2_Unchecked" Grid.Column="2"/>
             <CheckBox x:Name="checkBox_SPECTR3" Content="FFT" HorizontalAlignment="Left" Margin="135.725,75,0,0" VerticalAlignment="Top" Checked="checkBox_SPECTR3_Checked" Unchecked="checkBox_SPECTR3_Unchecked" Grid.Column="2"/>
             <CheckBox x:Name="checkBox_TIME3"   Content="time" HorizontalAlignment="Left" Margin="135.725,96,0,0" VerticalAlignment="Top" Checked="checkBox_TIME3_Checked" Unchecked="checkBox_TIME3_Unchecked" Grid.Column="2"/>
-            <TextBox x:Name="textBox_Att0_Copy" HorizontalContentAlignment="Right" Height="23" Margin="17,206,4.275,0" TextWrapping="Wrap" Text="31" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
-            <Label x:Name="label_Copy4" Content="Дин.диап" HorizontalAlignment="Left" Margin="9,180,0,0" VerticalAlignment="Top" Width="61" Grid.ColumnSpan="3"/>
-            <Label x:Name="label_Copy5" Content="Дб" HorizontalAlignment="Left" Margin="0.725,206,0,0" VerticalAlignment="Top" Width="27" Grid.Column="2"/>
-            <TextBox x:Name="textBox_SCH_UDP0" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="279.725,18,0,0" TextWrapping="Wrap" Text="31" VerticalAlignment="Top" Width="43" Grid.Column="2"/>
-            <TextBox x:Name="textBox_SCH_UDP1" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="279.725,46,0,0" TextWrapping="Wrap" Text="31" VerticalAlignment="Top" Width="43" Grid.Column="2"/>
+            <TextBox x:Name="textBox_Att0_Copy" HorizontalContentAlignment="Right" Height="23" Margin="17,206,4.275,0" TextWrapping="Wrap" Text="31" VerticalAlignment="Top" Grid.ColumnSpan="2" Visibility="Hidden"/>
+            <Label x:Name="label_Copy4" Content="Дин.диап" HorizontalAlignment="Left" Margin="9,180,0,0" VerticalAlignment="Top" Width="61" Grid.ColumnSpan="3" Visibility="Hidden"/>
+            <Label x:Name="label_Copy5" Content="Дб" HorizontalAlignment="Left" Margin="0.725,206,0,0" VerticalAlignment="Top" Width="27" Grid.Column="2" Visibility="Hidden"/>
+            <TextBox x:Name="textBox_SCH_UDP0" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="295,27,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="43" Grid.Column="2"/>
+            <TextBox x:Name="textBox_SCH_UDP1" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="295,55,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="43" Grid.Column="2"/>
+            <TextBox x:Name="textBox_SCH_UDP2" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="295,84,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="43" Grid.Column="2"/>
+            <TextBox x:Name="textBox_SCH_UDP3" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="23" Margin="295,112,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="43" Grid.Column="2"/>
+            <Label x:Name="label_Copy6" Content="Пакеты" HorizontalAlignment="Left" Margin="290,1,-8,0" VerticalAlignment="Top" Width="66" Grid.Column="2"/>
 
         </Grid>
     </DockPanel>
