@@ -19,6 +19,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 using System.Diagnostics;
+using System.ComponentModel; // CancelEventArgs
 
 namespace Stnd_072
 {
@@ -56,7 +57,7 @@ namespace Stnd_072
         static int FFT_SIZE_MAX = BUF_SIZE / 4;//максимальный размер БПФ
                 
         int FLAG_SINT_INIT = 0;
-        public uint FFT_SIZE    = 8192;//размер БПФ
+        public uint FFT_SIZE    = 4096;//размер БПФ
         public int FLAG_DISPAY0 = 0;//флаг показывает возможность вывода на экран - CH0
         public int FLAG_DISPAY1 = 0;//- CH1
         public int FLAG_DISPAY2 = 0;//- CH2
@@ -83,6 +84,16 @@ namespace Stnd_072
 
         System.Windows.Threading.DispatcherTimer Timer1 = new System.Windows.Threading.DispatcherTimer();
         System.Windows.Threading.DispatcherTimer Timer2 = new System.Windows.Threading.DispatcherTimer();
+
+        void DataWindow_Closing(object sender, CancelEventArgs e)
+        {
+             panel_Test = null;
+             panel_Sint = null;
+             panel_Recv = null;
+             panel_Cal = null;
+             panel_Init = null;
+             panel_Cons = null;
+        }
         private void Timer1_Tick(object sender, EventArgs e)//быстрое перывание - отвечает за обновление данных для вывода на экран
         {
 
@@ -748,8 +759,8 @@ namespace Stnd_072
           
             if (b072.ADC0.INIT == 1)
             {
-                if((b072.ADC0.align_ok_adc != 0x0A)&&
-                   (b072.ADC0.align_ok_adc != 0x05))     { error++; msg += "align_ok_adc     :" + b072.ADC0.align_ok_adc.ToString("X") + "\r"; }
+        //        if((b072.ADC0.align_ok_adc != 0x0A)&&
+        //           (b072.ADC0.align_ok_adc != 0x05))     { error++; msg += "align_ok_adc     :" + b072.ADC0.align_ok_adc.ToString("X") + "\r"; }
                 if (b072.ADC0.rx_ready_adc != 1)         { error++; msg += "rx_ready_adc     :" + b072.ADC0.rx_ready_adc.ToString("X") + "\r"; }
                 if (b072.ADC0.sync_n_adc   != 1)         { error++; msg += "sync_n_adc       :" + b072.ADC0.sync_n_adc.ToString("X") + "\r"; }
                 if (b072.ADC0.rx_syncstatus_adc != 0xFF) { error++; msg += "rx_syncstatus_adc:" + b072.ADC0.rx_syncstatus_adc.ToString("X") + "\r"; }
@@ -768,8 +779,8 @@ namespace Stnd_072
 
             if (b072.ADC1.INIT == 1)
             {
-                if((b072.ADC1.align_ok_adc      != 0x0A)&&
-                   (b072.ADC1.align_ok_adc      != 0x05)){ error++; msg += "align_ok_adc     :" + b072.ADC1.align_ok_adc.ToString("X") + "\r"; }
+        //        if((b072.ADC1.align_ok_adc      != 0x0A)&&
+        //           (b072.ADC1.align_ok_adc      != 0x05)){ error++; msg += "align_ok_adc     :" + b072.ADC1.align_ok_adc.ToString("X") + "\r"; }
                 if (b072.ADC1.rx_ready_adc      !=    1) { error++; msg += "rx_ready_adc     :" + b072.ADC1.rx_ready_adc.ToString("X") + "\r"; }
                 if (b072.ADC1.sync_n_adc        !=    1) { error++; msg += "sync_n_adc       :" + b072.ADC1.sync_n_adc.ToString("X") + "\r"; }
                 if (b072.ADC1.rx_syncstatus_adc != 0xFF) { error++; msg += "rx_syncstatus_adc:" + b072.ADC1.rx_syncstatus_adc.ToString("X") + "\r"; }

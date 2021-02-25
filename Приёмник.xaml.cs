@@ -158,7 +158,7 @@ namespace Stnd_072
                 
             }
             FFT_SIZE = main.FFT_SIZE;
-
+            textBox_sizeFFT.Text = FFT_SIZE.ToString();
             Timer1.Tick += new EventHandler(Timer1_Tick);
             Timer1.Interval = new TimeSpan(0, 0, 0, 0, 50);
             Timer1.Start();//запускаю таймер 
@@ -171,12 +171,6 @@ namespace Stnd_072
 
         ~Приёмник()
         {
-            init = false;
-
-            if (fig_FFT0 != null) fig_FFT0.Dispose();
-            if (fig_FFT1 != null) fig_FFT1.Dispose();
-            if (fig_FFT2 != null) fig_FFT2.Dispose();
-            if (fig_FFT3 != null) fig_FFT3.Dispose();
         }
 
         System.Windows.Threading.DispatcherTimer Timer1 = new System.Windows.Threading.DispatcherTimer();
@@ -219,6 +213,15 @@ namespace Stnd_072
         void DataWindow_Closing(object sender, CancelEventArgs e)
         {
             init = false;
+            fig_FFT0.Visible = false;
+            fig_FFT1.Visible = false;
+            fig_FFT2.Visible = false;
+            fig_FFT3.Visible = false;
+
+            if (fig_FFT0 != null) fig_FFT0.Dispose();
+            if (fig_FFT1 != null) fig_FFT1.Dispose();
+            if (fig_FFT2 != null) fig_FFT2.Dispose();
+            if (fig_FFT3 != null) fig_FFT3.Dispose();
         }
 
         private void button_Click(object sender, RoutedEventArgs e)
